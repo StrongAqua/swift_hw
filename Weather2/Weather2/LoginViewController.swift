@@ -10,28 +10,12 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var loginTextField: UITextField!
     
+    @IBOutlet weak var loginTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBOutlet weak var scrollView: UIScrollView!
-    
-    
-    @IBAction func loginButtonPressed(_ sender: Any)  {
-        
-        //получаем текст логина
-        let login = loginTextField.text!
-        // получаем пароль
-        let password = passwordTextField.text!
-        
-        //проверяем верны ли
-        if login == "admin" && password == "123456" {
-            print("You are able to login")
-        } else {
-            print("not able to login")
-        }
-    }
     
     // Когда клавиатура появляется
     @objc func keyboardWasShown(notification: Notification) {
@@ -87,5 +71,64 @@ class LoginViewController: UIViewController {
         scrollView?.addGestureRecognizer(hideKeyboardGesture)
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        // Проверяем данные
+        let checkResult = checkUserData()
+        
+        // Если данные не верны, покажем ошибку
+        if !checkResult {
+            showLoginError()
+        }
+        
+        // Вернем результат
+        return checkResult
+    }
+    
+    func checkUserData() -> Bool {
+        guard let login = loginTextField.text,
+            let password = passwordTextField.text else { return false }
+        
+        if login == "admin" && password == "123456" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func showLoginError() {
+        // Создаем контроллер
+        let alter = UIAlertController(title: "Ошибка", message: "Введены не верные данные пользователя", preferredStyle: .alert)
+        // Создаем кнопку для UIAlertController
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        // Добавляем кнопку на UIAlertController
+        alter.addAction(action)
+        // Показываем UIAlertController
+        present(alter, animated: true, completion: nil)
+    }
+    
+    /*override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+     guard let login = loginTextField.text, let password = passwordTextField.text
+     else {
+     print( "error value")
+     return false
+     }
+     
+     //проверяем верны ли
+     if login == "admin" && password == "123456" {
+     print("You are able to login")
+     return true
+     } else {
+     // Создаем контроллер
+     let alert = UIAlertController(title: "Ошибка", message: "Введены неверные данные пользователя", preferredStyle: .alert)
+     // Создаем кнопку для UIAlertController
+     let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+     // Добавляем кнопку на UIAlertController
+     alert.addAction(action)
+     // Показываем UIAlertController
+     present(alert, animated: true, completion: nil)
+     
+     return false
+     } */
 }
+
 
