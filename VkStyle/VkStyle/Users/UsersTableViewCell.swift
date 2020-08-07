@@ -14,6 +14,8 @@ class UsersTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userPhoto: UIImageView!
     
+    var cellIndex: Int?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

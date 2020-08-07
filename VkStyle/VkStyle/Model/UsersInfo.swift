@@ -13,10 +13,12 @@ class UsersInfo : Equatable {
     
     var user: String?
     var photo: UIImage?
+    var photoList: Array<UIImage?>?
     
-    init(user: String, photo: UIImage?) {
+    init(user: String, photo: UIImage?, photoList: Array<UIImage?>?) {
         self.user = user
         self.photo = photo
+        self.photoList = photoList
     }
     
     static func ==(lhs: UsersInfo, rhs: UsersInfo) -> Bool {

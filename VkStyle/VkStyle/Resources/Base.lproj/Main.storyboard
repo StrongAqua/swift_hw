@@ -11,7 +11,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Weather2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -135,13 +135,13 @@
         <!--Users Table View Controller-->
         <scene sceneID="yMx-nX-b2J">
             <objects>
-                <tableViewController id="lr6-lm-yrB" customClass="UsersTableViewController" customModule="Weather2" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="lr6-lm-yrB" customClass="UsersTableViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Tbr-mE-Peu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="90" id="UAs-zt-Ujx" customClass="UsersTableViewCell" customModule="Weather2" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="90" id="UAs-zt-Ujx" customClass="UsersTableViewCell" customModule="VkStyle" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UAs-zt-Ujx" id="p6I-Vl-ebT">
@@ -176,7 +176,7 @@
                                 <connections>
                                     <outlet property="userName" destination="GOT-L3-vj5" id="G8L-9t-MHi"/>
                                     <outlet property="userPhoto" destination="8xG-Tb-rSE" id="hNQ-hp-AZS"/>
-                                    <segue destination="d1k-Ld-YNS" kind="show" id="9xj-PP-uMD"/>
+                                    <segue destination="d1k-Ld-YNS" kind="show" identifier="SegueToPhotoCollection" id="9xj-PP-uMD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -196,13 +196,13 @@
         <!--Groups-->
         <scene sceneID="52W-aD-xhf">
             <objects>
-                <tableViewController title="Groups" id="nkJ-Ax-Mb2" customClass="MyGroupsTableViewController" customModule="Weather2" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Groups" id="nkJ-Ax-Mb2" customClass="MyGroupsTableViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="g5V-AH-nk3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyGroupsCell" rowHeight="90" id="3Gw-Gg-vWm" customClass="MyGroupsTableViewCell" customModule="Weather2" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyGroupsCell" rowHeight="90" id="3Gw-Gg-vWm" customClass="MyGroupsTableViewCell" customModule="VkStyle" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Gw-Gg-vWm" id="P0w-C2-7lz">
@@ -265,13 +265,13 @@
         <!--Search-->
         <scene sceneID="spz-7b-e4l">
             <objects>
-                <tableViewController title="Search" id="KGo-jA-59e" customClass="AllGroupsTableViewController" customModule="Weather2" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Search" id="KGo-jA-59e" customClass="AllGroupsTableViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BZc-m2-wVj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="90" id="5EX-DQ-1ny" customClass="AllGroupsTableViewCell" customModule="Weather2" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="90" id="5EX-DQ-1ny" customClass="AllGroupsTableViewCell" customModule="VkStyle" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5EX-DQ-1ny" id="YJd-aL-fl0">
@@ -327,37 +327,37 @@
         <!--Photos Collection View Controller-->
         <scene sceneID="i7Z-x8-S5S">
             <objects>
-                <collectionViewController id="d1k-Ld-YNS" customClass="PhotosCollectionViewController" customModule="Weather2" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="TJz-K0-dcp">
+                <collectionViewController id="d1k-Ld-YNS" customClass="PhotosCollectionViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" id="TJz-K0-dcp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1Yu-Zo-dRA">
-                            <size key="itemSize" width="100" height="100"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UcE-SD-6Pf">
+                            <size key="itemSize" width="150" height="150"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoUser" id="6tz-Kn-UkG" customClass="PhotosCollectionViewCell" customModule="Weather2" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="PhotoUser" id="6tz-Kn-UkG" customClass="PhotosCollectionViewCell" customModule="VkStyle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gdF-Dj-bpe">
-                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" id="gdF-Dj-bpe">
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1131" translatesAutoresizingMaskIntoConstraints="NO" id="Jix-v1-o1y">
-                                            <rect key="frame" x="8" y="8" width="84" height="84"/>
+                                            <rect key="frame" x="8" y="8" width="134" height="134"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Jix-v1-o1y" firstAttribute="leading" secondItem="gdF-Dj-bpe" secondAttribute="leading" constant="8" id="7wc-89-Rhi"/>
-                                        <constraint firstAttribute="bottom" secondItem="Jix-v1-o1y" secondAttribute="bottom" constant="8" id="f09-M6-Pky"/>
-                                        <constraint firstItem="Jix-v1-o1y" firstAttribute="top" secondItem="gdF-Dj-bpe" secondAttribute="top" constant="8" id="tdQ-ye-lXd"/>
-                                        <constraint firstAttribute="trailing" secondItem="Jix-v1-o1y" secondAttribute="trailing" constant="8" id="xdy-NC-SPw"/>
+                                        <constraint firstAttribute="trailing" secondItem="Jix-v1-o1y" secondAttribute="trailing" constant="8" id="3wf-l4-q5Q"/>
+                                        <constraint firstItem="Jix-v1-o1y" firstAttribute="top" secondItem="gdF-Dj-bpe" secondAttribute="top" constant="8" id="Pv9-e0-8yz"/>
+                                        <constraint firstAttribute="bottom" secondItem="Jix-v1-o1y" secondAttribute="bottom" constant="8" id="TFI-7j-7dd"/>
+                                        <constraint firstItem="Jix-v1-o1y" firstAttribute="leading" secondItem="gdF-Dj-bpe" secondAttribute="leading" constant="8" id="pYR-dS-2rT"/>
                                     </constraints>
                                 </collectionViewCellContentView>
-                                <size key="customSize" width="100" height="100"/>
+                                <size key="customSize" width="150" height="150"/>
                                 <connections>
                                     <outlet property="photouser" destination="Jix-v1-o1y" id="6m9-Hg-0xE"/>
                                 </connections>
@@ -379,7 +379,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="HtE-EY-sfz">
             <objects>
-                <tabBarController id="1WU-Y3-Nx9" customClass="TabBarViewController" customModule="Weather2" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="1WU-Y3-Nx9" customClass="TabBarViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VuR-Ir-NKg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -419,7 +419,7 @@
                 <navigationController title="NavigatorGroups" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="dqC-QJ-s0b" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Groups" image="rectangle.grid.2x2.fill" catalog="system" id="Z4V-bh-qSq"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zpz-Rp-AgP" customClass="GroupsNavigationBarController" customModule="Weather2" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zpz-Rp-AgP" customClass="GroupsNavigationBarController" customModule="VkStyle" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

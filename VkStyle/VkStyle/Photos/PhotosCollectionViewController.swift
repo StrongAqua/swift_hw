@@ -11,6 +11,8 @@ import UIKit
 
 class PhotosCollectionViewController: UICollectionViewController {
 
+    var photoList: Array<UIImage?>?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +23,10 @@ class PhotosCollectionViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    public func setUserPhotoList(photoList: Array<UIImage?>?) {
+        self.photoList = photoList
+    }
 
     /*
     // MARK: - Navigation
@@ -30,7 +36,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         // print(segue.source)
-        // print(sender)
+        print(sender)
     }
     */
 
@@ -45,14 +51,16 @@ class PhotosCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 10
+        return photoList?.count ?? 0
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) ->
+        UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoUser", for: indexPath) as! PhotosCollectionViewCell
     
+        guard let photoList = photoList else { return cell }
         // Configure the cell
-        // cell.setPhoto(image: UIImage(named: "1132"))
+        cell.setPhoto(image: photoList[indexPath.row])
         return cell
     }
 
