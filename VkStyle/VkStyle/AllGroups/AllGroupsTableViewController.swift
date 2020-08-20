@@ -1,15 +1,22 @@
 //
-//  GroupsTableViewController.swift
+//  AllGroupsTableViewController.swift
 //  Weather2
 //
-//  Created by aprirez on 8/3/20.
+//  Created by aprirez on 8/5/20.
 //  Copyright © 2020 Alla. All rights reserved.
 //
 
 import UIKit
 
-class GroupsTableViewController: UITableViewController {
-
+class AllGroupsTableViewController: UITableViewController {
+    
+    var groups: [GroupInfo] = [
+        GroupInfo(title: "News", image: UIImage(named: "1115")),
+        GroupInfo(title: "Global news", image: UIImage(named: "1119")),
+        GroupInfo(title: "Funny pictures", image: UIImage(named: "1116")),
+        GroupInfo(title: "Even more funny pictures", image: UIImage(named: "1117"))
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,23 +31,25 @@ class GroupsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return groups.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! AllGroupsTableViewCell
+        let group = groups[indexPath.row]
+        cell.groupName.text = group.title
+        cell.groupImage.image = group.image
         // Configure the cell...
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.

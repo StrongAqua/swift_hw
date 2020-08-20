@@ -13,14 +13,22 @@
 		FE6589A724D2FFB500BBB3C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE6589A524D2FFB500BBB3C0 /* Main.storyboard */; };
 		FE6589A924D2FFB600BBB3C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE6589A824D2FFB600BBB3C0 /* Assets.xcassets */; };
 		FE6589AC24D2FFB600BBB3C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE6589AA24D2FFB600BBB3C0 /* LaunchScreen.storyboard */; };
+		FE68859824DAA52A0014CAB7 /* AllGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE68859724DAA52A0014CAB7 /* AllGroupsTableViewController.swift */; };
+		FE68859A24DAA5780014CAB7 /* AllGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE68859924DAA5780014CAB7 /* AllGroupsTableViewCell.swift */; };
+		FE68859D24DAB1650014CAB7 /* MyGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE68859C24DAB1650014CAB7 /* MyGroupsTableViewCell.swift */; };
+		FE68859F24DAB1910014CAB7 /* MyGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE68859E24DAB1910014CAB7 /* MyGroupsTableViewController.swift */; };
+		FE6885A224DAC6010014CAB7 /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885A124DAC6010014CAB7 /* PhotosCollectionViewController.swift */; };
+		FE6885A424DAC62F0014CAB7 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885A324DAC62F0014CAB7 /* PhotosCollectionViewCell.swift */; };
+		FE6885A724DAC9CA0014CAB7 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885A624DAC9CA0014CAB7 /* UsersTableViewController.swift */; };
+		FE6885A924DACA200014CAB7 /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885A824DACA200014CAB7 /* UsersTableViewCell.swift */; };
+		FE6885AC24DAD60E0014CAB7 /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885AB24DAD60E0014CAB7 /* GroupInfo.swift */; };
+		FE6885AE24DBF42C0014CAB7 /* UsersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885AD24DBF42C0014CAB7 /* UsersInfo.swift */; };
 		FE87FC0624D81FA9004A4737 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87FC0524D81FA9004A4737 /* TabBarViewController.swift */; };
-		FE87FC0824D83583004A4737 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87FC0724D83583004A4737 /* FriendsTableViewController.swift */; };
-		FE87FC0A24D835B7004A4737 /* GroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87FC0924D835B7004A4737 /* GroupsTableViewController.swift */; };
 		FE87FC0C24D83B99004A4737 /* GroupsNavigationBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87FC0B24D83B99004A4737 /* GroupsNavigationBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FE65899C24D2FFB500BBB3C0 /* Weather2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE65899C24D2FFB500BBB3C0 /* VkStyle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkStyle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE6589A124D2FFB500BBB3C0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FE6589A324D2FFB500BBB3C0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -28,9 +36,17 @@
 		FE6589A824D2FFB600BBB3C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE6589AB24D2FFB600BBB3C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE6589AD24D2FFB600BBB3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE68859724DAA52A0014CAB7 /* AllGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsTableViewController.swift; sourceTree = "<group>"; };
+		FE68859924DAA5780014CAB7 /* AllGroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsTableViewCell.swift; sourceTree = "<group>"; };
+		FE68859C24DAB1650014CAB7 /* MyGroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupsTableViewCell.swift; sourceTree = "<group>"; };
+		FE68859E24DAB1910014CAB7 /* MyGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupsTableViewController.swift; sourceTree = "<group>"; };
+		FE6885A124DAC6010014CAB7 /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
+		FE6885A324DAC62F0014CAB7 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
+		FE6885A624DAC9CA0014CAB7 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
+		FE6885A824DACA200014CAB7 /* UsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
+		FE6885AB24DAD60E0014CAB7 /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
+		FE6885AD24DBF42C0014CAB7 /* UsersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInfo.swift; sourceTree = "<group>"; };
 		FE87FC0524D81FA9004A4737 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		FE87FC0724D83583004A4737 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
-		FE87FC0924D835B7004A4737 /* GroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableViewController.swift; sourceTree = "<group>"; };
 		FE87FC0B24D83B99004A4737 /* GroupsNavigationBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsNavigationBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,7 +64,7 @@
 		FE65899324D2FFB500BBB3C0 = {
 			isa = PBXGroup;
 			children = (
-				FE65899E24D2FFB500BBB3C0 /* Weather2 */,
+				FE65899E24D2FFB500BBB3C0 /* VkStyle */,
 				FE65899D24D2FFB500BBB3C0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,35 +72,99 @@
 		FE65899D24D2FFB500BBB3C0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FE65899C24D2FFB500BBB3C0 /* Weather2.app */,
+				FE65899C24D2FFB500BBB3C0 /* VkStyle.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FE65899E24D2FFB500BBB3C0 /* Weather2 */ = {
+		FE65899E24D2FFB500BBB3C0 /* VkStyle */ = {
+			isa = PBXGroup;
+			children = (
+				FE6885B024DC1DFC0014CAB7 /* NewVkStyle */,
+				FE6885AA24DAD5F00014CAB7 /* Model */,
+				FE6885A524DAC9710014CAB7 /* Users */,
+				FE6885A024DAC57B0014CAB7 /* Photos */,
+				FE68859B24DAB1170014CAB7 /* MyGroups */,
+				FE68859624DAA2690014CAB7 /* AllGroups */,
+				FE6589A324D2FFB500BBB3C0 /* LoginViewController.swift */,
+				FE87FC0524D81FA9004A4737 /* TabBarViewController.swift */,
+				FE87FC0B24D83B99004A4737 /* GroupsNavigationBarController.swift */,
+				FE6589AD24D2FFB600BBB3C0 /* Info.plist */,
+				FE6885AF24DC1D2D0014CAB7 /* Resources */,
+			);
+			path = VkStyle;
+			sourceTree = "<group>";
+		};
+		FE68859624DAA2690014CAB7 /* AllGroups */ = {
+			isa = PBXGroup;
+			children = (
+				FE68859724DAA52A0014CAB7 /* AllGroupsTableViewController.swift */,
+				FE68859924DAA5780014CAB7 /* AllGroupsTableViewCell.swift */,
+			);
+			path = AllGroups;
+			sourceTree = "<group>";
+		};
+		FE68859B24DAB1170014CAB7 /* MyGroups */ = {
+			isa = PBXGroup;
+			children = (
+				FE68859C24DAB1650014CAB7 /* MyGroupsTableViewCell.swift */,
+				FE68859E24DAB1910014CAB7 /* MyGroupsTableViewController.swift */,
+			);
+			path = MyGroups;
+			sourceTree = "<group>";
+		};
+		FE6885A024DAC57B0014CAB7 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				FE6885A124DAC6010014CAB7 /* PhotosCollectionViewController.swift */,
+				FE6885A324DAC62F0014CAB7 /* PhotosCollectionViewCell.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		FE6885A524DAC9710014CAB7 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				FE6885A624DAC9CA0014CAB7 /* UsersTableViewController.swift */,
+				FE6885A824DACA200014CAB7 /* UsersTableViewCell.swift */,
+			);
+			path = Users;
+			sourceTree = "<group>";
+		};
+		FE6885AA24DAD5F00014CAB7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FE6885AB24DAD60E0014CAB7 /* GroupInfo.swift */,
+				FE6885AD24DBF42C0014CAB7 /* UsersInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FE6885AF24DC1D2D0014CAB7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FE6589A524D2FFB500BBB3C0 /* Main.storyboard */,
+				FE6589A824D2FFB600BBB3C0 /* Assets.xcassets */,
+				FE6589AA24D2FFB600BBB3C0 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FE6885B024DC1DFC0014CAB7 /* NewVkStyle */ = {
 			isa = PBXGroup;
 			children = (
 				FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */,
 				FE6589A124D2FFB500BBB3C0 /* SceneDelegate.swift */,
-				FE6589A324D2FFB500BBB3C0 /* LoginViewController.swift */,
-				FE87FC0524D81FA9004A4737 /* TabBarViewController.swift */,
-				FE87FC0B24D83B99004A4737 /* GroupsNavigationBarController.swift */,
-				FE6589A524D2FFB500BBB3C0 /* Main.storyboard */,
-				FE87FC0724D83583004A4737 /* FriendsTableViewController.swift */,
-				FE87FC0924D835B7004A4737 /* GroupsTableViewController.swift */,
-				FE6589A824D2FFB600BBB3C0 /* Assets.xcassets */,
-				FE6589AA24D2FFB600BBB3C0 /* LaunchScreen.storyboard */,
-				FE6589AD24D2FFB600BBB3C0 /* Info.plist */,
 			);
-			path = Weather2;
+			path = NewVkStyle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FE65899B24D2FFB500BBB3C0 /* Weather2 */ = {
+		FE65899B24D2FFB500BBB3C0 /* VkStyle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FE6589B024D2FFB600BBB3C0 /* Build configuration list for PBXNativeTarget "Weather2" */;
+			buildConfigurationList = FE6589B024D2FFB600BBB3C0 /* Build configuration list for PBXNativeTarget "VkStyle" */;
 			buildPhases = (
 				FE65899824D2FFB500BBB3C0 /* Sources */,
 				FE65899924D2FFB500BBB3C0 /* Frameworks */,
@@ -94,9 +174,9 @@
 			);
 			dependencies = (
 			);
-			name = Weather2;
+			name = VkStyle;
 			productName = Weather2;
-			productReference = FE65899C24D2FFB500BBB3C0 /* Weather2.app */;
+			productReference = FE65899C24D2FFB500BBB3C0 /* VkStyle.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -114,7 +194,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FE65899724D2FFB500BBB3C0 /* Build configuration list for PBXProject "Weather2" */;
+			buildConfigurationList = FE65899724D2FFB500BBB3C0 /* Build configuration list for PBXProject "VkStyle" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -127,7 +207,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FE65899B24D2FFB500BBB3C0 /* Weather2 */,
+				FE65899B24D2FFB500BBB3C0 /* VkStyle */,
 			);
 		};
 /* End PBXProject section */
@@ -150,13 +230,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE6885A724DAC9CA0014CAB7 /* UsersTableViewController.swift in Sources */,
 				FE87FC0624D81FA9004A4737 /* TabBarViewController.swift in Sources */,
 				FE6589A424D2FFB500BBB3C0 /* LoginViewController.swift in Sources */,
-				FE87FC0824D83583004A4737 /* FriendsTableViewController.swift in Sources */,
+				FE68859D24DAB1650014CAB7 /* MyGroupsTableViewCell.swift in Sources */,
+				FE68859824DAA52A0014CAB7 /* AllGroupsTableViewController.swift in Sources */,
+				FE68859A24DAA5780014CAB7 /* AllGroupsTableViewCell.swift in Sources */,
+				FE6885A424DAC62F0014CAB7 /* PhotosCollectionViewCell.swift in Sources */,
+				FE6885AC24DAD60E0014CAB7 /* GroupInfo.swift in Sources */,
 				FE6589A024D2FFB500BBB3C0 /* AppDelegate.swift in Sources */,
+				FE68859F24DAB1910014CAB7 /* MyGroupsTableViewController.swift in Sources */,
+				FE6885A924DACA200014CAB7 /* UsersTableViewCell.swift in Sources */,
+				FE6885AE24DBF42C0014CAB7 /* UsersInfo.swift in Sources */,
 				FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */,
 				FE87FC0C24D83B99004A4737 /* GroupsNavigationBarController.swift in Sources */,
-				FE87FC0A24D835B7004A4737 /* GroupsTableViewController.swift in Sources */,
+				FE6885A224DAC6010014CAB7 /* PhotosCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,13 +390,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 92G6C5Y39S;
-				INFOPLIST_FILE = Weather2/Info.plist;
+				INFOPLIST_FILE = VkStyle/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Alla.Weather2;
+				PRODUCT_BUNDLE_IDENTIFIER = Alla.VkStyle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -321,13 +409,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 92G6C5Y39S;
-				INFOPLIST_FILE = Weather2/Info.plist;
+				INFOPLIST_FILE = VkStyle/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Alla.Weather2;
+				PRODUCT_BUNDLE_IDENTIFIER = Alla.VkStyle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -337,7 +425,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FE65899724D2FFB500BBB3C0 /* Build configuration list for PBXProject "Weather2" */ = {
+		FE65899724D2FFB500BBB3C0 /* Build configuration list for PBXProject "VkStyle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FE6589AE24D2FFB600BBB3C0 /* Debug */,
@@ -346,7 +434,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FE6589B024D2FFB600BBB3C0 /* Build configuration list for PBXNativeTarget "Weather2" */ = {
+		FE6589B024D2FFB600BBB3C0 /* Build configuration list for PBXNativeTarget "VkStyle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FE6589B124D2FFB600BBB3C0 /* Debug */,
