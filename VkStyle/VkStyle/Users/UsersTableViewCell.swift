@@ -12,9 +12,9 @@ class UsersTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userName: UILabel!
     
-    @IBOutlet weak var userPhoto: UIImageView!
-    
-    var cellIndex: Int?
+    @IBOutlet weak var avatarView: AvatarCompositeView!
+        
+    var userIndex: Int?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,4 +27,9 @@ class UsersTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    func setup(user: UsersInfo) {
+        avatarView.avatarPhoto.image = user.photo
+        userName.text = user.user
+        avatarView.setup()
+    }
 }
