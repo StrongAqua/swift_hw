@@ -10,30 +10,11 @@ import UIKit
 
 class UsersTableViewController: UITableViewController {
     
-    var users: [UsersInfo] = [
-        UsersInfo(user: "Helga",
-                  photo: UIImage(named: "1121"),
-                  photoList: [UIImage(named: "1121"),
-                              UIImage(named: "1131"),
-                              UIImage(named: "1135")]),
-        UsersInfo(user: "Ken",
-                  photo: UIImage(named: "1123"),
-                  photoList: [UIImage(named: "1123"),
-                              UIImage(named: "1131"),
-                              UIImage(named: "1134")]),
-        UsersInfo(user: "Tom",
-                  photo: UIImage(named: "1124"),
-                  photoList: [UIImage(named: "1124"),
-                              UIImage(named: "1132")]),
-        UsersInfo(user: "Cat",
-                  photo: UIImage(named: "1122"),
-                  photoList: [UIImage(named: "1122"),
-                              UIImage(named: "1133")])
-    ]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+  
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -45,22 +26,23 @@ class UsersTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return UsersManager.shared.alphabet.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return users.count
+        let userKey = UsersManager.shared.alphabet[section]
+        return UsersManager.shared.dict[userKey]?.count ?? 0
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as! UsersTableViewCell
-        let user = users[indexPath.row]
-        cell.userName.text = user.user
-        cell.userPhoto.image = user.photo
-        cell.cellIndex = indexPath.row
-
+        let userKey = UsersManager.shared.alphabet[indexPath.section]
+        if let user = UsersManager.shared.dict[userKey] {
+            cell.setup(user: user[indexPath.row])
+            cell.indexPath = indexPath
+        }
+        
         return cell
     }
 
@@ -68,12 +50,20 @@ class UsersTableViewController: UITableViewController {
         guard let targetPhotoCollection
             = segue.destination as? PhotosCollectionViewController else { return }
         guard let cell = sender as? UsersTableViewCell else { return }
-        guard let cellIndex = cell.cellIndex else { return }
-        
-        let user = users[cellIndex]
+        guard let indexPath = cell.indexPath else { return }
+        guard let user = UsersManager.shared.getUserByIndexPath(indexPath) else { return }
+
         targetPhotoCollection.setUserPhotoList(photoList: user.photoList)
+        targetPhotoCollection.navigationItem.title = user.user
     }
 
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return UsersManager.shared.alphabet[section]
+    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return UsersManager.shared.alphabet
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

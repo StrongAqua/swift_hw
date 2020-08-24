@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class UsersInfo : Equatable {
+class UserInfo : Equatable {
     
     var user: String?
     var photo: UIImage?
@@ -21,7 +21,54 @@ class UsersInfo : Equatable {
         self.photoList = photoList
     }
     
-    static func ==(lhs: UsersInfo, rhs: UsersInfo) -> Bool {
+    static func ==(lhs: UserInfo, rhs: UserInfo) -> Bool {
         return lhs.user == rhs.user
+    }
+}
+
+class UsersManager {
+    
+    static let shared = UsersManager()
+
+    private var users: [UserInfo] = [
+        UserInfo(user: "Helga",
+                 photo: UIImage(named: "1121"),
+                 photoList: [UIImage(named: "1121"),
+                             UIImage(named: "1131"),
+                             UIImage(named: "1135")]),
+        UserInfo(user: "Cat",
+                 photo: UIImage(named: "1122"),
+                 photoList: [UIImage(named: "1122"),
+                             UIImage(named: "1133")]),
+        UserInfo(user: "Todd",
+                 photo: UIImage(named: "1123"),
+                 photoList: [UIImage(named: "1123"),
+                             UIImage(named: "1131"),
+                             UIImage(named: "1134")]),
+        UserInfo(user: "Tom",
+                 photo: UIImage(named: "1124"),
+                 photoList: [UIImage(named: "1124"),
+                             UIImage(named: "1132")])
+    ]
+    
+    var dict = Dictionary<String, Array<UserInfo>>()
+    var alphabet: [String] = []
+
+    private init() {
+        for user in users {
+            guard let name = user.user else { return }
+            let letter = String(name.prefix(1))
+            if dict[letter] == nil {
+                dict[letter] = []
+            }
+            dict[letter]?.append(user)
+        }
+        alphabet = dict.keys.sorted()
+    }
+    
+    func getUserByIndexPath(_ indexPath: IndexPath) -> UserInfo? {
+        let letter = alphabet[indexPath.section]
+        let user = dict[letter]?[indexPath.row]
+        return user
     }
 }
