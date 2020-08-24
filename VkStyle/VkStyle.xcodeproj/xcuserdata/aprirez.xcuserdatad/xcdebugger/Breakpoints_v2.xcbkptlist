@@ -268,17 +268,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2F9F240D-46E5-44E5-9640-03F340FED206"
+            uuid = "15734D3E-A2DF-4E35-B091-700AB45BF7AC"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VkStyle/Users/UsersViewController.swift"
+            filePath = "VkStyle/Model/UsersInfo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "UsersViewController"
-            landmarkType = "21">
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "init()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
