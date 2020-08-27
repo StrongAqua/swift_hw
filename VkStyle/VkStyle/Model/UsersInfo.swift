@@ -9,13 +9,28 @@
 import Foundation
 import UIKit
 
+class Likeable {
+    var likedByMe: Bool = false
+    var likesCount: Int = 0
+}
+
+class Photo : Likeable {
+    var photo: UIImage?
+    
+    init(_ photo: UIImage?,_ initialLikesCount: Int) {
+        super.init()
+        self.photo = photo
+        self.likesCount = initialLikesCount
+    }
+}
+
 class UserInfo : Equatable {
     
     var user: String?
     var photo: UIImage?
-    var photoList: Array<UIImage?>?
+    var photoList: Array<Photo?>?
     
-    init(user: String, photo: UIImage?, photoList: Array<UIImage?>?) {
+    init(user: String, photo: UIImage?, photoList: Array<Photo?>?) {
         self.user = user
         self.photo = photo
         self.photoList = photoList
@@ -33,22 +48,22 @@ class UsersManager {
     private var users: [UserInfo] = [
         UserInfo(user: "Helga",
                  photo: UIImage(named: "1121"),
-                 photoList: [UIImage(named: "1121"),
-                             UIImage(named: "1131"),
-                             UIImage(named: "1135")]),
+                 photoList: [Photo(UIImage(named: "1121"), 0),
+                             Photo(UIImage(named: "1131"), 0),
+                             Photo(UIImage(named: "1135"), 0)]),
         UserInfo(user: "Cat",
                  photo: UIImage(named: "1122"),
-                 photoList: [UIImage(named: "1122"),
-                             UIImage(named: "1133")]),
+                 photoList: [Photo(UIImage(named: "1122"), 0),
+                             Photo(UIImage(named: "1133"), 0)]),
         UserInfo(user: "Todd",
                  photo: UIImage(named: "1123"),
-                 photoList: [UIImage(named: "1123"),
-                             UIImage(named: "1131"),
-                             UIImage(named: "1134")]),
+                 photoList: [Photo(UIImage(named: "1123"), 0),
+                             Photo(UIImage(named: "1131"), 0),
+                             Photo(UIImage(named: "1134"), 0)]),
         UserInfo(user: "Tom",
                  photo: UIImage(named: "1124"),
-                 photoList: [UIImage(named: "1124"),
-                             UIImage(named: "1132")])
+                 photoList: [Photo(UIImage(named: "1124"), 0),
+                             Photo(UIImage(named: "1132"), 0)])
     ]
     
     var dict = Dictionary<String, Array<UserInfo>>()
