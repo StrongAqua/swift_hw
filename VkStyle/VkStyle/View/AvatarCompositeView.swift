@@ -10,8 +10,8 @@ import UIKit
 
 @IBDesignable class AvatarCompositeView: UIView {
 
-    @IBOutlet weak var avatarPhoto: AvatarUIImageView!
-    @IBOutlet weak var avatarShadow: AvatarShadowUIView!
+    @IBOutlet weak var avatarPhoto: UIImageView!
+    @IBOutlet weak var avatarShadow: UIImageView!
 
     @IBInspectable var shadowWidth: CGFloat = 3 {
         didSet {

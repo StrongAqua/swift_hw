@@ -171,7 +171,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86p-it-vuy" customClass="AvatarCompositeView" customModule="VkStyle" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="0.0" width="90" height="85"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hXg-dY-rve" customClass="AvatarShadowUIView" customModule="VkStyle" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hXg-dY-rve">
                                                             <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

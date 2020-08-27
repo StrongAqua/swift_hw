@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FE226CC724EBD89600E57F91 /* AvatarUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE226CC624EBD89600E57F91 /* AvatarUIImageView.swift */; };
 		FE226CC924EBDBD600E57F91 /* AvatarCompositeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE226CC824EBDBD600E57F91 /* AvatarCompositeView.swift */; };
-		FE226CCB24EBE10A00E57F91 /* AvatarShadowUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE226CCA24EBE10A00E57F91 /* AvatarShadowUIView.swift */; };
 		FE226CCD24ED150100E57F91 /* LikeUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE226CCC24ED150100E57F91 /* LikeUIView.swift */; };
 		FE226CCF24ED515F00E57F91 /* UsersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE226CCE24ED515F00E57F91 /* UsersTableView.swift */; };
 		FE226CD124ED571D00E57F91 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE226CD024ED571D00E57F91 /* UsersViewController.swift */; };
@@ -33,9 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FE226CC624EBD89600E57F91 /* AvatarUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AvatarUIImageView.swift; path = VkStyle/View/AvatarUIImageView.swift; sourceTree = SOURCE_ROOT; };
 		FE226CC824EBDBD600E57F91 /* AvatarCompositeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AvatarCompositeView.swift; path = VkStyle/View/AvatarCompositeView.swift; sourceTree = SOURCE_ROOT; };
-		FE226CCA24EBE10A00E57F91 /* AvatarShadowUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AvatarShadowUIView.swift; path = VkStyle/View/AvatarShadowUIView.swift; sourceTree = SOURCE_ROOT; };
 		FE226CCC24ED150100E57F91 /* LikeUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeUIView.swift; sourceTree = "<group>"; };
 		FE226CCE24ED515F00E57F91 /* UsersTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableView.swift; sourceTree = "<group>"; };
 		FE226CD024ED571D00E57F91 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
@@ -146,9 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				FE6885A824DACA200014CAB7 /* UsersTableViewCell.swift */,
-				FE226CC624EBD89600E57F91 /* AvatarUIImageView.swift */,
 				FE226CC824EBDBD600E57F91 /* AvatarCompositeView.swift */,
-				FE226CCA24EBE10A00E57F91 /* AvatarShadowUIView.swift */,
 				FE226CD024ED571D00E57F91 /* UsersViewController.swift */,
 			);
 			path = Users;
@@ -255,7 +249,6 @@
 			files = (
 				FE226CCF24ED515F00E57F91 /* UsersTableView.swift in Sources */,
 				FE87FC0624D81FA9004A4737 /* TabBarViewController.swift in Sources */,
-				FE226CCB24EBE10A00E57F91 /* AvatarShadowUIView.swift in Sources */,
 				FE6589A424D2FFB500BBB3C0 /* LoginViewController.swift in Sources */,
 				FE68859D24DAB1650014CAB7 /* MyGroupsTableViewCell.swift in Sources */,
 				FE226CCD24ED150100E57F91 /* LikeUIView.swift in Sources */,
@@ -271,7 +264,6 @@
 				FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */,
 				FE87FC0C24D83B99004A4737 /* GroupsNavigationBarController.swift in Sources */,
 				FE226CC924EBDBD600E57F91 /* AvatarCompositeView.swift in Sources */,
-				FE226CC724EBD89600E57F91 /* AvatarUIImageView.swift in Sources */,
 				FE6885A224DAC6010014CAB7 /* PhotosCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
