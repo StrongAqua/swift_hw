@@ -15,7 +15,7 @@ class LikeUIView: UIView {
     var likeLabel = UILabel()
     var likeButton = UIButton(type: .roundedRect)
     
-    var stateLiked : Bool = false
+    var object : Likeable?
     
     override func awakeFromNib() {
         let buttonSize : CGFloat = 30
@@ -29,7 +29,7 @@ class LikeUIView: UIView {
         likeButton.frame = CGRect(x: viewWidth - buttonSize, y: 0, width: buttonSize, height: buttonSize)
         likeButton.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
 
-        likeLabel.frame = CGRect(x: 0, y: 0, width: viewHeight - buttonSize - 5, height: buttonSize)
+        likeLabel.frame = CGRect(x: 0, y: 0, width: viewWidth - buttonSize - 5, height: buttonSize)
         likeLabel.font = UIFont.boldSystemFont(ofSize: likeLabel.font.pointSize)
         likeLabel.textAlignment = .right
 
@@ -37,8 +37,13 @@ class LikeUIView: UIView {
         likeView.addSubview(likeLabel)
 
         addSubview(likeView)
-
-        setState(stateLiked)
+    }
+    
+    func setObject(object: Likeable?) {
+        self.object = object
+        if let o = object {
+            setState(o.likedByMe)
+        }
     }
     
     func setState(_ isLiked: Bool) {
@@ -48,8 +53,10 @@ class LikeUIView: UIView {
     }
 
     @objc func likeButtonPressed(sender: UIButton) {
-        stateLiked.toggle()
-        setState(stateLiked)
+        object?.likedByMe.toggle()
+        if let o = object {
+            setState(o.likedByMe)
+        }
     }
     
 }
