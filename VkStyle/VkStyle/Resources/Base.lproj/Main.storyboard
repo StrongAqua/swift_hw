@@ -160,12 +160,12 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86p-it-vux" customClass="AvatarCompositeView" customModule="VkStyle" customModuleProvider="target">
                                             <rect key="frame" x="20" y="0.0" width="90" height="90"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hXg-dY-rvd" customClass="AvatarShadowUIView" customModule="VkStyle" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hXg-dY-rvd">
                                                     <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8xG-Tb-rSE" customClass="AvatarUIImageView" customModule="VkStyle" customModuleProvider="target">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8xG-Tb-rSE">
                                                     <rect key="frame" x="5" y="5" width="80" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="80" id="M3U-Xa-zWa"/>
@@ -409,7 +409,9 @@
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="200" height="200"/>
                                 <connections>
+                                    <outlet property="likeView" destination="DCJ-Zj-u1e" id="74Y-af-FOb"/>
                                     <outlet property="photouser" destination="Jix-v1-o1y" id="6m9-Hg-0xE"/>
+                                    <segue destination="Aoy-9j-hzs" kind="show" id="00Q-Ic-OVc"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -425,6 +427,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZK-qJ-uVx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1837.68115942029" y="-454.01785714285711"/>
+        </scene>
+        <!--Big PhotoUI View Controller-->
+        <scene sceneID="SFP-Di-xjR">
+            <objects>
+                <viewController id="Aoy-9j-hzs" customClass="BigPhotoUIViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mRE-bU-LbB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s1f-3i-gIb">
+                                <rect key="frame" x="20" y="138" width="374" height="277"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nls-Cn-r1z" customClass="LikeUIView" customModule="VkStyle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="730" width="414" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="iJm-lS-HPX" firstAttribute="bottom" secondItem="s1f-3i-gIb" secondAttribute="bottom" constant="398" id="Acw-Do-92R"/>
+                            <constraint firstItem="s1f-3i-gIb" firstAttribute="leading" secondItem="iJm-lS-HPX" secondAttribute="leading" constant="20" id="a7v-JC-ZrX"/>
+                            <constraint firstItem="iJm-lS-HPX" firstAttribute="trailing" secondItem="s1f-3i-gIb" secondAttribute="trailing" constant="20" id="jEa-JD-BJL"/>
+                            <constraint firstItem="s1f-3i-gIb" firstAttribute="top" secondItem="iJm-lS-HPX" secondAttribute="top" constant="50" id="nLy-fu-4w8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iJm-lS-HPX"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8UD-pz-ha4"/>
+                    <connections>
+                        <outlet property="likeView" destination="Nls-Cn-r1z" id="iOu-i8-wZL"/>
+                        <outlet property="photoImage" destination="s1f-3i-gIb" id="xfJ-CQ-6zN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j03-hZ-uUD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2756.521739130435" y="-454.01785714285711"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="HtE-EY-sfz">
