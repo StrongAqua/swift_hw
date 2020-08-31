@@ -143,9 +143,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="JOB-Ds-pmn">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="barTintColor" red="0.89411562410000001" green="0.65483935930000003" blue="0.89946859140000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="lr6-lm-yrB" id="VTh-oH-VFg"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="90" id="UAs-zt-Ujx" customClass="UsersTableViewCell" customModule="VkStyle" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="90"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UAs-zt-Ujx" id="p6I-Vl-ebT">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
@@ -188,7 +197,7 @@
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="shadowWidth">
-                                                    <real key="value" value="8"/>
+                                                    <real key="value" value="3"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="opacity">
                                                     <real key="value" value="0.5"/>
@@ -302,6 +311,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ydu-mV-tUT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="950.72463768115949" y="213.61607142857142"/>
+        </scene>
+        <!--News-->
+        <scene sceneID="GKO-3f-UYH">
+            <objects>
+                <tableViewController id="5be-b6-X9I" customClass="MyNewsTableViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jpF-7O-ei7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="C7e-Zk-OmA">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="C7e-Zk-OmA" translatesAutoresizingMaskIntoConstraints="NO" id="dXQ-ct-chP">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="5be-b6-X9I" id="6mO-5m-3Va"/>
+                            <outlet property="delegate" destination="5be-b6-X9I" id="vm6-ju-umG"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="News" id="VkV-JP-A0l"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7L5-g3-bq8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="950.72463768115949" y="945.53571428571422"/>
+        </scene>
+        <!--News-->
+        <scene sceneID="Bhk-Pf-hvL">
+            <objects>
+                <navigationController id="4Vh-cv-uE3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="News" image="square.on.square" catalog="system" id="9vt-FR-dy5"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TBz-Be-Uap">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="5be-b6-X9I" kind="relationship" relationship="rootViewController" id="583-iy-9ao"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UFZ-vh-oxT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="41" y="946"/>
         </scene>
         <!--Search-->
         <scene sceneID="spz-7b-e4l">
@@ -426,7 +481,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZK-qJ-uVx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1837.68115942029" y="-454.01785714285711"/>
+            <point key="canvasLocation" x="1787" y="-454"/>
         </scene>
         <!--Big PhotoUI View Controller-->
         <scene sceneID="SFP-Di-xjR">
@@ -462,7 +517,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j03-hZ-uUD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2756.521739130435" y="-454.01785714285711"/>
+            <point key="canvasLocation" x="2622" y="-454"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="HtE-EY-sfz">
@@ -476,6 +531,7 @@
                     <connections>
                         <segue destination="dMm-kz-WN7" kind="relationship" relationship="viewControllers" id="G34-Vb-dGU"/>
                         <segue destination="dqC-QJ-s0b" kind="relationship" relationship="viewControllers" id="TN3-yQ-AKI"/>
+                        <segue destination="4Vh-cv-uE3" kind="relationship" relationship="viewControllers" id="QK9-oS-u4l"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47F-4X-caV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -526,5 +582,6 @@
         <image name="1131" width="332" height="332"/>
         <image name="person.3.fill" catalog="system" width="72" height="35"/>
         <image name="rectangle.grid.2x2.fill" catalog="system" width="64" height="50"/>
+        <image name="square.on.square" catalog="system" width="64" height="58"/>
     </resources>
 </document>

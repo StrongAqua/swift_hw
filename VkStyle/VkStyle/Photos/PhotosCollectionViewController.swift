@@ -11,7 +11,7 @@ import UIKit
 
 class PhotosCollectionViewController: UICollectionViewController {
 
-    var photoList: Array<Photo?>?
+    var photoList: [Photo?]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
