@@ -18,18 +18,10 @@ class LikeUIView: UIView {
     var object : Likeable?
     
     override func awakeFromNib() {
-        let buttonSize : CGFloat = 30
-        
-        let viewWidth = frame.width
-        let viewHeight = frame.height
-        
-        likeView.frame = CGRect(x: 0, y: viewHeight - buttonSize, width: viewWidth, height: buttonSize)
         likeView.backgroundColor = UIColor.blue.withAlphaComponent(0.25)
 
-        likeButton.frame = CGRect(x: viewWidth - buttonSize, y: 0, width: buttonSize, height: buttonSize)
         likeButton.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
 
-        likeLabel.frame = CGRect(x: 0, y: 0, width: viewWidth - buttonSize - 5, height: buttonSize)
         likeLabel.font = UIFont.boldSystemFont(ofSize: likeLabel.font.pointSize)
         likeLabel.textAlignment = .right
 
@@ -37,6 +29,24 @@ class LikeUIView: UIView {
         likeView.addSubview(likeLabel)
 
         addSubview(likeView)
+    }
+    
+    func setupFrames() {
+        let buttonSize : CGFloat = 30
+        let viewWidth = frame.width
+        let viewHeight = frame.height
+
+        likeView.frame = CGRect(x: 0, y: viewHeight - buttonSize, width: viewWidth, height: buttonSize)
+        likeButton.frame = CGRect(x: viewWidth - buttonSize, y: 0, width: buttonSize, height: buttonSize)
+        likeLabel.frame = CGRect(x: 0, y: 0, width: viewWidth - buttonSize - 5, height: buttonSize)
+        
+        setNeedsLayout()
+    }
+
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        setupFrames()
+        print(frame)
     }
     
     func setObject(object: Likeable?) {

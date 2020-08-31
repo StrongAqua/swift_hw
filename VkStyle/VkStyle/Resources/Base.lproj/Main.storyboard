@@ -491,21 +491,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s1f-3i-gIb">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s1f-3i-gIb">
                                 <rect key="frame" x="20" y="138" width="374" height="277"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="277" id="FD7-4Z-2Jr"/>
+                                </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nls-Cn-r1z" customClass="LikeUIView" customModule="VkStyle" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="730" width="414" height="83"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Nls-Cn-r1z" customClass="LikeUIView" customModule="VkStyle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="783" width="414" height="30"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="zrA-Wx-Zhz"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="iJm-lS-HPX" firstAttribute="bottom" secondItem="s1f-3i-gIb" secondAttribute="bottom" constant="398" id="Acw-Do-92R"/>
-                            <constraint firstItem="s1f-3i-gIb" firstAttribute="leading" secondItem="iJm-lS-HPX" secondAttribute="leading" constant="20" id="a7v-JC-ZrX"/>
-                            <constraint firstItem="iJm-lS-HPX" firstAttribute="trailing" secondItem="s1f-3i-gIb" secondAttribute="trailing" constant="20" id="jEa-JD-BJL"/>
-                            <constraint firstItem="s1f-3i-gIb" firstAttribute="top" secondItem="iJm-lS-HPX" secondAttribute="top" constant="50" id="nLy-fu-4w8"/>
+                            <constraint firstItem="iJm-lS-HPX" firstAttribute="trailing" secondItem="s1f-3i-gIb" secondAttribute="trailing" constant="20" id="2Wd-xX-uQc"/>
+                            <constraint firstItem="s1f-3i-gIb" firstAttribute="top" secondItem="iJm-lS-HPX" secondAttribute="top" constant="50" id="435-cR-MWV"/>
+                            <constraint firstItem="Nls-Cn-r1z" firstAttribute="leading" secondItem="iJm-lS-HPX" secondAttribute="leading" id="OgV-A5-hkN"/>
+                            <constraint firstItem="Nls-Cn-r1z" firstAttribute="bottom" secondItem="iJm-lS-HPX" secondAttribute="bottom" id="bAP-dt-dne"/>
+                            <constraint firstItem="Nls-Cn-r1z" firstAttribute="centerX" secondItem="s1f-3i-gIb" secondAttribute="centerX" id="khA-zu-NbQ"/>
+                            <constraint firstItem="s1f-3i-gIb" firstAttribute="leading" secondItem="iJm-lS-HPX" secondAttribute="leading" constant="20" id="tLP-Cu-RVY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iJm-lS-HPX"/>
                     </view>
