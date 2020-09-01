@@ -135,7 +135,7 @@
             </objects>
             <point key="canvasLocation" x="-2399" y="-98"/>
         </scene>
-        <!--Users Table View Controller-->
+        <!--Friends-->
         <scene sceneID="yMx-nX-b2J">
             <objects>
                 <tableViewController id="lr6-lm-yrB" customClass="UsersTableViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
@@ -235,8 +235,8 @@
                             <outlet property="delegate" destination="lr6-lm-yrB" id="R1S-MN-oPq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="GgU-6b-cJQ">
-                        <barButtonItem key="backBarButtonItem" title="Friends" id="jVB-bx-BXt"/>
+                    <navigationItem key="navigationItem" title="Friends" id="GgU-6b-cJQ">
+                        <barButtonItem key="backBarButtonItem" title=" " id="jVB-bx-BXt"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4z-rr-7Uj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -295,17 +295,13 @@
                             <outlet property="delegate" destination="nkJ-Ax-Mb2" id="mFP-TI-j5Y"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="1qw-O9-s7U">
-                        <nil key="title"/>
-                        <barButtonItem key="backBarButtonItem" title=" " id="Y2X-NX-vAm"/>
-                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rhg-JV-c5M">
-                            <rect key="frame" x="159.66666666666666" y="7" width="95" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Search Group"/>
+                    <navigationItem key="navigationItem" title="My Groups" id="1qw-O9-s7U">
+                        <barButtonItem key="backBarButtonItem" id="Y2X-NX-vAm"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="magnifyingglass" catalog="system" id="Avh-8Z-PTV">
                             <connections>
-                                <segue destination="KGo-jA-59e" kind="show" id="W9d-ks-tRv"/>
+                                <segue destination="KGo-jA-59e" kind="show" id="f9d-sr-hVy"/>
                             </connections>
-                        </button>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ydu-mV-tUT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -476,7 +472,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="XSD-fv-Ho1">
-                        <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title=" " id="D1x-xK-eAI"/>
                     </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZK-qJ-uVx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -587,6 +583,7 @@
     <resources>
         <image name="1113" width="650" height="454"/>
         <image name="1131" width="332" height="332"/>
+        <image name="magnifyingglass" catalog="system" width="64" height="60"/>
         <image name="person.3.fill" catalog="system" width="72" height="35"/>
         <image name="rectangle.grid.2x2.fill" catalog="system" width="64" height="50"/>
         <image name="square.on.square" catalog="system" width="64" height="58"/>
