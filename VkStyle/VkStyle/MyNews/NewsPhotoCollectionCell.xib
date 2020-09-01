@@ -21,10 +21,10 @@
                 </subviews>
             </collectionViewCellContentView>
             <constraints>
-                <constraint firstItem="unM-aM-1EG" firstAttribute="top" secondItem="AIE-fv-EZC" secondAttribute="top" id="8GG-fd-VBS"/>
-                <constraint firstAttribute="trailing" secondItem="unM-aM-1EG" secondAttribute="trailing" id="egq-1T-EBp"/>
-                <constraint firstItem="unM-aM-1EG" firstAttribute="leading" secondItem="AIE-fv-EZC" secondAttribute="leading" id="wYU-YN-RsS"/>
-                <constraint firstAttribute="bottom" secondItem="unM-aM-1EG" secondAttribute="bottom" id="yKk-lW-09c"/>
+                <constraint firstItem="unM-aM-1EG" firstAttribute="top" secondItem="AIE-fv-EZC" secondAttribute="top" id="DC7-KQ-vCO"/>
+                <constraint firstAttribute="trailing" secondItem="unM-aM-1EG" secondAttribute="trailing" id="MaT-Uw-UsS"/>
+                <constraint firstItem="unM-aM-1EG" firstAttribute="leading" secondItem="AIE-fv-EZC" secondAttribute="leading" id="mf6-xd-Xrd"/>
+                <constraint firstAttribute="bottom" secondItem="unM-aM-1EG" secondAttribute="bottom" id="q4H-lE-v5W"/>
             </constraints>
             <connections>
                 <outlet property="imageView" destination="uL2-v0-Ej7" id="Sf8-gk-DIC"/>

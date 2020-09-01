@@ -14,7 +14,9 @@ class LikeUIView: UIView {
     var likeView = UIView() // blue strip at the bottom of LikeUIView
     var likeLabel = UILabel()
     var likeButton = UIButton(type: .roundedRect)
-    
+    var commentButton = UIButton(type: .roundedRect)
+    var repostButton = UIButton(type: .roundedRect)
+
     var object : Likeable?
     
     override func awakeFromNib() {
@@ -27,6 +29,8 @@ class LikeUIView: UIView {
 
         likeView.addSubview(likeButton)
         likeView.addSubview(likeLabel)
+        likeView.addSubview(commentButton)
+        likeView.addSubview(repostButton)
 
         addSubview(likeView)
     }
@@ -39,14 +43,19 @@ class LikeUIView: UIView {
         likeView.frame = CGRect(x: 0, y: viewHeight - buttonSize, width: viewWidth, height: buttonSize)
         likeButton.frame = CGRect(x: viewWidth - buttonSize, y: 0, width: buttonSize, height: buttonSize)
         likeLabel.frame = CGRect(x: 0, y: 0, width: viewWidth - buttonSize - 5, height: buttonSize)
-        
+
+        commentButton.frame = CGRect(x: 5, y: 0, width: buttonSize, height: buttonSize)
+        repostButton.frame = CGRect(x: 5 + buttonSize + 5, y: 0, width: buttonSize, height: buttonSize)
+
+        commentButton.setTitle("✍", for: .normal)
+        repostButton.setTitle("↪", for: .normal)
+
         setNeedsLayout()
     }
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         setupFrames()
-        print(frame)
     }
     
     func setObject(object: Likeable?) {
