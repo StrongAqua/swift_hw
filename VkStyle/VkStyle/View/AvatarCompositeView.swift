@@ -36,7 +36,7 @@ import UIKit
         avatarPhoto.setNeedsDisplay()
 
 /**/
-        let f = avatarPhoto.frame;
+        let f = avatarPhoto.frame
         avatarShadow.frame = CGRect(
             x: f.origin.x/* - shadowWidth */,
             y: f.origin.y/* - shadowWidth */,
@@ -46,7 +46,7 @@ import UIKit
         avatarShadow.layer.shadowColor = color.cgColor
         avatarShadow.layer.shadowOpacity = opacity
         avatarShadow.layer.shadowRadius = shadowWidth
-        avatarShadow.layer.shadowOffset = CGSize(width: 10, height: 10)
+        avatarShadow.layer.shadowOffset = CGSize(width: 3, height: 3)
         avatarShadow.layer.cornerRadius = 42
         avatarShadow.setNeedsDisplay()
     }
