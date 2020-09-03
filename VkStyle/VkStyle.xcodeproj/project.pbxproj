@@ -34,6 +34,8 @@
 		FE8B2F6624FBA15A003DB7EA /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE8B2F6524FBA15A003DB7EA /* NewsCell.xib */; };
 		FE8B2F6824FC1305003DB7EA /* NewsPhotoCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE8B2F6724FC1305003DB7EA /* NewsPhotoCollectionCell.xib */; };
 		FE8B2F6A24FC136E003DB7EA /* NewsPhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8B2F6924FC136E003DB7EA /* NewsPhotoCollectionCell.swift */; };
+		FEFFD51F24FF905B00D61F1D /* SignInAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFFD51E24FF905B00D61F1D /* SignInAnimation.xib */; };
+		FEFFD52124FF909100D61F1D /* SignInAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFFD52024FF909000D61F1D /* SignInAnimation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		FE8B2F6524FBA15A003DB7EA /* NewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
 		FE8B2F6724FC1305003DB7EA /* NewsPhotoCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsPhotoCollectionCell.xib; sourceTree = "<group>"; };
 		FE8B2F6924FC136E003DB7EA /* NewsPhotoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPhotoCollectionCell.swift; sourceTree = "<group>"; };
+		FEFFD51E24FF905B00D61F1D /* SignInAnimation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInAnimation.xib; sourceTree = "<group>"; };
+		FEFFD52024FF909000D61F1D /* SignInAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,7 @@
 		FE65899E24D2FFB500BBB3C0 /* VkStyle */ = {
 			isa = PBXGroup;
 			children = (
+				FEFFD51924FF8ECE00D61F1D /* Animations */,
 				FE6885B024DC1DFC0014CAB7 /* NewVkStyle */,
 				FE6885AA24DAD5F00014CAB7 /* Model */,
 				FE6885A524DAC9710014CAB7 /* Users */,
@@ -202,6 +207,15 @@
 			path = MyNews;
 			sourceTree = "<group>";
 		};
+		FEFFD51924FF8ECE00D61F1D /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				FEFFD51E24FF905B00D61F1D /* SignInAnimation.xib */,
+				FEFFD52024FF909000D61F1D /* SignInAnimation.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -262,6 +276,7 @@
 			files = (
 				FE6589AC24D2FFB600BBB3C0 /* LaunchScreen.storyboard in Resources */,
 				FE8B2F6824FC1305003DB7EA /* NewsPhotoCollectionCell.xib in Resources */,
+				FEFFD51F24FF905B00D61F1D /* SignInAnimation.xib in Resources */,
 				FE8B2F6624FBA15A003DB7EA /* NewsCell.xib in Resources */,
 				FE6589A924D2FFB600BBB3C0 /* Assets.xcassets in Resources */,
 				FE6589A724D2FFB500BBB3C0 /* Main.storyboard in Resources */,
@@ -276,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE6885A724DAC9CA0014CAB7 /* UsersTableViewController.swift in Sources */,
+				FEFFD52124FF909100D61F1D /* SignInAnimation.swift in Sources */,
 				FE87FC0624D81FA9004A4737 /* TabBarViewController.swift in Sources */,
 				FE6589A424D2FFB500BBB3C0 /* LoginViewController.swift in Sources */,
 				FE68859D24DAB1650014CAB7 /* MyGroupsTableViewCell.swift in Sources */,

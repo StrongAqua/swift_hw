@@ -70,7 +70,12 @@ class UsersManager {
         UserInfo(user: "Cat",
                  photo: UIImage(named: "1122"),
                  photoList: [Photo(UIImage(named: "1122"), 0),
-                             Photo(UIImage(named: "1133"), 0)],
+                             Photo(UIImage(named: "1135"), 0),
+                             Photo(UIImage(named: "1140"), 0),
+                             Photo(UIImage(named: "1141"), 0),
+                             Photo(UIImage(named: "1142"), 0),
+                             Photo(UIImage(named: "1144"), 0)
+                 ],
                  newsList: []
         ),
         UserInfo(user: "Todd",
