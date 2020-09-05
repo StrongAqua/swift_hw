@@ -69,13 +69,43 @@ class LikeUIView: UIView {
         likeButton.setTitle(isLiked ? "💗" : "💙", for: .normal)
         likeLabel.text = isLiked ? "1" : "0"
         likeLabel.textColor = isLiked ? UIColor.red : UIColor.white
+        
     }
 
     @objc func likeButtonPressed(sender: UIButton) {
+        pulsate(sender)
+        flash(likeLabel)
         object?.likedByMe.toggle()
         if let o = object {
             setState(o.likedByMe)
         }
     }
     
+    func pulsate(_ sender: UIView) {
+        
+        let pulse = CASpringAnimation(keyPath: "transform.scale")
+        pulse.duration = 1
+        pulse.fromValue = 0.75
+        pulse.toValue = 1.5
+        pulse.autoreverses = true
+        pulse.repeatCount = 1
+        pulse.initialVelocity = 0.5
+        pulse.damping = 1.0
+        
+        sender.layer.add(pulse, forKey: "pulse")
+    }
+    
+    func flash(_ sender: UIView) {
+        
+        let flash = CABasicAnimation(keyPath: "opacity")
+        flash.duration = 0.5
+        flash.fromValue = 1
+        flash.toValue = 0.1
+        flash.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        flash.autoreverses = true
+        flash.repeatCount = 2
+        
+        sender.layer.add(flash, forKey: nil)
+    }
+
 }

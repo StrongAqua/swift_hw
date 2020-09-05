@@ -76,13 +76,20 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <state key="normal" title="Sign in"/>
                                                 <connections>
-                                                    <segue destination="1WU-Y3-Nx9" kind="presentation" modalPresentationStyle="fullScreen" id="6FC-Mb-JiL"/>
+                                                    <action selector="WhenSignInPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WJI-um-DFt"/>
                                                 </connections>
                                             </button>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edZ-Zg-1X9" customClass="SignInAnimation" customModule="VkStyle" customModuleProvider="target">
+                                                <rect key="frame" x="157" y="481" width="100" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="100" id="Kwo-ch-RSe"/>
+                                                    <constraint firstAttribute="height" constant="50" id="k7z-RB-00g"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="Mpp-lf-I8d" secondAttribute="bottom" constant="452" id="23b-pV-O6f"/>
                                             <constraint firstItem="l2C-eM-JQI" firstAttribute="top" secondItem="IcU-ar-b5v" secondAttribute="bottom" constant="49" id="4UE-Ry-ETC"/>
+                                            <constraint firstItem="edZ-Zg-1X9" firstAttribute="top" secondItem="Mpp-lf-I8d" secondAttribute="bottom" constant="37" id="BSB-VK-7Hf"/>
                                             <constraint firstItem="KLc-me-W7m" firstAttribute="top" secondItem="caY-QC-cIo" secondAttribute="top" constant="132" id="ErK-t0-4ld"/>
                                             <constraint firstItem="KLc-me-W7m" firstAttribute="centerX" secondItem="caY-QC-cIo" secondAttribute="centerX" id="FXM-8m-sjs"/>
                                             <constraint firstItem="IcU-ar-b5v" firstAttribute="leading" secondItem="caY-QC-cIo" secondAttribute="leading" constant="20" id="GSN-oq-g6U"/>
@@ -94,6 +101,8 @@
                                             <constraint firstItem="Mpp-lf-I8d" firstAttribute="centerX" secondItem="caY-QC-cIo" secondAttribute="centerX" id="Xad-ix-wQz"/>
                                             <constraint firstAttribute="trailing" secondItem="IcU-ar-b5v" secondAttribute="trailing" constant="20" id="alI-F7-vfq"/>
                                             <constraint firstItem="xgv-tR-3km" firstAttribute="top" secondItem="KLc-me-W7m" secondAttribute="bottom" constant="65" id="ip8-vF-uXg"/>
+                                            <constraint firstAttribute="bottom" secondItem="edZ-Zg-1X9" secondAttribute="bottom" constant="365" id="kkf-Lk-lNd"/>
+                                            <constraint firstItem="edZ-Zg-1X9" firstAttribute="centerX" secondItem="caY-QC-cIo" secondAttribute="centerX" id="oKI-1l-25I"/>
                                             <constraint firstItem="xgv-tR-3km" firstAttribute="centerX" secondItem="caY-QC-cIo" secondAttribute="centerX" id="u1w-Sd-OSv"/>
                                             <constraint firstItem="IcU-ar-b5v" firstAttribute="top" secondItem="xgv-tR-3km" secondAttribute="bottom" constant="1" id="zLe-KN-gNc"/>
                                         </constraints>
@@ -129,17 +138,19 @@
                         <outlet property="loginTextField" destination="IcU-ar-b5v" id="RUb-AK-rnN"/>
                         <outlet property="passwordTextField" destination="SAN-88-qMY" id="EKD-r5-aQq"/>
                         <outlet property="scrollView" destination="BO8-Lk-bpu" id="qdQ-nv-9Xl"/>
+                        <outlet property="signInAnimation" destination="edZ-Zg-1X9" id="em2-8H-Rl0"/>
+                        <segue destination="1WU-Y3-Nx9" kind="presentation" identifier="LoginSegue" modalPresentationStyle="fullScreen" id="rd6-nW-wlP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2399" y="-98"/>
+            <point key="canvasLocation" x="-2400" y="-98.4375"/>
         </scene>
         <!--Friends-->
         <scene sceneID="yMx-nX-b2J">
             <objects>
                 <tableViewController id="lr6-lm-yrB" customClass="UsersTableViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Tbr-mE-Peu">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Tbr-mE-Peu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -203,7 +214,7 @@
                                                     <real key="value" value="0.5"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                    <color key="value" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="value" systemColor="systemPurpleColor" red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
@@ -247,7 +258,7 @@
         <scene sceneID="52W-aD-xhf">
             <objects>
                 <tableViewController title="Groups" id="nkJ-Ax-Mb2" customClass="MyGroupsTableViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="g5V-AH-nk3">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="g5V-AH-nk3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -312,16 +323,16 @@
         <scene sceneID="GKO-3f-UYH">
             <objects>
                 <tableViewController id="5be-b6-X9I" customClass="MyNewsTableViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jpF-7O-ei7">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jpF-7O-ei7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsCell" id="C7e-Zk-OmA">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="C7e-Zk-OmA" translatesAutoresizingMaskIntoConstraints="NO" id="dXQ-ct-chP">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -337,10 +348,10 @@
             </objects>
             <point key="canvasLocation" x="950.72463768115949" y="945.53571428571422"/>
         </scene>
-        <!--News-->
+        <!--News Navigation Controller-->
         <scene sceneID="Bhk-Pf-hvL">
             <objects>
-                <navigationController id="4Vh-cv-uE3" sceneMemberID="viewController">
+                <navigationController title="News Navigation Controller" id="4Vh-cv-uE3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="News" image="square.on.square" catalog="system" id="9vt-FR-dy5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TBz-Be-Uap">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -358,7 +369,7 @@
         <scene sceneID="spz-7b-e4l">
             <objects>
                 <tableViewController title="Search" id="KGo-jA-59e" customClass="AllGroupsTableViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BZc-m2-wVj">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="BZc-m2-wVj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -526,6 +537,7 @@
         <scene sceneID="HtE-EY-sfz">
             <objects>
                 <tabBarController id="1WU-Y3-Nx9" customClass="TabBarViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Wrc-YS-hxs"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VuR-Ir-NKg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -17,6 +17,8 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var signInAnimation: SignInAnimation!
+
     // Когда клавиатура появляется
     @objc func keyboardWasShown(notification: Notification) {
         
@@ -65,6 +67,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         // жест нажатия
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         // присвоим его UIScrollView
@@ -105,30 +108,32 @@ class LoginViewController: UIViewController {
         // Показываем UIAlertController
         present(alter, animated: true, completion: nil)
     }
-    
-    /*override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-     guard let login = loginTextField.text, let password = passwordTextField.text
-     else {
-     print( "error value")
-     return false
-     }
-     
-     //проверяем верны ли
-     if login == "admin" && password == "123456" {
-     print("You are able to login")
-     return true
-     } else {
-     // Создаем контроллер
-     let alert = UIAlertController(title: "Ошибка", message: "Введены неверные данные пользователя", preferredStyle: .alert)
-     // Создаем кнопку для UIAlertController
-     let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-     // Добавляем кнопку на UIAlertController
-     alert.addAction(action)
-     // Показываем UIAlertController
-     present(alert, animated: true, completion: nil)
-     
-     return false
-     } */
+ 
+    @IBAction func WhenSignInPressed(_ sender: Any) {
+        // performSegue(withIdentifier: "LoginSegue", sender: self)
+        signInAnimation.isHidden = false
+
+        // Variant 1:
+        signInAnimation.showAnimatingDotsInImageView(
+            { [weak self] in
+                self?.performSegue(withIdentifier: "LoginSegue", sender: self)
+            }
+        )
+
+        // Variant 2:
+        // signInAnimation.showAnimatingDotsInImageView(self)
+    }
+
 }
+
+/*
+// Variant 2:
+extension LoginViewController: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        performSegue(withIdentifier: "LoginSegue", sender: self)
+    }
+}
+*/
+
 
 
