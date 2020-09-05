@@ -10,19 +10,187 @@ import UIKit
 
 class BigPhotoUIViewController: UIViewController {
 
-    @IBOutlet weak var photoImage: UIImageView!
+    @IBOutlet weak var photoImageCurrent: UIImageView!
     @IBOutlet weak var likeView: LikeUIView!
+    
+    var indexPhoto: Int?
+    var photoList: [Photo?]?
+    var interactiveAnimator: UIViewPropertyAnimator?
+    
+    // do we swipe to the right?
+    var isRightDirection: Bool?
+    
+    // keep the initial image view frame here
+    var imageInitialFrame: CGRect?
 
-    var photo: Photo?
+    // keep initial transform of the image view frame here
+    var imageInitialTransform: CGAffineTransform?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        photoImage.image = photo?.photo
+        guard let index = indexPhoto else {return}
+        guard let count = photoList?.count else {return}
+        guard let photo = photoList?[index] else {return}
+
+        if count == 0 {return}
+        if count <= index {return}
+
+        photoImageCurrent.image = photo.photo
         likeView.setObject(object: photo)
+        
+        // set up a brand new gesture recognizer
+        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+        self.view.addGestureRecognizer(recognizer)
+        
     }
     
+    // this function detects if we changed swipe direction
+    func isDirectionChanged(_ dx: CGFloat) -> Bool {
+        
+        // if we have no any direction yet, let's just detect it
+        if (self.isRightDirection == nil) {
+            // do we swipe to right?
+            self.isRightDirection = ( dx > 0 )
+            // return true as in the case if we changed direction
+            return true
+        }
+        
+        // do we sweep to right now?
+        let isRightDirection = ( dx > 0 )
+        
+        // is previous swipe direction not equal to current?
+        if isRightDirection != self.isRightDirection {
+            self.isRightDirection = isRightDirection
+            // return true only if we changed direction
+            return true
+        }
+        // direction was not changed
+        return false
+    }
+    
+    func createInteractiveAnimationForView_FadeOut(view: UIView, isRightDirection: Bool) -> UIViewPropertyAnimator {
+        return UIViewPropertyAnimator(
+            duration: 0.5,
+            curve: .easeIn,
+            // final state of the image should be described inside 'animations' block
+            animations: {
+                view.alpha = 0
+                view.frame =
+                    view.frame.offsetBy(
+                        // set final x-coordinate depending on where we go:
+                        //   left to right or right to left
+                        dx:
+                            ( isRightDirection )
+                                ? 0 + view.frame.width
+                                : 0 - view.frame.width,
+                        dy: 0)
+                // also add the scaling transformation
+                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+         })
+    }
+    
+    // callback for pan gesture
+    @objc func onPan(_ recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+
+            case .began:
+                // save initial image frame and transform
+                self.imageInitialFrame = photoImageCurrent.frame
+                self.imageInitialTransform = photoImageCurrent.transform
+            
+            case .changed:
+                let translation = recognizer.translation(in: self.view)
+                
+                // if gesture changed its direction
+                if isDirectionChanged(translation.x) {
+                    
+                    // print("direction is changed")
+                    
+                    // if we have already started swipe animation
+                    if (interactiveAnimator != nil) {
+                        // stop previous animation
+                        interactiveAnimator?.stopAnimation(true)
+                        // restore image frame and transform
+                        photoImageCurrent.frame = imageInitialFrame!
+                        photoImageCurrent.transform = imageInitialTransform!
+                    }
+                    
+                    // create swipe animation
+                    interactiveAnimator =
+                        createInteractiveAnimationForView_FadeOut(
+                            view: photoImageCurrent,
+                            isRightDirection: ( translation.x > 0 )
+                        )
+                    // pause it
+                    interactiveAnimator?.pauseAnimation()
+                    
+                    // when swipe animation completed, let's start next image appearance
+                    interactiveAnimator?.addCompletion({ (_) in
+                        guard var index = self.indexPhoto else {return}
+                        guard let count = self.photoList?.count else {return}
+
+                        // unwrap optional value
+                        let isRightDirection = self.isRightDirection ?? true
+
+                        // select next photo from photoList depending on direction
+                        if (isRightDirection == true) {
+                            // should add '+ count' here because % does not work on negative numbers
+                            index = ((index - 1) + count) % count
+                        } else {
+                            index = (index + 1) % count
+                        }
+
+                        // set up next photo image to our image view
+                        self.photoImageCurrent.image = self.photoList?[index]?.photo
+                        
+                        // update current photo index
+                        self.indexPhoto = index
+                        
+                        // set initial image view alpha and frame
+                        self.photoImageCurrent.alpha = 0
+                        self.photoImageCurrent.frame =
+                            self.imageInitialFrame!.offsetBy(
+                                // if isRightDirection is nil let's use default 'true'
+                                // ... but it can't be nil here
+                                dx: (self.isRightDirection ?? true)
+                                    //
+                                    ? 0 - self.photoImageCurrent.frame.width
+                                    : 0 + self.photoImageCurrent.frame.width,
+                                dy: 0)
+                        // let's fade-in our image and move it to imageInitialFrame
+                        UIViewPropertyAnimator.runningPropertyAnimator(
+                            withDuration: 0.5,
+                            delay: 0,
+                            options: [],
+                            animations: {
+                                self.photoImageCurrent.alpha = 1
+                                self.photoImageCurrent.frame = self.imageInitialFrame!
+                                self.photoImageCurrent.transform = self.imageInitialTransform!
+                                self.isRightDirection = nil
+                            }) // completion block: { (_) in }
+                    })
+                }
+                
+                // fractionComplete is like the 'time' of the animation measured from 0 (just started) to 1 (completed).
+                // To get where we are in the 'time' let's divide delta X (translation.x) to out image width.
+                // So our animation is completed when we have delta X more than image width.
+                interactiveAnimator?.fractionComplete =
+                    // should use absolute value here
+                    abs(translation.x) / self.photoImageCurrent.frame.width
+
+                // print(translation.x)
+                break
+
+            case .ended:
+                // end the swipe animation
+                interactiveAnimator?.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+                break
+
+        default: return
+        }
+    }
 
     /*
     // MARK: - Navigation

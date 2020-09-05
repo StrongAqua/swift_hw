@@ -38,7 +38,8 @@ class PhotosCollectionViewController: UICollectionViewController {
         guard let bigPhotoController
             = segue.destination as? BigPhotoUIViewController else { return }
         guard let cell = sender as? PhotosCollectionViewCell else { return }
-        bigPhotoController.photo = cell.photo
+        bigPhotoController.photoList = photoList
+        bigPhotoController.indexPhoto = cell.indexPhoto
     }
     
     // MARK: UICollectionViewDataSource
@@ -58,7 +59,7 @@ class PhotosCollectionViewController: UICollectionViewController {
             
             guard let photoList = photoList else { return cell }
             // Configure the cell
-            cell.setPhoto(photo: photoList[indexPath.row])
+            cell.setPhoto(photo: photoList[indexPath.row], indexPhoto: indexPath.row)
             return cell
     }
     
