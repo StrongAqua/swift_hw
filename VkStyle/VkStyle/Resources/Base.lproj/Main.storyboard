@@ -139,12 +139,12 @@
                         <outlet property="passwordTextField" destination="SAN-88-qMY" id="EKD-r5-aQq"/>
                         <outlet property="scrollView" destination="BO8-Lk-bpu" id="qdQ-nv-9Xl"/>
                         <outlet property="signInAnimation" destination="edZ-Zg-1X9" id="em2-8H-Rl0"/>
-                        <segue destination="1WU-Y3-Nx9" kind="presentation" identifier="LoginSegue" modalPresentationStyle="fullScreen" id="rd6-nW-wlP"/>
+                        <segue destination="v8g-dC-1vl" kind="presentation" identifier="LoginSegue" modalPresentationStyle="fullScreen" id="EMW-zI-jVz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2400" y="-98.4375"/>
+            <point key="canvasLocation" x="-3491" y="-104"/>
         </scene>
         <!--Friends-->
         <scene sceneID="yMx-nX-b2J">
@@ -530,6 +530,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j03-hZ-uUD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2622" y="-454"/>
+        </scene>
+        <!--Loading View Controller-->
+        <scene sceneID="M8T-2c-pRZ">
+            <objects>
+                <viewController id="v8g-dC-1vl" customClass="LoadingViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wdQ-eP-GxD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRA-54-BHW" customClass="LoadingView" customModule="VkStyle" customModuleProvider="target">
+                                <rect key="frame" x="107" y="378" width="200" height="150"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="kdK-hB-sEF"/>
+                                    <constraint firstAttribute="height" constant="150" id="uOB-A1-ZWD"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="uRA-54-BHW" firstAttribute="centerX" secondItem="s9s-fZ-SeM" secondAttribute="centerX" id="LrO-2Q-uBQ"/>
+                            <constraint firstItem="uRA-54-BHW" firstAttribute="centerY" secondItem="s9s-fZ-SeM" secondAttribute="centerY" id="qgg-kd-jy5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="s9s-fZ-SeM"/>
+                    </view>
+                    <connections>
+                        <outlet property="loadingView" destination="uRA-54-BHW" id="Mp4-h4-Qhq"/>
+                        <segue destination="1WU-Y3-Nx9" kind="presentation" identifier="LoggedInSegue" modalPresentationStyle="fullScreen" id="1u8-qe-qfW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nuN-52-gRt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2433.3333333333335" y="-104.46428571428571"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="HtE-EY-sfz">

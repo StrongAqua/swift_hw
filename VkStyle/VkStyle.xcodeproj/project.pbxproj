@@ -34,6 +34,8 @@
 		FE8B2F6624FBA15A003DB7EA /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE8B2F6524FBA15A003DB7EA /* NewsCell.xib */; };
 		FE8B2F6824FC1305003DB7EA /* NewsPhotoCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE8B2F6724FC1305003DB7EA /* NewsPhotoCollectionCell.xib */; };
 		FE8B2F6A24FC136E003DB7EA /* NewsPhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8B2F6924FC136E003DB7EA /* NewsPhotoCollectionCell.swift */; };
+		FE9D58272503C54C00D809AB /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D58262503C54C00D809AB /* LoadingViewController.swift */; };
+		FE9D582B2503CC1200D809AB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D582A2503CC1200D809AB /* LoadingView.swift */; };
 		FEFFD51F24FF905B00D61F1D /* SignInAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFFD51E24FF905B00D61F1D /* SignInAnimation.xib */; };
 		FEFFD52124FF909100D61F1D /* SignInAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFFD52024FF909000D61F1D /* SignInAnimation.swift */; };
 /* End PBXBuildFile section */
@@ -68,6 +70,8 @@
 		FE8B2F6524FBA15A003DB7EA /* NewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
 		FE8B2F6724FC1305003DB7EA /* NewsPhotoCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsPhotoCollectionCell.xib; sourceTree = "<group>"; };
 		FE8B2F6924FC136E003DB7EA /* NewsPhotoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPhotoCollectionCell.swift; sourceTree = "<group>"; };
+		FE9D58262503C54C00D809AB /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		FE9D582A2503CC1200D809AB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		FEFFD51E24FF905B00D61F1D /* SignInAnimation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInAnimation.xib; sourceTree = "<group>"; };
 		FEFFD52024FF909000D61F1D /* SignInAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,8 +114,9 @@
 		FE65899E24D2FFB500BBB3C0 /* VkStyle */ = {
 			isa = PBXGroup;
 			children = (
-				FEFFD51924FF8ECE00D61F1D /* Animations */,
 				FE6885B024DC1DFC0014CAB7 /* NewVkStyle */,
+				FE9D582C25063A2500D809AB /* LoadingView */,
+				FEFFD51924FF8ECE00D61F1D /* SignInAnimations */,
 				FE6885AA24DAD5F00014CAB7 /* Model */,
 				FE6885A524DAC9710014CAB7 /* Users */,
 				FE6885A024DAC57B0014CAB7 /* Photos */,
@@ -207,13 +212,22 @@
 			path = MyNews;
 			sourceTree = "<group>";
 		};
-		FEFFD51924FF8ECE00D61F1D /* Animations */ = {
+		FE9D582C25063A2500D809AB /* LoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				FE9D58262503C54C00D809AB /* LoadingViewController.swift */,
+				FE9D582A2503CC1200D809AB /* LoadingView.swift */,
+			);
+			path = LoadingView;
+			sourceTree = "<group>";
+		};
+		FEFFD51924FF8ECE00D61F1D /* SignInAnimations */ = {
 			isa = PBXGroup;
 			children = (
 				FEFFD51E24FF905B00D61F1D /* SignInAnimation.xib */,
 				FEFFD52024FF909000D61F1D /* SignInAnimation.swift */,
 			);
-			path = Animations;
+			path = SignInAnimations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,12 +315,14 @@
 				FE6755EA24F7994600C6A7FA /* BigPhotoUIViewController.swift in Sources */,
 				FE68859A24DAA5780014CAB7 /* AllGroupsTableViewCell.swift in Sources */,
 				FE6885A424DAC62F0014CAB7 /* PhotosCollectionViewCell.swift in Sources */,
+				FE9D58272503C54C00D809AB /* LoadingViewController.swift in Sources */,
 				FE6885AC24DAD60E0014CAB7 /* GroupInfo.swift in Sources */,
 				FE6589A024D2FFB500BBB3C0 /* AppDelegate.swift in Sources */,
 				FE68859F24DAB1910014CAB7 /* MyGroupsTableViewController.swift in Sources */,
 				FE7F3E5124FB8ED400CF32F3 /* MyNewsTableViewController.swift in Sources */,
 				FE6885A924DACA200014CAB7 /* UsersTableViewCell.swift in Sources */,
 				FE6885AE24DBF42C0014CAB7 /* UsersInfo.swift in Sources */,
+				FE9D582B2503CC1200D809AB /* LoadingView.swift in Sources */,
 				FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */,
 				FE7F3E4E24FA9F7900CF32F3 /* UsersTableCustomHeader.swift in Sources */,
 				FE87FC0C24D83B99004A4737 /* GroupsNavigationBarController.swift in Sources */,
