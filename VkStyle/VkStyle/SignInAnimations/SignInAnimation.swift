@@ -56,8 +56,8 @@ class SignInAnimation: UIView {
         let anim = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
         anim.fromValue = 1.0
         anim.toValue = 0.2
-        anim.duration = 1
-        anim.repeatCount = 3
+        anim.duration = 0.5
+        anim.repeatCount = 1
         // Variant 1:
         anim.delegate = self
         // Variant 2: anim.delegate = delegate

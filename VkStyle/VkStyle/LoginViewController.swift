@@ -112,13 +112,16 @@ class LoginViewController: UIViewController {
     @IBAction func WhenSignInPressed(_ sender: Any) {
         // performSegue(withIdentifier: "LoginSegue", sender: self)
         signInAnimation.isHidden = false
+        self.performSegue(withIdentifier: "LoginSegue", sender: self)
 
+/*
         // Variant 1:
         signInAnimation.showAnimatingDotsInImageView(
             { [weak self] in
                 self?.performSegue(withIdentifier: "LoginSegue", sender: self)
             }
         )
+*/
 
         // Variant 2:
         // signInAnimation.showAnimatingDotsInImageView(self)

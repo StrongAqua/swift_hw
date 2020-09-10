@@ -139,12 +139,12 @@
                         <outlet property="passwordTextField" destination="SAN-88-qMY" id="EKD-r5-aQq"/>
                         <outlet property="scrollView" destination="BO8-Lk-bpu" id="qdQ-nv-9Xl"/>
                         <outlet property="signInAnimation" destination="edZ-Zg-1X9" id="em2-8H-Rl0"/>
-                        <segue destination="1WU-Y3-Nx9" kind="presentation" identifier="LoginSegue" modalPresentationStyle="fullScreen" id="rd6-nW-wlP"/>
+                        <segue destination="v8g-dC-1vl" kind="presentation" identifier="LoginSegue" modalPresentationStyle="fullScreen" id="EMW-zI-jVz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2400" y="-98.4375"/>
+            <point key="canvasLocation" x="-3491" y="-104"/>
         </scene>
         <!--Friends-->
         <scene sceneID="yMx-nX-b2J">
@@ -214,7 +214,7 @@
                                                     <real key="value" value="0.5"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                    <color key="value" systemColor="systemPurpleColor" red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="value" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
@@ -498,14 +498,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s1f-3i-gIb">
-                                <rect key="frame" x="20" y="138" width="374" height="277"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="277" id="FD7-4Z-2Jr"/>
-                                </constraints>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s1f-3i-gIb">
+                                <rect key="frame" x="2" y="90" width="410" height="695"/>
                             </imageView>
                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Nls-Cn-r1z" customClass="LikeUIView" customModule="VkStyle" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="783" width="414" height="30"/>
+                                <rect key="frame" x="0.0" y="785" width="414" height="30"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="zrA-Wx-Zhz"/>
@@ -514,24 +511,58 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="iJm-lS-HPX" firstAttribute="trailing" secondItem="s1f-3i-gIb" secondAttribute="trailing" constant="20" id="2Wd-xX-uQc"/>
-                            <constraint firstItem="s1f-3i-gIb" firstAttribute="top" secondItem="iJm-lS-HPX" secondAttribute="top" constant="50" id="435-cR-MWV"/>
+                            <constraint firstItem="iJm-lS-HPX" firstAttribute="trailing" secondItem="s1f-3i-gIb" secondAttribute="trailing" constant="2" id="2Wd-xX-uQc"/>
                             <constraint firstItem="Nls-Cn-r1z" firstAttribute="leading" secondItem="iJm-lS-HPX" secondAttribute="leading" id="OgV-A5-hkN"/>
-                            <constraint firstItem="Nls-Cn-r1z" firstAttribute="bottom" secondItem="iJm-lS-HPX" secondAttribute="bottom" id="bAP-dt-dne"/>
+                            <constraint firstItem="Nls-Cn-r1z" firstAttribute="top" secondItem="s1f-3i-gIb" secondAttribute="bottom" id="YXS-yG-f0E"/>
+                            <constraint firstItem="Nls-Cn-r1z" firstAttribute="bottom" secondItem="iJm-lS-HPX" secondAttribute="bottom" constant="2" id="bAP-dt-dne"/>
+                            <constraint firstItem="s1f-3i-gIb" firstAttribute="leading" secondItem="iJm-lS-HPX" secondAttribute="leading" constant="2" id="izs-KH-TDo"/>
+                            <constraint firstItem="s1f-3i-gIb" firstAttribute="top" secondItem="iJm-lS-HPX" secondAttribute="top" constant="2" id="k1m-Sh-gMa"/>
                             <constraint firstItem="Nls-Cn-r1z" firstAttribute="centerX" secondItem="s1f-3i-gIb" secondAttribute="centerX" id="khA-zu-NbQ"/>
-                            <constraint firstItem="s1f-3i-gIb" firstAttribute="leading" secondItem="iJm-lS-HPX" secondAttribute="leading" constant="20" id="tLP-Cu-RVY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iJm-lS-HPX"/>
                     </view>
                     <navigationItem key="navigationItem" id="8UD-pz-ha4"/>
                     <connections>
                         <outlet property="likeView" destination="Nls-Cn-r1z" id="iOu-i8-wZL"/>
-                        <outlet property="photoImage" destination="s1f-3i-gIb" id="xfJ-CQ-6zN"/>
+                        <outlet property="photoImageCurrent" destination="s1f-3i-gIb" id="U2b-70-hFf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j03-hZ-uUD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2622" y="-454"/>
+        </scene>
+        <!--Loading View Controller-->
+        <scene sceneID="M8T-2c-pRZ">
+            <objects>
+                <viewController id="v8g-dC-1vl" customClass="LoadingViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wdQ-eP-GxD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRA-54-BHW" customClass="LoadingView" customModule="VkStyle" customModuleProvider="target">
+                                <rect key="frame" x="107" y="378" width="200" height="150"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="kdK-hB-sEF"/>
+                                    <constraint firstAttribute="height" constant="150" id="uOB-A1-ZWD"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="uRA-54-BHW" firstAttribute="centerX" secondItem="s9s-fZ-SeM" secondAttribute="centerX" id="LrO-2Q-uBQ"/>
+                            <constraint firstItem="uRA-54-BHW" firstAttribute="centerY" secondItem="s9s-fZ-SeM" secondAttribute="centerY" id="qgg-kd-jy5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="s9s-fZ-SeM"/>
+                    </view>
+                    <connections>
+                        <outlet property="loadingView" destination="uRA-54-BHW" id="Mp4-h4-Qhq"/>
+                        <segue destination="1WU-Y3-Nx9" kind="presentation" identifier="LoggedInSegue" modalPresentationStyle="fullScreen" id="1u8-qe-qfW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nuN-52-gRt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2433.3333333333335" y="-104.46428571428571"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="HtE-EY-sfz">
