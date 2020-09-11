@@ -36,6 +36,11 @@
 		FE8B2F6A24FC136E003DB7EA /* NewsPhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8B2F6924FC136E003DB7EA /* NewsPhotoCollectionCell.swift */; };
 		FE9D58272503C54C00D809AB /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D58262503C54C00D809AB /* LoadingViewController.swift */; };
 		FE9D582B2503CC1200D809AB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D582A2503CC1200D809AB /* LoadingView.swift */; };
+		FE9D582F2508E8F500D809AB /* CustomPushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D582E2508E8F500D809AB /* CustomPushAnimator.swift */; };
+		FE9D58312508EBB400D809AB /* CustomPopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D58302508EBB400D809AB /* CustomPopAnimator.swift */; };
+		FE9D58332508ECDB00D809AB /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D58322508ECDB00D809AB /* CustomNavigationController.swift */; };
+		FE9D58352508EFC400D809AB /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D58342508EFC400D809AB /* CustomInteractiveTransition.swift */; };
+		FE9D58372509720C00D809AB /* AnimationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D58362509720C00D809AB /* AnimationHelpers.swift */; };
 		FEFFD51F24FF905B00D61F1D /* SignInAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFFD51E24FF905B00D61F1D /* SignInAnimation.xib */; };
 		FEFFD52124FF909100D61F1D /* SignInAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFFD52024FF909000D61F1D /* SignInAnimation.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +77,11 @@
 		FE8B2F6924FC136E003DB7EA /* NewsPhotoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPhotoCollectionCell.swift; sourceTree = "<group>"; };
 		FE9D58262503C54C00D809AB /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		FE9D582A2503CC1200D809AB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		FE9D582E2508E8F500D809AB /* CustomPushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushAnimator.swift; sourceTree = "<group>"; };
+		FE9D58302508EBB400D809AB /* CustomPopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopAnimator.swift; sourceTree = "<group>"; };
+		FE9D58322508ECDB00D809AB /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		FE9D58342508EFC400D809AB /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
+		FE9D58362509720C00D809AB /* AnimationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelpers.swift; sourceTree = "<group>"; };
 		FEFFD51E24FF905B00D61F1D /* SignInAnimation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInAnimation.xib; sourceTree = "<group>"; };
 		FEFFD52024FF909000D61F1D /* SignInAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +124,7 @@
 		FE65899E24D2FFB500BBB3C0 /* VkStyle */ = {
 			isa = PBXGroup;
 			children = (
+				FE9D582D2508DE3900D809AB /* AnimatorTransition */,
 				FE6885B024DC1DFC0014CAB7 /* NewVkStyle */,
 				FE9D582C25063A2500D809AB /* LoadingView */,
 				FEFFD51924FF8ECE00D61F1D /* SignInAnimations */,
@@ -124,7 +135,6 @@
 				FE68859624DAA2690014CAB7 /* AllGroups */,
 				FE6589A324D2FFB500BBB3C0 /* LoginViewController.swift */,
 				FE87FC0524D81FA9004A4737 /* TabBarViewController.swift */,
-				FE87FC0B24D83B99004A4737 /* GroupsNavigationBarController.swift */,
 				FE6589AD24D2FFB600BBB3C0 /* Info.plist */,
 				FE7F3E4F24FB8E8C00CF32F3 /* MyNews */,
 				FE226CC324EBC85C00E57F91 /* View */,
@@ -145,6 +155,7 @@
 		FE68859B24DAB1170014CAB7 /* MyGroups */ = {
 			isa = PBXGroup;
 			children = (
+				FE87FC0B24D83B99004A4737 /* GroupsNavigationBarController.swift */,
 				FE68859C24DAB1650014CAB7 /* MyGroupsTableViewCell.swift */,
 				FE68859E24DAB1910014CAB7 /* MyGroupsTableViewController.swift */,
 			);
@@ -219,6 +230,18 @@
 				FE9D582A2503CC1200D809AB /* LoadingView.swift */,
 			);
 			path = LoadingView;
+			sourceTree = "<group>";
+		};
+		FE9D582D2508DE3900D809AB /* AnimatorTransition */ = {
+			isa = PBXGroup;
+			children = (
+				FE9D582E2508E8F500D809AB /* CustomPushAnimator.swift */,
+				FE9D58342508EFC400D809AB /* CustomInteractiveTransition.swift */,
+				FE9D58302508EBB400D809AB /* CustomPopAnimator.swift */,
+				FE9D58322508ECDB00D809AB /* CustomNavigationController.swift */,
+				FE9D58362509720C00D809AB /* AnimationHelpers.swift */,
+			);
+			path = AnimatorTransition;
 			sourceTree = "<group>";
 		};
 		FEFFD51924FF8ECE00D61F1D /* SignInAnimations */ = {
@@ -307,6 +330,7 @@
 				FE6885A724DAC9CA0014CAB7 /* UsersTableViewController.swift in Sources */,
 				FEFFD52124FF909100D61F1D /* SignInAnimation.swift in Sources */,
 				FE87FC0624D81FA9004A4737 /* TabBarViewController.swift in Sources */,
+				FE9D582F2508E8F500D809AB /* CustomPushAnimator.swift in Sources */,
 				FE6589A424D2FFB500BBB3C0 /* LoginViewController.swift in Sources */,
 				FE68859D24DAB1650014CAB7 /* MyGroupsTableViewCell.swift in Sources */,
 				FE226CCD24ED150100E57F91 /* LikeUIView.swift in Sources */,
@@ -315,6 +339,7 @@
 				FE6755EA24F7994600C6A7FA /* BigPhotoUIViewController.swift in Sources */,
 				FE68859A24DAA5780014CAB7 /* AllGroupsTableViewCell.swift in Sources */,
 				FE6885A424DAC62F0014CAB7 /* PhotosCollectionViewCell.swift in Sources */,
+				FE9D58372509720C00D809AB /* AnimationHelpers.swift in Sources */,
 				FE9D58272503C54C00D809AB /* LoadingViewController.swift in Sources */,
 				FE6885AC24DAD60E0014CAB7 /* GroupInfo.swift in Sources */,
 				FE6589A024D2FFB500BBB3C0 /* AppDelegate.swift in Sources */,
@@ -322,8 +347,11 @@
 				FE7F3E5124FB8ED400CF32F3 /* MyNewsTableViewController.swift in Sources */,
 				FE6885A924DACA200014CAB7 /* UsersTableViewCell.swift in Sources */,
 				FE6885AE24DBF42C0014CAB7 /* UsersInfo.swift in Sources */,
+				FE9D58352508EFC400D809AB /* CustomInteractiveTransition.swift in Sources */,
 				FE9D582B2503CC1200D809AB /* LoadingView.swift in Sources */,
+				FE9D58332508ECDB00D809AB /* CustomNavigationController.swift in Sources */,
 				FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */,
+				FE9D58312508EBB400D809AB /* CustomPopAnimator.swift in Sources */,
 				FE7F3E4E24FA9F7900CF32F3 /* UsersTableCustomHeader.swift in Sources */,
 				FE87FC0C24D83B99004A4737 /* GroupsNavigationBarController.swift in Sources */,
 				FE226CC924EBDBD600E57F91 /* AvatarCompositeView.swift in Sources */,

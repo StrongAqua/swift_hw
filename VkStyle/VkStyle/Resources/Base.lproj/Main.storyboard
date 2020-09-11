@@ -351,7 +351,7 @@
         <!--News Navigation Controller-->
         <scene sceneID="Bhk-Pf-hvL">
             <objects>
-                <navigationController title="News Navigation Controller" id="4Vh-cv-uE3" sceneMemberID="viewController">
+                <navigationController title="News Navigation Controller" id="4Vh-cv-uE3" customClass="CustomNavigationController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="News" image="square.on.square" catalog="system" id="9vt-FR-dy5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TBz-Be-Uap">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -587,7 +587,7 @@
         <!--Friends-->
         <scene sceneID="UAO-sN-Gnq">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dMm-kz-WN7" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dMm-kz-WN7" customClass="CustomNavigationController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends" image="person.3.fill" catalog="system" id="6AN-PU-Err"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WJo-xA-Cya">
@@ -606,7 +606,7 @@
         <!--NavigatorGroups-->
         <scene sceneID="Hdg-P5-War">
             <objects>
-                <navigationController title="NavigatorGroups" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="dqC-QJ-s0b" sceneMemberID="viewController">
+                <navigationController title="NavigatorGroups" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="dqC-QJ-s0b" customClass="CustomNavigationController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Groups" image="rectangle.grid.2x2.fill" catalog="system" id="Z4V-bh-qSq"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zpz-Rp-AgP" customClass="GroupsNavigationBarController" customModule="VkStyle" customModuleProvider="target">
