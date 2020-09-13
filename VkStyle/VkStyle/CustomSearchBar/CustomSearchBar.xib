@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomSearchBar">
+            <connections>
+                <outlet property="rootView" destination="iN0-l3-epB" id="trG-9X-ZAH"/>
+                <outlet property="searchBar" destination="xNc-4B-9AD" id="BeH-CJ-fa3"/>
+                <outlet property="searchBarCover" destination="CSq-xy-ni0" id="9sC-XG-81n"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="631" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView hidden="YES" clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CSq-xy-ni0">
+                    <rect key="frame" x="0.0" y="1" width="631" height="42.5"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </imageView>
+                <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xNc-4B-9AD">
+                    <rect key="frame" x="0.0" y="0.0" width="631" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="wPI-1z-GfH"/>
+                    </constraints>
+                    <color key="barTintColor" red="0.907766819" green="0.81354469060000001" blue="0.90824848410000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <accessibility key="accessibilityConfiguration">
+                <accessibilityTraits key="traits" searchField="YES" adjustable="YES"/>
+                <bool key="isElement" value="YES"/>
+            </accessibility>
+            <constraints>
+                <constraint firstItem="CSq-xy-ni0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="0Md-G7-B0x"/>
+                <constraint firstAttribute="bottom" secondItem="CSq-xy-ni0" secondAttribute="bottom" id="1jy-TT-h3s"/>
+                <constraint firstAttribute="trailing" secondItem="xNc-4B-9AD" secondAttribute="trailing" id="6HV-xe-mCj"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="CSq-xy-ni0" secondAttribute="trailing" id="N8u-wD-crC"/>
+                <constraint firstItem="CSq-xy-ni0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="WJg-9T-4MO"/>
+                <constraint firstItem="xNc-4B-9AD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="dLq-6u-dV2"/>
+                <constraint firstItem="xNc-4B-9AD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ulc-fA-7GA"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="142.75362318840581" y="-94.419642857142847"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="magnifyingglass" catalog="system" width="64" height="60"/>
+    </resources>
+</document>
