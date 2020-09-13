@@ -9,7 +9,7 @@
 import UIKit
 
 class BigPhotoUIViewController: UIViewController {
-
+    
     @IBOutlet weak var photoImageCurrent: UIImageView!
     @IBOutlet weak var likeView: LikeUIView!
     
@@ -19,13 +19,17 @@ class BigPhotoUIViewController: UIViewController {
     
     // do we swipe to the right?
     var isRightDirection: Bool?
+    var forceYTranslation: Bool = false
     
     // keep the initial image view frame here
-    var imageInitialFrame: CGRect?
-
+    var imageInitialFrame: CGRect = CGRect.zero
+    var initialViewFrame: CGRect = CGRect.zero
+    
     // keep initial transform of the image view frame here
-    var imageInitialTransform: CGAffineTransform?
-
+    var imageInitialTransform: CGAffineTransform = .identity
+    
+    var viewTranslation = CGPoint(x: 0, y: 0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,16 +37,21 @@ class BigPhotoUIViewController: UIViewController {
         guard let index = indexPhoto else {return}
         guard let count = photoList?.count else {return}
         guard let photo = photoList?[index] else {return}
-
+        
         if count == 0 {return}
         if count <= index {return}
-
+        
         photoImageCurrent.image = photo.photo
         likeView.setObject(object: photo)
+        
+        // let dismissRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleDismiss))
+        // self.view.addGestureRecognizer(dismissRecognizer)
         
         // set up a brand new gesture recognizer
         let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         self.view.addGestureRecognizer(recognizer)
+        
+        
         
     }
     
@@ -82,124 +91,178 @@ class BigPhotoUIViewController: UIViewController {
                         // set final x-coordinate depending on where we go:
                         //   left to right or right to left
                         dx:
-                            ( isRightDirection )
-                                ? 0 + view.frame.width
-                                : 0 - view.frame.width,
+                        ( isRightDirection )
+                            ? 0 + view.frame.width
+                            : 0 - view.frame.width,
                         dy: 0)
                 // also add the scaling transformation
                 view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-         })
+        })
+    }
+    
+    func processPhotoCarousel(_ translation: CGPoint) {
+        
+        if isDirectionChanged(translation.x) {
+            
+            // print("direction is changed")
+            
+            // if we have already started swipe animation
+            if (interactiveAnimator != nil) {
+                // stop previous animation
+                interactiveAnimator?.stopAnimation(true)
+                // restore image frame and transform
+                photoImageCurrent.frame = imageInitialFrame
+                photoImageCurrent.transform = imageInitialTransform
+            }
+            
+            // create swipe animation
+            interactiveAnimator =
+                createInteractiveAnimationForView_FadeOut(
+                    view: photoImageCurrent,
+                    isRightDirection: ( translation.x > 0 )
+            )
+            // pause it
+            interactiveAnimator?.pauseAnimation()
+            
+            // when swipe animation completed, let's start next image appearance
+            interactiveAnimator?.addCompletion({ (_) in
+                guard var index = self.indexPhoto else {return}
+                guard let count = self.photoList?.count else {return}
+                
+                // unwrap optional value
+                let isRightDirection = self.isRightDirection ?? true
+                
+                // select next photo from photoList depending on direction
+                if (isRightDirection == true) {
+                    // should add '+ count' here because % does not work on negative numbers
+                    index = ((index - 1) + count) % count
+                } else {
+                    index = (index + 1) % count
+                }
+                
+                // set up next photo image to our image view
+                self.photoImageCurrent.image = self.photoList?[index]?.photo
+                
+                // update current photo index
+                self.indexPhoto = index
+                
+                // set initial image view alpha and frame
+                self.photoImageCurrent.alpha = 0
+                self.photoImageCurrent.frame =
+                    self.imageInitialFrame.offsetBy(
+                        // if isRightDirection is nil let's use default 'true'
+                        // ... but it can't be nil here
+                        dx: (self.isRightDirection ?? true)
+                            //
+                            ? 0 - self.photoImageCurrent.frame.width
+                            : 0 + self.photoImageCurrent.frame.width,
+                        dy: 0)
+                // let's fade-in our image and move it to imageInitialFrame
+                UIViewPropertyAnimator.runningPropertyAnimator(
+                    withDuration: 0.5,
+                    delay: 0,
+                    options: [],
+                    animations: {
+                        self.photoImageCurrent.alpha = 1
+                        self.photoImageCurrent.frame = self.imageInitialFrame
+                        self.photoImageCurrent.transform = self.imageInitialTransform
+                        self.isRightDirection = nil
+                }) // completion block: { (_) in }
+            })
+        }
+        
+        // fractionComplete is like the 'time' of the animation measured from 0 (just started) to 1 (completed).
+        // To get where we are in the 'time' let's divide delta X (translation.x) to out image width.
+        // So our animation is completed when we have delta X more than image width.
+        interactiveAnimator?.fractionComplete =
+            // should use absolute value here
+            abs(translation.x) / self.photoImageCurrent.frame.width
+        
+        // print(translation.x)
+    }
+    
+    func is_y_translation(_ translation: CGPoint) -> Bool {
+        return abs(translation.y) > abs(translation.x)
     }
     
     // callback for pan gesture
     @objc func onPan(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
-
-            case .began:
-                // save initial image frame and transform
-                self.imageInitialFrame = photoImageCurrent.frame
-                self.imageInitialTransform = photoImageCurrent.transform
             
-            case .changed:
-                let translation = recognizer.translation(in: self.view)
-                
-                // if gesture changed its direction
-                if isDirectionChanged(translation.x) {
-                    
-                    // print("direction is changed")
-                    
-                    // if we have already started swipe animation
-                    if (interactiveAnimator != nil) {
-                        // stop previous animation
-                        interactiveAnimator?.stopAnimation(true)
-                        // restore image frame and transform
-                        photoImageCurrent.frame = imageInitialFrame!
-                        photoImageCurrent.transform = imageInitialTransform!
-                    }
-                    
-                    // create swipe animation
-                    interactiveAnimator =
-                        createInteractiveAnimationForView_FadeOut(
-                            view: photoImageCurrent,
-                            isRightDirection: ( translation.x > 0 )
-                        )
-                    // pause it
-                    interactiveAnimator?.pauseAnimation()
-                    
-                    // when swipe animation completed, let's start next image appearance
-                    interactiveAnimator?.addCompletion({ (_) in
-                        guard var index = self.indexPhoto else {return}
-                        guard let count = self.photoList?.count else {return}
+        case .began:
+            // save initial image frame and transform
+            if (self.initialViewFrame.isEmpty) {
+                self.initialViewFrame = self.view.frame
+            }
+            self.imageInitialFrame = photoImageCurrent.frame
+            self.imageInitialTransform = photoImageCurrent.transform
 
-                        // unwrap optional value
-                        let isRightDirection = self.isRightDirection ?? true
-
-                        // select next photo from photoList depending on direction
-                        if (isRightDirection == true) {
-                            // should add '+ count' here because % does not work on negative numbers
-                            index = ((index - 1) + count) % count
-                        } else {
-                            index = (index + 1) % count
-                        }
-
-                        // set up next photo image to our image view
-                        self.photoImageCurrent.image = self.photoList?[index]?.photo
-                        
-                        // update current photo index
-                        self.indexPhoto = index
-                        
-                        // set initial image view alpha and frame
-                        self.photoImageCurrent.alpha = 0
-                        self.photoImageCurrent.frame =
-                            self.imageInitialFrame!.offsetBy(
-                                // if isRightDirection is nil let's use default 'true'
-                                // ... but it can't be nil here
-                                dx: (self.isRightDirection ?? true)
-                                    //
-                                    ? 0 - self.photoImageCurrent.frame.width
-                                    : 0 + self.photoImageCurrent.frame.width,
-                                dy: 0)
-                        // let's fade-in our image and move it to imageInitialFrame
-                        UIViewPropertyAnimator.runningPropertyAnimator(
-                            withDuration: 0.5,
-                            delay: 0,
-                            options: [],
-                            animations: {
-                                self.photoImageCurrent.alpha = 1
-                                self.photoImageCurrent.frame = self.imageInitialFrame!
-                                self.photoImageCurrent.transform = self.imageInitialTransform!
-                                self.isRightDirection = nil
-                            }) // completion block: { (_) in }
+        case .changed:
+            let translation = recognizer.translation(in: self.view)
+            
+            if forceYTranslation || is_y_translation(translation) {
+                forceYTranslation = true
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    self.view.transform = CGAffineTransform(translationX: 0, y: translation.y)
+                })
+            } else {
+                // if gesture changed its X direction
+                processPhotoCarousel(translation)
+            } // end of else block
+            break
+            
+        case .ended:
+            // end the swipe animation
+            let translation = recognizer.translation(in: self.view)
+            if forceYTranslation || is_y_translation(translation) {
+                if translation.y < 200 {
+                    interactiveAnimator?.fractionComplete = 0
+                    interactiveAnimator?.stopAnimation(false)
+                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                        self.view.transform = .identity
+                        self.view.alpha = 1
+                        self.view.frame = self.initialViewFrame
                     })
+                } else {
+                    // dismiss(animated: true, completion: nil)
+                    self.navigationController?.popViewController(animated: false)
                 }
-                
-                // fractionComplete is like the 'time' of the animation measured from 0 (just started) to 1 (completed).
-                // To get where we are in the 'time' let's divide delta X (translation.x) to out image width.
-                // So our animation is completed when we have delta X more than image width.
-                interactiveAnimator?.fractionComplete =
-                    // should use absolute value here
-                    abs(translation.x) / self.photoImageCurrent.frame.width
-
-                // print(translation.x)
-                break
-
-            case .ended:
-                // end the swipe animation
+                forceYTranslation = false
+            } else {
                 interactiveAnimator?.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-                break
-
+            }
+            break
+            
         default: return
         }
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     @objc func handleDismiss(sender: UIPanGestureRecognizer) {
+     switch sender.state {
+     case .changed:
+     case .ended:
+     if viewTranslation.y < 200 {
+     UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+     self.view.transform = .identity
+     })
+     } else {
+     // dismiss(animated: true, completion: nil)
+     self.navigationController?.popViewController(animated: false)
+     }
+     default:
+     break
+     }
+     }
+     */
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

@@ -73,7 +73,7 @@ import UIKit
         strokeEndAnimation.toValue = 1.0 + 0.1
 
         let animationGroup = CAAnimationGroup()
-        animationGroup.duration = 2.5
+        animationGroup.duration = 1
         animationGroup.animations = [strokeStartAnimation, strokeEndAnimation]
         animationGroup.repeatCount = 1
         // set delegate to process with animationDidStop
