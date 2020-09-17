@@ -16,6 +16,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         // Register cell classes
@@ -121,6 +122,22 @@ class PhotosCollectionViewController: UICollectionViewController {
         
     }
     
-    
-    
+
+    override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        UIView.animate(withDuration: 0.5) {
+            if let cell = collectionView.cellForItem(at: indexPath) as? PhotosCollectionViewCell {
+                cell.transform = .init(scaleX: 1.4, y: 1.4)
+                cell.contentView.backgroundColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.3)
+            }
+        }
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        UIView.animate(withDuration: 0.5) {
+            if let cell = collectionView.cellForItem(at: indexPath) as? PhotosCollectionViewCell {
+                cell.transform = .identity
+                cell.contentView.backgroundColor = .clear
+            }
+        }
+    }
 }

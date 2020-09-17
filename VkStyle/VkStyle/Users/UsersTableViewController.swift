@@ -10,12 +10,17 @@ import UIKit
 
 class UsersTableViewController: UITableViewController {
 
+    
+    @IBOutlet weak var searchBar: CustomSearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         // Register the custom header view.
         tableView.register(UsersTableCustomHeader.self,
-            forHeaderFooterViewReuseIdentifier: "usersSectionHeader")
+                           forHeaderFooterViewReuseIdentifier: "usersSectionHeader")
+
+        searchBar.setup(delegate: self)
     }
     
     // MARK: - Table view data source
@@ -52,10 +57,10 @@ class UsersTableViewController: UITableViewController {
         targetPhotoCollection.setUserPhotoList(photoList: user.photoList)
         targetPhotoCollection.navigationItem.title = user.user
     }
-
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier:
-                    "usersSectionHeader") as! UsersTableCustomHeader
+            "usersSectionHeader") as! UsersTableCustomHeader
         view.setup(UsersManager.shared.alphabet[section])
         return view
     }
@@ -63,7 +68,7 @@ class UsersTableViewController: UITableViewController {
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return UsersManager.shared.alphabet
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
@@ -71,25 +76,29 @@ class UsersTableViewController: UITableViewController {
 }
 
 extension UsersTableViewController: UISearchBarDelegate {
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         UsersManager.shared.applyFilter(searchText)
         tableView.reloadData()
     }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-         //code
+    
+    func searchBarShouldEndEditing(_ _searchBar: UISearchBar) -> Bool {
+        self.searchBar.cancel()
+        return true
     }
     
 }
+
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }
+
+

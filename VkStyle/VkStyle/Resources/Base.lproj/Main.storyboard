@@ -154,15 +154,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="JOB-Ds-pmn">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="MnW-Ee-Gbk" customClass="CustomSearchBar" customModule="VkStyle" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="barTintColor" red="0.89411562410000001" green="0.65483935930000003" blue="0.89946859140000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="lr6-lm-yrB" id="VTh-oH-VFg"/>
-                            </connections>
-                        </searchBar>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="90" id="UAs-zt-Ujx" customClass="UsersTableViewCell" customModule="VkStyle" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="90"/>
@@ -249,6 +248,9 @@
                     <navigationItem key="navigationItem" title="Friends" id="GgU-6b-cJQ">
                         <barButtonItem key="backBarButtonItem" title=" " id="jVB-bx-BXt"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="MnW-Ee-Gbk" id="6ho-Nq-ecX"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4z-rr-7Uj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

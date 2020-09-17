@@ -41,6 +41,8 @@
 		FE9D58332508ECDB00D809AB /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D58322508ECDB00D809AB /* CustomNavigationController.swift */; };
 		FE9D58352508EFC400D809AB /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D58342508EFC400D809AB /* CustomInteractiveTransition.swift */; };
 		FE9D58372509720C00D809AB /* AnimationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D58362509720C00D809AB /* AnimationHelpers.swift */; };
+		FE9D5848250D4A5B00D809AB /* CustomSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9D5847250D4A5B00D809AB /* CustomSearchBar.xib */; };
+		FE9D584A250D4A9300D809AB /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9D5849250D4A9300D809AB /* CustomSearchBar.swift */; };
 		FEFFD51F24FF905B00D61F1D /* SignInAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFFD51E24FF905B00D61F1D /* SignInAnimation.xib */; };
 		FEFFD52124FF909100D61F1D /* SignInAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFFD52024FF909000D61F1D /* SignInAnimation.swift */; };
 /* End PBXBuildFile section */
@@ -82,6 +84,8 @@
 		FE9D58322508ECDB00D809AB /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		FE9D58342508EFC400D809AB /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		FE9D58362509720C00D809AB /* AnimationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelpers.swift; sourceTree = "<group>"; };
+		FE9D5847250D4A5B00D809AB /* CustomSearchBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomSearchBar.xib; sourceTree = "<group>"; };
+		FE9D5849250D4A9300D809AB /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		FEFFD51E24FF905B00D61F1D /* SignInAnimation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInAnimation.xib; sourceTree = "<group>"; };
 		FEFFD52024FF909000D61F1D /* SignInAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +128,7 @@
 		FE65899E24D2FFB500BBB3C0 /* VkStyle */ = {
 			isa = PBXGroup;
 			children = (
+				FE9D583A250D3F8C00D809AB /* CustomSearchBar */,
 				FE9D582D2508DE3900D809AB /* AnimatorTransition */,
 				FE6885B024DC1DFC0014CAB7 /* NewVkStyle */,
 				FE9D582C25063A2500D809AB /* LoadingView */,
@@ -244,6 +249,15 @@
 			path = AnimatorTransition;
 			sourceTree = "<group>";
 		};
+		FE9D583A250D3F8C00D809AB /* CustomSearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				FE9D5847250D4A5B00D809AB /* CustomSearchBar.xib */,
+				FE9D5849250D4A9300D809AB /* CustomSearchBar.swift */,
+			);
+			path = CustomSearchBar;
+			sourceTree = "<group>";
+		};
 		FEFFD51924FF8ECE00D61F1D /* SignInAnimations */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +328,7 @@
 				FE6589AC24D2FFB600BBB3C0 /* LaunchScreen.storyboard in Resources */,
 				FE8B2F6824FC1305003DB7EA /* NewsPhotoCollectionCell.xib in Resources */,
 				FEFFD51F24FF905B00D61F1D /* SignInAnimation.xib in Resources */,
+				FE9D5848250D4A5B00D809AB /* CustomSearchBar.xib in Resources */,
 				FE8B2F6624FBA15A003DB7EA /* NewsCell.xib in Resources */,
 				FE6589A924D2FFB600BBB3C0 /* Assets.xcassets in Resources */,
 				FE6589A724D2FFB500BBB3C0 /* Main.storyboard in Resources */,
@@ -338,6 +353,7 @@
 				FE7F3E5724FB961300CF32F3 /* NewsCell.swift in Sources */,
 				FE6755EA24F7994600C6A7FA /* BigPhotoUIViewController.swift in Sources */,
 				FE68859A24DAA5780014CAB7 /* AllGroupsTableViewCell.swift in Sources */,
+				FE9D584A250D4A9300D809AB /* CustomSearchBar.swift in Sources */,
 				FE6885A424DAC62F0014CAB7 /* PhotosCollectionViewCell.swift in Sources */,
 				FE9D58372509720C00D809AB /* AnimationHelpers.swift in Sources */,
 				FE9D58272503C54C00D809AB /* LoadingViewController.swift in Sources */,
