@@ -122,7 +122,6 @@ class PhotosCollectionViewController: UICollectionViewController {
         
     }
     
-
     override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.5) {
             if let cell = collectionView.cellForItem(at: indexPath) as? PhotosCollectionViewCell {

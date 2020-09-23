@@ -30,10 +30,6 @@ class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         // set rotation anchor for our source view (left-top corner: x=0/y=0)
         source.view.setAnchorPoint(anchorPoint: CGPoint(x: 0, y: 0))
         
-        print("animateTransition")
-        print(source)
-        print(destination)
-
         UIView.animate(withDuration: self.transitionDuration(using: transitionContext),
                        animations: {
                         // rotationAngle - is not a 'delta', it is the absolute final value

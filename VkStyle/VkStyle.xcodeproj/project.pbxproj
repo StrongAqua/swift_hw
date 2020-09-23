@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE1DBDDE251B32F8008DA0B4 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1DBDDD251B32F8008DA0B4 /* Session.swift */; };
 		FE226CC924EBDBD600E57F91 /* AvatarCompositeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE226CC824EBDBD600E57F91 /* AvatarCompositeView.swift */; };
 		FE226CCD24ED150100E57F91 /* LikeUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE226CCC24ED150100E57F91 /* LikeUIView.swift */; };
 		FE6589A024D2FFB500BBB3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FE1DBDDD251B32F8008DA0B4 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		FE226CC824EBDBD600E57F91 /* AvatarCompositeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AvatarCompositeView.swift; path = VkStyle/View/AvatarCompositeView.swift; sourceTree = SOURCE_ROOT; };
 		FE226CCC24ED150100E57F91 /* LikeUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeUIView.swift; sourceTree = "<group>"; };
 		FE65899C24D2FFB500BBB3C0 /* VkStyle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkStyle.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +195,7 @@
 			children = (
 				FE6885AB24DAD60E0014CAB7 /* GroupInfo.swift */,
 				FE6885AD24DBF42C0014CAB7 /* UsersInfo.swift */,
+				FE1DBDDD251B32F8008DA0B4 /* Session.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				FE9D58312508EBB400D809AB /* CustomPopAnimator.swift in Sources */,
 				FE7F3E4E24FA9F7900CF32F3 /* UsersTableCustomHeader.swift in Sources */,
 				FE87FC0C24D83B99004A4737 /* GroupsNavigationBarController.swift in Sources */,
+				FE1DBDDE251B32F8008DA0B4 /* Session.swift in Sources */,
 				FE226CC924EBDBD600E57F91 /* AvatarCompositeView.swift in Sources */,
 				FE6885A224DAC6010014CAB7 /* PhotosCollectionViewController.swift in Sources */,
 				FE8B2F6A24FC136E003DB7EA /* NewsPhotoCollectionCell.swift in Sources */,
