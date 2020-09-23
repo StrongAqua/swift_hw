@@ -34,7 +34,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         guard let bigPhotoController
@@ -43,7 +43,11 @@ class PhotosCollectionViewController: UICollectionViewController {
         bigPhotoController.photoList = photoList
         bigPhotoController.indexPhoto = cell.indexPhoto
     }
+    */
     
+    
+
+
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -76,6 +80,17 @@ class PhotosCollectionViewController: UICollectionViewController {
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let bigPhotoController = BigPhotoUIViewController()
+        
+        bigPhotoController.photoList = photoList
+        let cell = collectionView.cellForItem(at: indexPath) as! PhotosCollectionViewCell
+        bigPhotoController.indexPhoto = cell.indexPhoto
+        bigPhotoController.navigationItem.title = "\(navigationItem.title ?? "User")\("'s photos")"
+        
+        navigationController?.pushViewController(bigPhotoController, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

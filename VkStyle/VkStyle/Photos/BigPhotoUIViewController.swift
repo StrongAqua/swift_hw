@@ -62,17 +62,17 @@ class BigPhotoUIViewController: UIViewController {
             y: topBarHeight,
             width: view.frame.width,
             height: view.frame.height -
-                 topBarHeight -
-                 self.navigationController!.navigationBar.frame.height
+                topBarHeight -
+                self.navigationController!.navigationBar.frame.height
         )
         
         likeView.setupFrames(usefulFrame)
     }
-
+    
     func createUI() {
         
         view.addSubview(photoImageCurrent)
-
+        
         photoImageCurrent.translatesAutoresizingMaskIntoConstraints = false
         photoImageCurrent.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         photoImageCurrent.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
@@ -169,7 +169,7 @@ class BigPhotoUIViewController: UIViewController {
                 // set up next photo image to our image view
                 self.photoImageCurrent.image = self.photoList?[index]?.photo
                 self.likeView.setObject(object: self.photoList?[index])
-
+                
                 // update current photo index
                 self.indexPhoto = index
                 
@@ -224,7 +224,7 @@ class BigPhotoUIViewController: UIViewController {
             }
             self.imageInitialFrame = photoImageCurrent.frame
             self.imageInitialTransform = photoImageCurrent.transform
-
+            
         case .changed:
             let translation = recognizer.translation(in: self.view)
             
@@ -270,14 +270,14 @@ class BigPhotoUIViewController: UIViewController {
 
 
 extension UIViewController {
-
-        /**
-         *  Height of status bar + navigation bar (if navigation bar exist)
-         */
-
-        var topBarHeight: CGFloat {
-            return (view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0) +
-                (self.navigationController?.navigationBar.frame.height ?? 0.0)
-        }
-    }
     
+    /**
+     *  Height of status bar + navigation bar (if navigation bar exist)
+     */
+    
+    var topBarHeight: CGFloat {
+        return (view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0) +
+            (self.navigationController?.navigationBar.frame.height ?? 0.0)
+    }
+}
+

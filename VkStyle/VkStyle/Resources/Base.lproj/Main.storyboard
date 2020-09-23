@@ -475,7 +475,6 @@
                                 <connections>
                                     <outlet property="likeView" destination="DCJ-Zj-u1e" id="74Y-af-FOb"/>
                                     <outlet property="photouser" destination="Jix-v1-o1y" id="6m9-Hg-0xE"/>
-                                    <segue destination="Aoy-9j-hzs" kind="show" id="00Q-Ic-OVc"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -491,22 +490,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZK-qJ-uVx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1787" y="-454"/>
-        </scene>
-        <!--Big PhotoUI View Controller-->
-        <scene sceneID="SFP-Di-xjR">
-            <objects>
-                <viewController id="Aoy-9j-hzs" customClass="BigPhotoUIViewController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mRE-bU-LbB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="iJm-lS-HPX"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="8UD-pz-ha4"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="j03-hZ-uUD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2622" y="-454"/>
         </scene>
         <!--Loading View Controller-->
         <scene sceneID="M8T-2c-pRZ">
