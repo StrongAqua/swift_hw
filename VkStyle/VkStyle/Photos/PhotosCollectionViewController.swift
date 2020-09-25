@@ -15,12 +15,6 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        // Register cell classes
-        // Do any additional setup after loading the view.
     }
     
     public func setUserPhotoList(photoList: Array<Photo?>?) {
@@ -32,30 +26,12 @@ class PhotosCollectionViewController: UICollectionViewController {
         self.collectionView.reloadData()
     }
     
-    // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-        guard let bigPhotoController
-            = segue.destination as? BigPhotoUIViewController else { return }
-        guard let cell = sender as? PhotosCollectionViewCell else { return }
-        bigPhotoController.photoList = photoList
-        bigPhotoController.indexPhoto = cell.indexPhoto
-    }
-    */
-    
-    
-
-
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return photoList?.count ?? 0
     }
     
@@ -65,7 +41,7 @@ class PhotosCollectionViewController: UICollectionViewController {
             
             guard let photoList = photoList else { return cell }
             // Configure the cell
-            cell.setPhoto(photo: photoList[indexPath.row], indexPhoto: indexPath.row)
+            cell.setPhoto(photo: photoList[indexPath.row])
             return cell
     }
     
@@ -77,7 +53,6 @@ class PhotosCollectionViewController: UICollectionViewController {
      }
      */
     
-    // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -86,8 +61,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         let bigPhotoController = BigPhotoUIViewController()
         
         bigPhotoController.photoList = photoList
-        let cell = collectionView.cellForItem(at: indexPath) as! PhotosCollectionViewCell
-        bigPhotoController.indexPhoto = cell.indexPhoto
+        bigPhotoController.indexPhoto = indexPath.row
         bigPhotoController.navigationItem.title = "\(navigationItem.title ?? "User")\("'s photos")"
         
         navigationController?.pushViewController(bigPhotoController, animated: true)
@@ -120,7 +94,7 @@ class PhotosCollectionViewController: UICollectionViewController {
             options: .transitionFlipFromTop,
             animations: {
                 cell.transform = CGAffineTransform(translationX: 0, y: 0);
-            },
+        },
             completion: nil)
         
         // fade-in the cell
@@ -145,7 +119,7 @@ class PhotosCollectionViewController: UICollectionViewController {
             }
         }
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.5) {
             if let cell = collectionView.cellForItem(at: indexPath) as? PhotosCollectionViewCell {

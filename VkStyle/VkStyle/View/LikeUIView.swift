@@ -47,9 +47,6 @@ class LikeUIView: UIView {
         let viewWidth = frame.width
         let viewHeight = frame.height
         
-        print("setupFrames")
-        print(frame)
-        
         self.frame = frame
 
         likeView.frame = CGRect(x: 0, y: viewHeight - buttonSize, width: viewWidth, height: buttonSize)
@@ -68,7 +65,6 @@ class LikeUIView: UIView {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        print("draw")
         setupFrames()
     }
     

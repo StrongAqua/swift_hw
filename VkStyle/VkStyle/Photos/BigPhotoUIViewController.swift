@@ -194,9 +194,7 @@ class BigPhotoUIViewController: UIViewController {
                         self.photoImageCurrent.frame = self.imageInitialFrame
                         self.photoImageCurrent.transform = self.imageInitialTransform
                         self.isRightDirection = nil
-                }) { (_) in
-                    // self.likeView.setupFrames(self.photoImageCurrent.bounds)
-                }
+                })
             })
         }
         
@@ -266,14 +264,7 @@ class BigPhotoUIViewController: UIViewController {
     }
 }
 
-
-
-
 extension UIViewController {
-    
-    /**
-     *  Height of status bar + navigation bar (if navigation bar exist)
-     */
     
     var topBarHeight: CGFloat {
         return (view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0) +
