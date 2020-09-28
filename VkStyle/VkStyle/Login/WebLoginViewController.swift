@@ -68,9 +68,6 @@ extension WebLoginViewController: WKNavigationDelegate {
         
         decisionHandler(.cancel)
         
-        VKApi.instance.getFriendsList()
-        VKApi.instance.getGroupsList()
-        VKApi.instance.searchGroups("Music")
-        VKApi.instance.getUserPhotos(Session.instance.userId)
+        self.performSegue(withIdentifier: "DidLogin", sender: self)
     }
 }
