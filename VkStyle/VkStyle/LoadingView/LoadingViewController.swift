@@ -35,6 +35,6 @@ class LoadingViewController: UIViewController {
 extension LoadingViewController : CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         // perform segue to the major UIViewController
-        self.performSegue(withIdentifier: "LoggedInSegue", sender: self)
+        self.performSegue(withIdentifier: "DidLoad", sender: self)
     }
 }
