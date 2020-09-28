@@ -49,8 +49,6 @@
                         <rect key="frame" x="4" y="127" width="406" height="406"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="406" id="KB3-aq-mo9"/>
-                            <constraint firstAttribute="width" constant="406" id="Pgc-qi-bVp"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="406" id="ZCL-Ku-g3a"/>
                         </constraints>
                     </imageView>
                     <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bLi-Pj-34P" customClass="LikeUIView" customModule="VkStyle" customModuleProvider="target">

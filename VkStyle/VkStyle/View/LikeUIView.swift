@@ -19,7 +19,7 @@ class LikeUIView: UIView {
 
     var object : Likeable?
     
-    override func awakeFromNib() {
+    func setupSubViews() {
         likeView.backgroundColor = UIColor.blue.withAlphaComponent(0.25)
 
         likeButton.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
@@ -34,11 +34,20 @@ class LikeUIView: UIView {
 
         addSubview(likeView)
     }
+    override func awakeFromNib() {
+        setupSubViews()
+    }
     
     func setupFrames() {
+        setupFrames(frame)
+    }
+    
+    func setupFrames(_ frame: CGRect) {
         let buttonSize : CGFloat = 30
         let viewWidth = frame.width
         let viewHeight = frame.height
+        
+        self.frame = frame
 
         likeView.frame = CGRect(x: 0, y: viewHeight - buttonSize, width: viewWidth, height: buttonSize)
         likeButton.frame = CGRect(x: viewWidth - buttonSize, y: 0, width: buttonSize, height: buttonSize)
@@ -51,6 +60,7 @@ class LikeUIView: UIView {
         repostButton.setTitle("↪", for: .normal)
 
         setNeedsLayout()
+        setNeedsDisplay()
     }
 
     override func draw(_ rect: CGRect) {

@@ -10,8 +10,8 @@ import UIKit
 
 class BigPhotoUIViewController: UIViewController {
     
-    @IBOutlet weak var photoImageCurrent: UIImageView!
-    @IBOutlet weak var likeView: LikeUIView!
+    let photoImageCurrent = UIImageView()
+    let likeView = LikeUIView()
     
     var indexPhoto: Int?
     var photoList: [Photo?]?
@@ -33,6 +33,8 @@ class BigPhotoUIViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        createUI()
+        
         // Do any additional setup after loading the view.
         guard let index = indexPhoto else {return}
         guard let count = photoList?.count else {return}
@@ -51,8 +53,34 @@ class BigPhotoUIViewController: UIViewController {
         let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         self.view.addGestureRecognizer(recognizer)
         
+    }
+    
+    override func viewDidLayoutSubviews() {
         
+        let usefulFrame = CGRect(
+            x: 0,
+            y: topBarHeight,
+            width: view.frame.width,
+            height: view.frame.height -
+                topBarHeight -
+                self.navigationController!.navigationBar.frame.height
+        )
         
+        likeView.setupFrames(usefulFrame)
+    }
+    
+    func createUI() {
+        
+        view.addSubview(photoImageCurrent)
+        
+        photoImageCurrent.translatesAutoresizingMaskIntoConstraints = false
+        photoImageCurrent.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        photoImageCurrent.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        photoImageCurrent.contentMode = .scaleAspectFit
+        photoImageCurrent.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        likeView.setupSubViews()
+        view.addSubview(likeView)
     }
     
     // this function detects if we changed swipe direction
@@ -104,8 +132,6 @@ class BigPhotoUIViewController: UIViewController {
         
         if isDirectionChanged(translation.x) {
             
-            // print("direction is changed")
-            
             // if we have already started swipe animation
             if (interactiveAnimator != nil) {
                 // stop previous animation
@@ -142,6 +168,7 @@ class BigPhotoUIViewController: UIViewController {
                 
                 // set up next photo image to our image view
                 self.photoImageCurrent.image = self.photoList?[index]?.photo
+                self.likeView.setObject(object: self.photoList?[index])
                 
                 // update current photo index
                 self.indexPhoto = index
@@ -167,7 +194,7 @@ class BigPhotoUIViewController: UIViewController {
                         self.photoImageCurrent.frame = self.imageInitialFrame
                         self.photoImageCurrent.transform = self.imageInitialTransform
                         self.isRightDirection = nil
-                }) // completion block: { (_) in }
+                })
             })
         }
         
@@ -178,7 +205,6 @@ class BigPhotoUIViewController: UIViewController {
             // should use absolute value here
             abs(translation.x) / self.photoImageCurrent.frame.width
         
-        // print(translation.x)
     }
     
     func is_y_translation(_ translation: CGPoint) -> Bool {
@@ -196,7 +222,7 @@ class BigPhotoUIViewController: UIViewController {
             }
             self.imageInitialFrame = photoImageCurrent.frame
             self.imageInitialTransform = photoImageCurrent.transform
-
+            
         case .changed:
             let translation = recognizer.translation(in: self.view)
             
@@ -212,7 +238,7 @@ class BigPhotoUIViewController: UIViewController {
             break
             
         case .ended:
-            // end the swipe animation
+            // end the swipe
             let translation = recognizer.translation(in: self.view)
             if forceYTranslation || is_y_translation(translation) {
                 if translation.y < 200 {
@@ -236,33 +262,13 @@ class BigPhotoUIViewController: UIViewController {
         default: return
         }
     }
-    
-    /*
-     @objc func handleDismiss(sender: UIPanGestureRecognizer) {
-     switch sender.state {
-     case .changed:
-     case .ended:
-     if viewTranslation.y < 200 {
-     UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-     self.view.transform = .identity
-     })
-     } else {
-     // dismiss(animated: true, completion: nil)
-     self.navigationController?.popViewController(animated: false)
-     }
-     default:
-     break
-     }
-     }
-     */
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
+
+extension UIViewController {
+    
+    var topBarHeight: CGFloat {
+        return (view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0) +
+            (self.navigationController?.navigationBar.frame.height ?? 0.0)
+    }
+}
+
