@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Helpers {
+class URLHelpers {
     
     static func urlParamsToDict(_ fragment: String) -> [String: String] {
         let params = fragment

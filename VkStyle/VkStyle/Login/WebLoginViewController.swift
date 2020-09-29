@@ -19,8 +19,11 @@ class WebLoginViewController: UIViewController {
         
         webView.navigationDelegate = self
         
+        login()
+    }
+    
+    func login() {
         let scope = 262150 | (1 << 16) // 'offline' token - no time limit
-        
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "oauth.vk.com"
@@ -31,24 +34,14 @@ class WebLoginViewController: UIViewController {
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
             URLQueryItem(name: "scope", value: String(scope)),
             URLQueryItem(name: "response_type", value: "token"),
+            // URLQueryItem(name: "revoke", value: "1"), // if you need to exit VK
             URLQueryItem(name: "v", value: "5.68")
         ]
-        // revoke=1 - if you need to exit VK
         
         let request = URLRequest(url: urlComponents.url!)
-
+        
         webView.load(request)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension WebLoginViewController: WKNavigationDelegate {
@@ -60,7 +53,7 @@ extension WebLoginViewController: WKNavigationDelegate {
             return
         }
         
-        let params = Helpers.urlParamsToDict(fragment)
+        let params = URLHelpers.urlParamsToDict(fragment)
         
         Session.instance.token = params["access_token"] ?? ""
         let user_id = params["user_id"] ?? "0"
