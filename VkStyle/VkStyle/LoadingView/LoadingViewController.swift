@@ -17,24 +17,18 @@ class LoadingViewController: UIViewController {
 
         // set reference to the parent view controller to perform segue on animationDidStop
         loadingView.setup(self)
+        
+        VKApi.instance.getFriendsList()
+        VKApi.instance.getGroupsList()
+        VKApi.instance.searchGroups("Music")
+        VKApi.instance.getUserPhotos(Session.instance.userId)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 // extend self with CAAnimationDelegate to process with animationDidStop
 extension LoadingViewController : CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         // perform segue to the major UIViewController
-        self.performSegue(withIdentifier: "LoggedInSegue", sender: self)
+        self.performSegue(withIdentifier: "DidLoad", sender: self)
     }
 }
