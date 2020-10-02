@@ -8,13 +8,23 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 class VKApi {
+    
+    // let's limit number of objects to download up to 10
+    // will do pagination l8r
+    static let MAX_OBJECTS_COUNT = 10
     
     static let instance = VKApi()
     private init() {} // dummy
     
-    private func apiRequest(_ method: String, _ parameters: [String: Any]) {
+    // VK API request wrapper
+    private func apiRequest(
+        _ method: String,
+        _ parameters: [String: Any],
+        _ completion: @escaping ([AnyObject]) -> Void
+    ) {
         var url = URLComponents()
 
         url.scheme = "https"
@@ -22,133 +32,107 @@ class VKApi {
         url.path = "/method/" + method
 
         url.queryItems = [
-            URLQueryItem(name: "user_id", value: String(Session.instance.userId)),
             URLQueryItem(name: "access_token", value: Session.instance.token),
             URLQueryItem(name: "v", value: "5.124")
         ]
-        AF.request(url.url!,
-                   method: .get,
-                   parameters: parameters)
-        .validate()
-        .responseJSON
+
+        AF.request(url.url!, method: .get, parameters: parameters).responseData
         { response in
-            // print("Current thread #1 \(Thread.current)")
-            switch response.result {
-                case .success(let value):
-                    if let value = value as? [String: AnyObject] {
-                        self.processResponse(method, value)
-                    }
-                case .failure(let error):
-                    debugPrint(error)
+            self.processResponse(url.url!, method, response, completion)
+        }
+    }
+    
+    // VK API response processor
+    private func processResponse(
+        _ url: URL,
+        _ method: String,
+        _ response: AFDataResponse<Data>,
+        _ completion: @escaping ([AnyObject]) -> Void)
+    {
+        switch response.result {
+        case .success(let data):
+            do {
+                switch(method) {
+                case "photos.get":
+                    let photosResponse: VkApiPhotoResponse = try JSONDecoder().decode(VkApiPhotoResponse.self, from: data)
+                    completion(photosResponse.response.items)
+                case "groups.get":
+                    let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
+                    completion(groupsResponse.response.items)
+                case "friends.get":
+                    let friendsResponse: VkApiUsersResponse = try JSONDecoder().decode(VkApiUsersResponse.self, from: data)
+                    completion(friendsResponse.response.items)
+                case "groups.search":
+                    let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
+                    completion(groupsResponse.response.items)
+                default:
+                    // doesn't matter
+                    break
+                }
+            } catch DecodingError.dataCorrupted(let context) {
+                debugPrint(DecodingError.dataCorrupted(context))
+            } catch { // let error
+                debugPrint("Error while decoding json from \(url)")
+                // debugPrint(error)
+                // debugPrint(String(bytes: data, encoding: .utf8) ?? "")
             }
+        case .failure(let error):
+            debugPrint(error)
         }
     }
 
-    func processResponse(_ method: String, _ value: [String: AnyObject] ) {
-        switch method {
-        case "friends.get":
-            debugPrint("Friends List:")
-            processFriendsList(value)
-        case "groups.get":
-            debugPrint("Groups List:")
-            processGroupsList(value)
-        case "groups.search":
-            debugPrint("Search Result:")
-            processGroupsList(value)
-        case "photos.get":
-            debugPrint("User Photos:")
-            processPhotosList(value)
-        default:
-            debugPrint(value)
-        }
-    }
-    
-    func processFriendsList(_ value: [String: AnyObject]) {
-        if let response = value["response"] as? [String: AnyObject] {
-            if let items = response["items"] as? [AnyObject] {
-                for item in items {
-                    if let id = item["id"] as? Int,
-                       let first_name = item["first_name"] as? String,
-                       let last_name = item["last_name"] as? String {
-                        debugPrint("\(id): " + first_name + " " + last_name)
-                    }
-                }
-            }
-        }
-    }
-    
-    func processGroupsList(_ value: [String: AnyObject]) {
-        if let response = value["response"] as? [String: AnyObject] {
-            if let items = response["items"] as? [AnyObject] {
-                for item in items {
-                    if let id = item["id"] as? Int,
-                       let name = item["name"] as? String {
-                        debugPrint("\(id): " + name)
-                    }
-                }
-            }
-        }
-    }
-    
-    func processPhotosList(_ value: [String: AnyObject]) {
-        if let response = value["response"] as? [String: AnyObject] {
-            if let items = response["items"] as? [AnyObject] {
-                for item in items {
-                    if let date = item["date"] as? Int,
-                       let likes = item["likes"] as? [String: AnyObject],
-                       let urls = item["sizes"] as? [AnyObject] {
-                        if let likes_count = likes["count"] as? Int {
-                            for url in urls {
-                                if let type = url["type"] as? String,
-                                   let url_str = url["url"] as? String {
-                                    if type == "x" {
-                                        debugPrint("\(date): " + url_str + ", likes: \(likes_count)")
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // Example: https://api.vk.com/method/friends.get
-    // ?user_id=210700286
-    // &fields=id,first_name,last_name
-    // &access_token=533bacf01e11f55b536a565b57531ac114461ae8736d6506a3
-    // &v=5.124
-    func getFriendsList() {
+    // VK API friends.get wrapper
+    func getFriendsList(_ completion: @escaping ([AnyObject]) -> Void) {
         apiRequest( "friends.get", [
-            "count": 10,
+            "user_id": String(Session.instance.userId),
+            "count": VKApi.MAX_OBJECTS_COUNT,
             "order": "name",
-            "fields": "id,first_name,last_name"
-        ])
+            "fields": "id,first_name,last_name,photo_200_orig"
+        ], completion)
     }
     
-    func getUserPhotos(_ userID: Int) {
+    // VK API photos.get wrapper
+    func getUserPhotos(_ userID: Int, _ completion: @escaping ([AnyObject]) -> Void) {
         apiRequest( "photos.get", [
+            "user_id": String(Session.instance.userId),
             "owner_id": userID,
             "extended": 1,
             "album_id": "profile",
-            "count": 10
-        ])
+            "count": VKApi.MAX_OBJECTS_COUNT
+        ],
+        completion)
     }
     
-    func getGroupsList() {
+    // VK API photos.get wrapper
+    func getGroupsList(_ completion: @escaping ([AnyObject]) -> Void) {
         apiRequest( "groups.get", [
-            "count": 10,
+            "user_id": String(Session.instance.userId),
+            "count": VKApi.MAX_OBJECTS_COUNT,
             "extended": 1,
             "fields": "id,name"
-        ])
+        ], completion)
     }
     
-    func searchGroups(_ query: String) {
+    func searchGroups(_ query: String, _ completion: @escaping ([AnyObject]) -> Void) {
         apiRequest( "groups.search", [
             "q": query,
             "type": "group",
-            "limit": 10
-        ])
+            "count": VKApi.MAX_OBJECTS_COUNT
+        ], completion)
+    }
+    
+    private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    func downloadImage(urlString: String, completion: @escaping (Data?) -> ()) {
+        guard let url = URL(string: urlString) else { return }
+        getData(from: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() {
+                completion(data)
+            }
+        }
     }
     
 }

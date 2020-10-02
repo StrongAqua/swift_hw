@@ -10,14 +10,21 @@ import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var photouser: UIImageView!
+    @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var likeView: LikeUIView!
     var photo: Photo?
     
-    public func setPhoto(photo: Photo?) {
-        self.photo = photo
-        photouser.image = photo?.photo
-        likeView.setObject(object: photo)
+    public func setPhotoURL(photoURL: Photo?) {
+        guard let p = photoURL else { return }
+        self.photo = p
+        likeView.setObject(object: self.photo)
+
+        guard let url = p.photoURL else { return }
+        VKApi.instance.downloadImage(urlString: url, completion: {
+            [weak self] data in
+            guard let d = data else { return }
+            self?.image.image = UIImage(data: d)
+        })
     }
     
 }

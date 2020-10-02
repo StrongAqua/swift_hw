@@ -21,6 +21,12 @@ class UsersTableViewController: UITableViewController {
                            forHeaderFooterViewReuseIdentifier: "usersSectionHeader")
 
         searchBar.setup(delegate: self)
+        
+        VKApi.instance.getFriendsList({ [weak self] friends in
+            UsersManager.shared.setUsersInfo(friends as! [VkApiUsersItem])
+            UsersManager.shared.rebuild()
+            self?.tableView.reloadData()
+        })
     }
     
     // MARK: - Table view data source
@@ -54,7 +60,7 @@ class UsersTableViewController: UITableViewController {
         guard let indexPath = cell.indexPath else { return }
         guard let user = UsersManager.shared.getUserByIndexPath(indexPath) else { return }
         
-        targetPhotoCollection.setUserPhotoList(photoList: user.photoList)
+        targetPhotoCollection.setUser(user: user)
         targetPhotoCollection.navigationItem.title = user.user
     }
     

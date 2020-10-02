@@ -14,6 +14,9 @@
 		FE4B5B4E251F38D800743AE4 /* WebLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B4D251F38D800743AE4 /* WebLoginViewController.swift */; };
 		FE4B5B51251F41B500743AE4 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B50251F41B500743AE4 /* URLHelper.swift */; };
 		FE4B5B53251F49F600743AE4 /* VKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B52251F49F600743AE4 /* VKApi.swift */; };
+		FE4B5B552523344300743AE4 /* VkUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B542523344300743AE4 /* VkUsers.swift */; };
+		FE4B5B5725233A7B00743AE4 /* VkPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B5625233A7B00743AE4 /* VkPhotos.swift */; };
+		FE4B5B5925233A9500743AE4 /* VkGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B5825233A9500743AE4 /* VkGroups.swift */; };
 		FE6589A024D2FFB500BBB3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */; };
 		FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6589A124D2FFB500BBB3C0 /* SceneDelegate.swift */; };
 		FE6589A424D2FFB500BBB3C0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6589A324D2FFB500BBB3C0 /* LoginViewController.swift */; };
@@ -30,7 +33,7 @@
 		FE6885A724DAC9CA0014CAB7 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885A624DAC9CA0014CAB7 /* UsersTableViewController.swift */; };
 		FE6885A924DACA200014CAB7 /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885A824DACA200014CAB7 /* UsersTableViewCell.swift */; };
 		FE6885AC24DAD60E0014CAB7 /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885AB24DAD60E0014CAB7 /* GroupInfo.swift */; };
-		FE6885AE24DBF42C0014CAB7 /* UsersInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885AD24DBF42C0014CAB7 /* UsersInfo.swift */; };
+		FE6885AE24DBF42C0014CAB7 /* InternalDataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885AD24DBF42C0014CAB7 /* InternalDataModels.swift */; };
 		FE7F3E4E24FA9F7900CF32F3 /* UsersTableCustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7F3E4D24FA9F7900CF32F3 /* UsersTableCustomHeader.swift */; };
 		FE7F3E5124FB8ED400CF32F3 /* MyNewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7F3E5024FB8ED400CF32F3 /* MyNewsTableViewController.swift */; };
 		FE7F3E5724FB961300CF32F3 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7F3E5624FB961300CF32F3 /* NewsCell.swift */; };
@@ -61,6 +64,9 @@
 		FE4B5B4D251F38D800743AE4 /* WebLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebLoginViewController.swift; sourceTree = "<group>"; };
 		FE4B5B50251F41B500743AE4 /* URLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHelper.swift; sourceTree = "<group>"; };
 		FE4B5B52251F49F600743AE4 /* VKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApi.swift; sourceTree = "<group>"; };
+		FE4B5B542523344300743AE4 /* VkUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkUsers.swift; sourceTree = "<group>"; };
+		FE4B5B5625233A7B00743AE4 /* VkPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkPhotos.swift; sourceTree = "<group>"; };
+		FE4B5B5825233A9500743AE4 /* VkGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkGroups.swift; sourceTree = "<group>"; };
 		FE65899C24D2FFB500BBB3C0 /* VkStyle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkStyle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE6589A124D2FFB500BBB3C0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,7 +85,7 @@
 		FE6885A624DAC9CA0014CAB7 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		FE6885A824DACA200014CAB7 /* UsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
 		FE6885AB24DAD60E0014CAB7 /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
-		FE6885AD24DBF42C0014CAB7 /* UsersInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInfo.swift; sourceTree = "<group>"; };
+		FE6885AD24DBF42C0014CAB7 /* InternalDataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalDataModels.swift; sourceTree = "<group>"; };
 		FE7F3E4D24FA9F7900CF32F3 /* UsersTableCustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableCustomHeader.swift; sourceTree = "<group>"; };
 		FE7F3E5024FB8ED400CF32F3 /* MyNewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNewsTableViewController.swift; sourceTree = "<group>"; };
 		FE7F3E5624FB961300CF32F3 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
@@ -243,8 +249,11 @@
 			isa = PBXGroup;
 			children = (
 				FE6885AB24DAD60E0014CAB7 /* GroupInfo.swift */,
-				FE6885AD24DBF42C0014CAB7 /* UsersInfo.swift */,
+				FE6885AD24DBF42C0014CAB7 /* InternalDataModels.swift */,
 				FE1DBDDD251B32F8008DA0B4 /* Session.swift */,
+				FE4B5B542523344300743AE4 /* VkUsers.swift */,
+				FE4B5B5825233A9500743AE4 /* VkGroups.swift */,
+				FE4B5B5625233A7B00743AE4 /* VkPhotos.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -439,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE6885A724DAC9CA0014CAB7 /* UsersTableViewController.swift in Sources */,
+				FE4B5B5725233A7B00743AE4 /* VkPhotos.swift in Sources */,
 				FE4B5B51251F41B500743AE4 /* URLHelper.swift in Sources */,
 				FEFFD52124FF909100D61F1D /* SignInAnimation.swift in Sources */,
 				FE87FC0624D81FA9004A4737 /* TabBarViewController.swift in Sources */,
@@ -460,8 +470,9 @@
 				FE68859F24DAB1910014CAB7 /* MyGroupsTableViewController.swift in Sources */,
 				FE7F3E5124FB8ED400CF32F3 /* MyNewsTableViewController.swift in Sources */,
 				FE6885A924DACA200014CAB7 /* UsersTableViewCell.swift in Sources */,
-				FE6885AE24DBF42C0014CAB7 /* UsersInfo.swift in Sources */,
+				FE6885AE24DBF42C0014CAB7 /* InternalDataModels.swift in Sources */,
 				FE9D58352508EFC400D809AB /* CustomInteractiveTransition.swift in Sources */,
+				FE4B5B5925233A9500743AE4 /* VkGroups.swift in Sources */,
 				FE9D582B2503CC1200D809AB /* LoadingView.swift in Sources */,
 				FE9D58332508ECDB00D809AB /* CustomNavigationController.swift in Sources */,
 				FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */,
@@ -470,6 +481,7 @@
 				FE4B5B4E251F38D800743AE4 /* WebLoginViewController.swift in Sources */,
 				FE87FC0C24D83B99004A4737 /* GroupsNavigationBarController.swift in Sources */,
 				FE1DBDDE251B32F8008DA0B4 /* Session.swift in Sources */,
+				FE4B5B552523344300743AE4 /* VkUsers.swift in Sources */,
 				FE226CC924EBDBD600E57F91 /* AvatarCompositeView.swift in Sources */,
 				FE6885A224DAC6010014CAB7 /* PhotosCollectionViewController.swift in Sources */,
 				FE8B2F6A24FC136E003DB7EA /* NewsPhotoCollectionCell.swift in Sources */,

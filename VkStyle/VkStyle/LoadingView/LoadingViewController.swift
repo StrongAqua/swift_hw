@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class LoadingViewController: UIViewController {
 
@@ -14,14 +15,9 @@ class LoadingViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // set reference to the parent view controller to perform segue on animationDidStop
         loadingView.setup(self)
-        
-        VKApi.instance.getFriendsList()
-        VKApi.instance.getGroupsList()
-        VKApi.instance.searchGroups("Music")
-        VKApi.instance.getUserPhotos(Session.instance.userId)
     }
 }
 

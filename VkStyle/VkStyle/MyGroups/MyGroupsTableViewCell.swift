@@ -12,18 +12,24 @@ class MyGroupsTableViewCell: UITableViewCell {
 
 
     @IBOutlet weak var myGroupName: UILabel!
-    
     @IBOutlet weak var myGroupImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    func setup(title: String?, imageURL: String?) {
+        self.myGroupName.text = title ?? "(unset)"
+        guard let url = imageURL else { return }
+        VKApi.instance.downloadImage(urlString: url, completion: {
+            [weak self] data in
+            guard let d = data else { return }
+            self?.myGroupImage.image = UIImage(data: d)
+        })
     }
 
 }
