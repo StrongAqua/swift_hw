@@ -18,18 +18,18 @@ class VkApiPhotoResponseItems: Decodable {
 
 class VkApiPhotoItem: Decodable {
     // photo object fields
-    dynamic var id: Int = 0
-    dynamic var date: Int = 0
-    dynamic var owner_id: Int = 0
+    var id: Int = 0
+    var date: Int = 0
+    var owner_id: Int = 0
 
     // fields of the likes counter
-    dynamic var likes_count: Int = 0
-    dynamic var user_likes: Int = 0
+    var likes_count: Int = 0
+    var user_likes: Int = 0
 
     // urls of different photo sizes
-    dynamic var size_s_url: String = ""
-    dynamic var size_m_url: String = ""
-    dynamic var size_x_url: String = ""
+    var size_s_url: String = ""
+    var size_m_url: String = ""
+    var size_x_url: String = ""
 
     enum CodingKeys: String, CodingKey {
         case id

@@ -12,16 +12,28 @@ class MyGroupsTableViewController: UITableViewController {
     
     var groups: [GroupInfo] = []
     
+    let refreshCtrl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VKApi.instance.getGroupsList({ [weak self] groups in
-            self?.setGroups(groups as! [VkApiGroupItem])
-            self?.tableView.reloadData()
-        })
+        reloadGroups()
         
+        tableView.addSubview(refreshCtrl)
+        refreshCtrl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
     
+    @objc private func refreshData(_ sender: Any) {
+        reloadGroups(false)
+    }
+    
+    func reloadGroups(_ useCache: Bool = true) {
+         VKApi.instance.getGroupsList({ [weak self] groups in
+            self?.setGroups(groups as! [VkApiGroupItem])
+            self?.tableView.reloadData()
+            self?.refreshCtrl.endRefreshing()
+            }, useCache)
+    }
     func setGroups(_ groups: [VkApiGroupItem]) {
         self.groups = []
         for group in groups {

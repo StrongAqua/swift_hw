@@ -13,8 +13,22 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     var user: UserInfo?
     
+    let refreshCtrl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        reloadData()
+        
+        collectionView.addSubview(refreshCtrl)
+        refreshCtrl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+    }
+    
+    @objc private func refreshData(_ sender: Any) {
+        reloadData(false)
+    }
+    
+    func reloadData(_ useCache: Bool = true) {
         guard let user = self.user else { return }
         VKApi.instance.getUserPhotos(user.id,
         {[weak self] photos in
@@ -27,7 +41,8 @@ class PhotosCollectionViewController: UICollectionViewController {
             )
 
             self?.collectionView.reloadData()
-        })
+            self?.refreshCtrl.endRefreshing()
+        }, useCache)
     }
     
     public func setUser(user: UserInfo) {

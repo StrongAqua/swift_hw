@@ -17,10 +17,10 @@ class VkApiUsersResponseItems: Decodable {
 }
 
 class VkApiUsersItem: Decodable {
-    dynamic var id: Int = 0
-    dynamic var first_name: String = ""
-    dynamic var last_name: String = ""
-    dynamic var photo_url: String = ""
+    var id: Int = 0
+    var first_name: String = ""
+    var last_name: String = ""
+    var photo_url: String = ""
 
     enum CodingKeys: String, CodingKey {
         case id
