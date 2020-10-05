@@ -237,9 +237,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="rd7-vx-cez" customClass="CustomSearchBar" customModule="VkStyle" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="90" id="5EX-DQ-1ny" customClass="AllGroupsTableViewCell" customModule="VkStyle" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="90"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5EX-DQ-1ny" id="YJd-aL-fl0">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
@@ -282,9 +287,13 @@
                             <outlet property="delegate" destination="KGo-jA-59e" id="Ixa-Gj-KAM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Search" id="A9P-uj-gwR">
+                    <navigationItem key="navigationItem" id="A9P-uj-gwR">
+                        <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="5YQ-IF-OMi"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="rd7-vx-cez" id="NjF-Wq-uwx"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAG-Gj-Tvq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="nOQ-Ck-TxG" userLabel="Exit" sceneMemberID="exit"/>
@@ -335,8 +344,8 @@
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="200" height="200"/>
                                 <connections>
+                                    <outlet property="image" destination="Jix-v1-o1y" id="6m9-Hg-0xE"/>
                                     <outlet property="likeView" destination="DCJ-Zj-u1e" id="74Y-af-FOb"/>
-                                    <outlet property="photouser" destination="Jix-v1-o1y" id="6m9-Hg-0xE"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -463,7 +472,7 @@
         <!--NavigatorGroups-->
         <scene sceneID="Hdg-P5-War">
             <objects>
-                <navigationController title="NavigatorGroups" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="dqC-QJ-s0b" customClass="CustomNavigationController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="NavigatorGroups" automaticallyAdjustsScrollViewInsets="NO" id="dqC-QJ-s0b" customClass="CustomNavigationController" customModule="VkStyle" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Groups" image="rectangle.grid.2x2.fill" catalog="system" id="Z4V-bh-qSq"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zpz-Rp-AgP" customClass="GroupsNavigationBarController" customModule="VkStyle" customModuleProvider="target">

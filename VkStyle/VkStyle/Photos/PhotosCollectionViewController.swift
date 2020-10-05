@@ -11,19 +11,31 @@ import UIKit
 
 class PhotosCollectionViewController: UICollectionViewController {
     
-    var photoList: [Photo?]?
+    var user: UserInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let user = self.user else { return }
+        VKApi.instance.getUserPhotos(user.id,
+        {[weak self] photos in
+            guard let photoItems = photos as? [VkApiPhotoItem] else { return }
+            if photoItems.count <= 0 { return }
+
+            UsersManager.shared.setUserPhotos(
+                user.id,
+                photoItems
+            )
+
+            self?.collectionView.reloadData()
+        })
     }
     
-    public func setUserPhotoList(photoList: Array<Photo?>?) {
-        self.photoList = photoList
+    public func setUser(user: UserInfo) {
+        self.user = user
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.collectionView.reloadData()
     }
     
     // MARK: UICollectionViewDataSource
@@ -31,17 +43,20 @@ class PhotosCollectionViewController: UICollectionViewController {
         return 1
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoList?.count ?? 0
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        guard let user = self.user else { return 0 }
+        return user.photoList.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) ->
         UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoUser", for: indexPath) as! PhotosCollectionViewCell
             
-            guard let photoList = photoList else { return cell }
+            guard let user = self.user else { return cell }
+
             // Configure the cell
-            cell.setPhoto(photo: photoList[indexPath.row])
+            cell.setPhotoURL(photoURL: user.photoList[indexPath.row])
             return cell
     }
     
@@ -60,7 +75,8 @@ class PhotosCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let bigPhotoController = BigPhotoUIViewController()
         
-        bigPhotoController.photoList = photoList
+        guard let user = self.user else { return }
+        bigPhotoController.photoList = user.photoList
         bigPhotoController.indexPhoto = indexPath.row
         bigPhotoController.navigationItem.title = "\(navigationItem.title ?? "User")\("'s photos")"
         

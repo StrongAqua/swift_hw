@@ -20,7 +20,7 @@ class NewsCell: UITableViewCell
     @IBOutlet weak var messageImage: UIImageView!
     @IBOutlet weak var likeView: LikeUIView!
     
-    var photos: [Photo] = []
+    var photo = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,33 +36,23 @@ class NewsCell: UITableViewCell
     
     func setup(_ user: UserInfo, _ message: NewsMessage) {
 
-        avatarImage.image = user.photo
+        VKApi.instance.downloadImage(urlString: user.photo, completion: {
+            [weak self] data in
+            guard let d = data else { return }
+            self?.avatarImage.image = UIImage(data: d)
+        })
+        
         userName.text = user.user
         messageText.text = message.messageText
-        photos = message.photoList
+        
+        photo = message.photo
+        messageImage.image = UIImage(named: photo)
                 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         messageDate.text = dateFormatter.string(from: message.date)
-        messageImage.image = message.photoList.last?.photo
-        
         likeView.setObject(object: message)
-/*
-        if user.user == "Helga" {
-            messagePhotos.isHidden = true
-        }
-*/
+
     }
-/*
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsPhotoCollectionCell", for: indexPath) as! NewsPhotoCollectionCell
-        cell.imageView.image = photos[indexPath.row].photo
-        return cell
-    }
-*/
 }

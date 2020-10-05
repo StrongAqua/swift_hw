@@ -43,7 +43,13 @@ class BigPhotoUIViewController: UIViewController {
         if count == 0 {return}
         if count <= index {return}
         
-        photoImageCurrent.image = photo.photo
+        guard let url = photo.photoURL else { return }
+        VKApi.instance.downloadImage(urlString: url, completion: {
+            [weak self] data in
+            guard let d = data else { return }
+            self?.photoImageCurrent.image = UIImage(data: d)
+        })
+        
         likeView.setObject(object: photo)
         
         // let dismissRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleDismiss))
@@ -167,8 +173,15 @@ class BigPhotoUIViewController: UIViewController {
                 }
                 
                 // set up next photo image to our image view
-                self.photoImageCurrent.image = self.photoList?[index]?.photo
                 self.likeView.setObject(object: self.photoList?[index])
+                
+                if let url = self.photoList?[index]?.photoURL {
+                    VKApi.instance.downloadImage(urlString: url, completion: {
+                        [weak self] data in
+                        guard let d = data else { return }
+                        self?.photoImageCurrent.image = UIImage(data: d)
+                    })
+                }
                 
                 // update current photo index
                 self.indexPhoto = index

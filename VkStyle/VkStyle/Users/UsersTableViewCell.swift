@@ -28,7 +28,12 @@ class UsersTableViewCell: UITableViewCell {
     }
 
     func setup(user: UserInfo) {
-        avatarView.avatarPhoto.image = user.photo
+        VKApi.instance.downloadImage(urlString: user.photo, completion: {
+            [weak self] data in
+            guard let d = data else { return }
+            self?.avatarView.avatarPhoto.image = UIImage(data: d)
+        })
+        
         userName.text = user.user
         avatarView.setup()
     }

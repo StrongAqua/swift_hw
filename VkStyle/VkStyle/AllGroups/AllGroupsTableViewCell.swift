@@ -24,5 +24,14 @@ class AllGroupsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    func setup(title: String?, imageURL: String?) {
+        self.groupName.text = title ?? "(unset)"
+        guard let url = imageURL else { return }
+        VKApi.instance.downloadImage(urlString: url, completion: {
+            [weak self] data in
+            guard let d = data else { return }
+            self?.groupImage.image = UIImage(data: d)
+        })
+    }
 }

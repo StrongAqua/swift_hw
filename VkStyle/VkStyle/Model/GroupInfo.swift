@@ -12,11 +12,11 @@ import UIKit
 class GroupInfo : Equatable {
     
     var title: String?
-    var image: UIImage?
+    var imageURL: String?
     
-    init(title: String, image: UIImage?) {
+    init(title: String, imageURL: String) {
         self.title = title
-        self.image = image
+        self.imageURL = imageURL
     }
     
     static func ==(lhs: GroupInfo, rhs: GroupInfo) -> Bool {
