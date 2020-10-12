@@ -8,9 +8,10 @@
 
 import Foundation
 import Alamofire
-import SwiftyJSON
 
 class VKApi {
+    
+    let saveService = SaveService()
     
     // let's limit number of objects to download up to 10
     // will do pagination l8r
@@ -37,8 +38,8 @@ class VKApi {
         ]
 
         AF.request(url.url!, method: .get, parameters: parameters).responseData
-        { response in
-            self.processResponse(url.url!, method, response, completion)
+            { response in
+                self.processResponse(url.url!, method, response, completion)
         }
     }
     
@@ -55,12 +56,18 @@ class VKApi {
                 switch(method) {
                 case "photos.get":
                     let photosResponse: VkApiPhotoResponse = try JSONDecoder().decode(VkApiPhotoResponse.self, from: data)
+                    debugPrint("Photos loaded from the server, count = \(photosResponse.response.items.count)")
+                    saveService.savePhotos(photosResponse.response.items)
                     completion(photosResponse.response.items)
                 case "groups.get":
                     let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
+                    debugPrint("Groups loaded from the server, count = \(groupsResponse.response.items.count)")
+                    saveService.saveGroups(groupsResponse.response.items)
                     completion(groupsResponse.response.items)
                 case "friends.get":
                     let friendsResponse: VkApiUsersResponse = try JSONDecoder().decode(VkApiUsersResponse.self, from: data)
+                    debugPrint("Friends loaded from the server, count = \(friendsResponse.response.items.count)")
+                    saveService.saveUsers(friendsResponse.response.items)
                     completion(friendsResponse.response.items)
                 case "groups.search":
                     let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
@@ -82,7 +89,15 @@ class VKApi {
     }
 
     // VK API friends.get wrapper
-    func getFriendsList(_ completion: @escaping ([AnyObject]) -> Void) {
+    func getFriendsList(
+        _ completion: @escaping ([AnyObject]) -> Void,
+        _ useCache: Bool = true) {
+        let friends = useCache ? saveService.readUsersList() : []
+        if (friends.count > 0 ) {
+            debugPrint("Friends loaded from the local storage, count = \(friends.count)")
+            completion(friends)
+            return
+        }
         apiRequest( "friends.get", [
             "user_id": String(Session.instance.userId),
             "count": VKApi.MAX_OBJECTS_COUNT,
@@ -92,19 +107,34 @@ class VKApi {
     }
     
     // VK API photos.get wrapper
-    func getUserPhotos(_ userID: Int, _ completion: @escaping ([AnyObject]) -> Void) {
+    func getUserPhotos(
+        _ userID: Int, _ completion: @escaping ([AnyObject]) -> Void,
+        _ useCache: Bool = true) {
+        let photos = useCache ? saveService.readPhotosList(userID) : []
+        if (photos.count > 0 ) {
+            debugPrint("Photos loaded from the local storage, count = \(photos.count)")
+            completion(photos)
+            return
+        }
         apiRequest( "photos.get", [
             "user_id": String(Session.instance.userId),
             "owner_id": userID,
             "extended": 1,
             "album_id": "profile",
             "count": VKApi.MAX_OBJECTS_COUNT
-        ],
-        completion)
+        ], completion)
     }
     
     // VK API photos.get wrapper
-    func getGroupsList(_ completion: @escaping ([AnyObject]) -> Void) {
+    func getGroupsList(
+        _ completion: @escaping ([AnyObject]) -> Void,
+        _ useCache: Bool = true) {
+        let groups = useCache ? saveService.readGroupsList() : []
+        if (groups.count > 0 ) {
+            debugPrint("Groups loaded from the local storage, count = \(groups.count)")
+            completion(groups)
+            return
+        }
         apiRequest( "groups.get", [
             "user_id": String(Session.instance.userId),
             "count": VKApi.MAX_OBJECTS_COUNT,
@@ -135,4 +165,7 @@ class VKApi {
         }
     }
     
+    func clearCachedData() {
+        saveService.clearAllData()
+    }
 }

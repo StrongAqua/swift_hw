@@ -9,9 +9,10 @@
 import UIKit
 
 class UsersTableViewController: UITableViewController {
-
     
     @IBOutlet weak var searchBar: CustomSearchBar!
+    
+    let refreshCtrl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,18 +20,29 @@ class UsersTableViewController: UITableViewController {
         // Register the custom header view.
         tableView.register(UsersTableCustomHeader.self,
                            forHeaderFooterViewReuseIdentifier: "usersSectionHeader")
-
-        searchBar.setup(delegate: self)
         
+        searchBar.setup(delegate: self)
+        reloadFriends()
+        
+        
+        tableView.addSubview(refreshCtrl)
+        refreshCtrl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+    }
+    
+    @objc private func refreshData(_ sender: Any) {
+        reloadFriends(false)
+    }
+    
+    func reloadFriends(_ useCache: Bool = true) {
         VKApi.instance.getFriendsList({ [weak self] friends in
             UsersManager.shared.setUsersInfo(friends as! [VkApiUsersItem])
             UsersManager.shared.rebuild()
             self?.tableView.reloadData()
-        })
+            self?.refreshCtrl.endRefreshing()
+            }, useCache)
     }
     
     // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return UsersManager.shared.alphabet.count

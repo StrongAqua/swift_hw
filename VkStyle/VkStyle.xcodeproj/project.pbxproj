@@ -11,6 +11,9 @@
 		FE1DBDDE251B32F8008DA0B4 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1DBDDD251B32F8008DA0B4 /* Session.swift */; };
 		FE226CC924EBDBD600E57F91 /* AvatarCompositeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE226CC824EBDBD600E57F91 /* AvatarCompositeView.swift */; };
 		FE226CCD24ED150100E57F91 /* LikeUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE226CCC24ED150100E57F91 /* LikeUIView.swift */; };
+		FE375DE92529C474004DDA14 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE375DE82529C474004DDA14 /* CoreDataStack.swift */; };
+		FE375DEF2529CFA6004DDA14 /* VkStyleStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE375DED2529CFA6004DDA14 /* VkStyleStore.xcdatamodeld */; };
+		FE375DF52529D237004DDA14 /* SaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE375DF42529D236004DDA14 /* SaveService.swift */; };
 		FE4B5B4E251F38D800743AE4 /* WebLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B4D251F38D800743AE4 /* WebLoginViewController.swift */; };
 		FE4B5B51251F41B500743AE4 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B50251F41B500743AE4 /* URLHelper.swift */; };
 		FE4B5B53251F49F600743AE4 /* VKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B52251F49F600743AE4 /* VKApi.swift */; };
@@ -61,6 +64,9 @@
 		FE1DBDDD251B32F8008DA0B4 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		FE226CC824EBDBD600E57F91 /* AvatarCompositeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AvatarCompositeView.swift; path = VkStyle/View/AvatarCompositeView.swift; sourceTree = SOURCE_ROOT; };
 		FE226CCC24ED150100E57F91 /* LikeUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeUIView.swift; sourceTree = "<group>"; };
+		FE375DE82529C474004DDA14 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		FE375DEE2529CFA6004DDA14 /* VkStyleStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VkStyleStore.xcdatamodel; sourceTree = "<group>"; };
+		FE375DF42529D236004DDA14 /* SaveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveService.swift; sourceTree = "<group>"; };
 		FE4B5B4D251F38D800743AE4 /* WebLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebLoginViewController.swift; sourceTree = "<group>"; };
 		FE4B5B50251F41B500743AE4 /* URLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHelper.swift; sourceTree = "<group>"; };
 		FE4B5B52251F49F600743AE4 /* VKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApi.swift; sourceTree = "<group>"; };
@@ -198,6 +204,9 @@
 				FE68859624DAA2690014CAB7 /* AllGroups */,
 				FE87FC0524D81FA9004A4737 /* TabBarViewController.swift */,
 				FE6589AD24D2FFB600BBB3C0 /* Info.plist */,
+				FE375DE82529C474004DDA14 /* CoreDataStack.swift */,
+				FE375DF42529D236004DDA14 /* SaveService.swift */,
+				FE375DED2529CFA6004DDA14 /* VkStyleStore.xcdatamodeld */,
 				FE7F3E4F24FB8E8C00CF32F3 /* MyNews */,
 				FE226CC324EBC85C00E57F91 /* View */,
 				FE6885AF24DC1D2D0014CAB7 /* Resources */,
@@ -453,6 +462,7 @@
 				FEFFD52124FF909100D61F1D /* SignInAnimation.swift in Sources */,
 				FE87FC0624D81FA9004A4737 /* TabBarViewController.swift in Sources */,
 				FE9D582F2508E8F500D809AB /* CustomPushAnimator.swift in Sources */,
+				FE375DE92529C474004DDA14 /* CoreDataStack.swift in Sources */,
 				FE4B5B53251F49F600743AE4 /* VKApi.swift in Sources */,
 				FE6589A424D2FFB500BBB3C0 /* LoginViewController.swift in Sources */,
 				FE68859D24DAB1650014CAB7 /* MyGroupsTableViewCell.swift in Sources */,
@@ -462,6 +472,7 @@
 				FE6755EA24F7994600C6A7FA /* BigPhotoUIViewController.swift in Sources */,
 				FE68859A24DAA5780014CAB7 /* AllGroupsTableViewCell.swift in Sources */,
 				FE9D584A250D4A9300D809AB /* CustomSearchBar.swift in Sources */,
+				FE375DEF2529CFA6004DDA14 /* VkStyleStore.xcdatamodeld in Sources */,
 				FE6885A424DAC62F0014CAB7 /* PhotosCollectionViewCell.swift in Sources */,
 				FE9D58372509720C00D809AB /* AnimationHelpers.swift in Sources */,
 				FE9D58272503C54C00D809AB /* LoadingViewController.swift in Sources */,
@@ -480,6 +491,7 @@
 				FE7F3E4E24FA9F7900CF32F3 /* UsersTableCustomHeader.swift in Sources */,
 				FE4B5B4E251F38D800743AE4 /* WebLoginViewController.swift in Sources */,
 				FE87FC0C24D83B99004A4737 /* GroupsNavigationBarController.swift in Sources */,
+				FE375DF52529D237004DDA14 /* SaveService.swift in Sources */,
 				FE1DBDDE251B32F8008DA0B4 /* Session.swift in Sources */,
 				FE4B5B552523344300743AE4 /* VkUsers.swift in Sources */,
 				FE226CC924EBDBD600E57F91 /* AvatarCompositeView.swift in Sources */,
@@ -686,6 +698,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FE375DED2529CFA6004DDA14 /* VkStyleStore.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FE375DEE2529CFA6004DDA14 /* VkStyleStore.xcdatamodel */,
+			);
+			currentVersion = FE375DEE2529CFA6004DDA14 /* VkStyleStore.xcdatamodel */;
+			path = VkStyleStore.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FE65899424D2FFB500BBB3C0 /* Project object */;
 }

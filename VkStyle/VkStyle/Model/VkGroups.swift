@@ -17,11 +17,11 @@ class VkApiGroupResponseItems: Decodable {
 }
 
 class VkApiGroupItem: Decodable {
-    dynamic var id: Int = 0
-    dynamic var name: String = ""
-    dynamic var is_closed: Int = 0
-    dynamic var is_member: Int = 0
-    dynamic var photo_50_url: String = ""
+    var id: Int = 0
+    var name: String = ""
+    var is_closed: Int = 0
+    var is_member: Int = 0
+    var photo_50_url: String = ""
 
     enum CodingKeys: String, CodingKey {
         case id
