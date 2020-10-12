@@ -11,7 +11,7 @@ import Alamofire
 
 class VKApi {
     
-    let saveService = SaveService()
+    let saveService : SaveServiceInterface = SaveServiceRealm()
     
     // let's limit number of objects to download up to 10
     // will do pagination l8r
