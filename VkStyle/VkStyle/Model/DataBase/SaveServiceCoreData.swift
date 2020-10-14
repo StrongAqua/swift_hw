@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class SaveService {
+class SaveServiceCoreData : SaveServiceInterface {
     
     let storeStack = CoreDataStack(modelName: "VkStyleStore")
     
@@ -50,8 +50,8 @@ class SaveService {
             u?.first_name = user.first_name
             u?.last_name = user.last_name
             u?.photo_url = user.photo_url
-            storeStack.saveContext()
         }
+        storeStack.saveContext()
     }
     
     func readUsersList() -> [VkApiUsersItem] {
@@ -81,8 +81,8 @@ class SaveService {
             ph?.size_m_url = photo.size_m_url
             ph?.size_x_url = photo.size_x_url
             ph?.owner_id = Int64(photo.owner_id)
-            storeStack.saveContext()
         }
+        storeStack.saveContext()
     }
     
     func readPhotosList(_ userID: Int) -> [VkApiPhotoItem] {
@@ -117,8 +117,8 @@ class SaveService {
             g?.is_closed = Int64(group.is_closed)
             g?.is_member = Int64(group.is_member)
             g?.photo_50_url = group.photo_50_url
-            storeStack.saveContext()
         }
+        storeStack.saveContext()
     }
     
     func readGroupsList() -> [VkApiGroupItem] {

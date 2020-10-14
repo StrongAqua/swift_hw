@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class VkApiGroupResponse: Decodable {
     let response: VkApiGroupResponseItems
@@ -16,12 +17,16 @@ class VkApiGroupResponseItems: Decodable {
     let items: [VkApiGroupItem]
 }
 
-class VkApiGroupItem: Decodable {
-    var id: Int = 0
-    var name: String = ""
-    var is_closed: Int = 0
-    var is_member: Int = 0
-    var photo_50_url: String = ""
+class VkApiGroupItem: Object, Decodable {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
+    @objc dynamic var is_closed: Int = 0
+    @objc dynamic var is_member: Int = 0
+    @objc dynamic var photo_50_url: String = ""
+
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 
     enum CodingKeys: String, CodingKey {
         case id

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class VkApiPhotoResponse: Decodable {
     let response: VkApiPhotoResponseItems
@@ -16,20 +17,24 @@ class VkApiPhotoResponseItems: Decodable {
     let items: [VkApiPhotoItem]
 }
 
-class VkApiPhotoItem: Decodable {
+class VkApiPhotoItem: Object, Decodable {
     // photo object fields
-    var id: Int = 0
-    var date: Int = 0
-    var owner_id: Int = 0
+    @objc dynamic var id: Int = 0
+    @objc dynamic var date: Int = 0
+    @objc dynamic var owner_id: Int = 0
 
     // fields of the likes counter
-    var likes_count: Int = 0
-    var user_likes: Int = 0
+    @objc dynamic var likes_count: Int = 0
+    @objc dynamic var user_likes: Int = 0
 
     // urls of different photo sizes
-    var size_s_url: String = ""
-    var size_m_url: String = ""
-    var size_x_url: String = ""
+    @objc dynamic var size_s_url: String = ""
+    @objc dynamic var size_m_url: String = ""
+    @objc dynamic var size_x_url: String = ""
+
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 
     enum CodingKeys: String, CodingKey {
         case id
