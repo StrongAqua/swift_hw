@@ -24,15 +24,15 @@ class MyGroupsTableViewController: UITableViewController {
     }
     
     @objc private func refreshData(_ sender: Any) {
-        reloadGroups(false)
+        reloadGroups()
     }
     
-    func reloadGroups(_ useCache: Bool = true) {
+    func reloadGroups() {
          VKApi.instance.getGroupsList({ [weak self] groups in
             self?.setGroups(groups as! [VkApiGroupItem])
             self?.tableView.reloadData()
             self?.refreshCtrl.endRefreshing()
-            }, useCache)
+            })
     }
     func setGroups(_ groups: [VkApiGroupItem]) {
         self.groups = []

@@ -12,13 +12,16 @@ import CoreData
 protocol SaveServiceInterface {
     func saveUsers(_ users: [VkApiUsersItem])
     func readUsersList() -> [VkApiUsersItem]
+    func subscribeUsersList(_ completion: @escaping ([AnyObject]) -> Void)
     
     func savePhotos(_ photos: [VkApiPhotoItem])
     func readPhotosList(_ userID: Int) -> [VkApiPhotoItem]
-    
+    func subscribePhotosList(_ userID: Int, _ completion: @escaping ([AnyObject]) -> Void)
+
     func saveGroups(_ groups: [VkApiGroupItem])
     func readGroupsList() -> [VkApiGroupItem]
-    
+    func subscribeGroupsList(_ completion: @escaping ([AnyObject]) -> Void)
+
     func clearAllData()
 }
 

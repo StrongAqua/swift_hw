@@ -54,6 +54,9 @@ class SaveServiceCoreData : SaveServiceInterface {
         storeStack.saveContext()
     }
     
+    func subscribeUsersList(_ completion: @escaping ([AnyObject]) -> Void) {
+    }
+    
     func readUsersList() -> [VkApiUsersItem] {
         var friends: [VkApiUsersItem] = []
         let context = storeStack.context
@@ -83,6 +86,9 @@ class SaveServiceCoreData : SaveServiceInterface {
             ph?.owner_id = Int64(photo.owner_id)
         }
         storeStack.saveContext()
+    }
+    
+    func subscribePhotosList(_ userID: Int, _ completion: @escaping ([AnyObject]) -> Void) {
     }
     
     func readPhotosList(_ userID: Int) -> [VkApiPhotoItem] {
@@ -135,6 +141,9 @@ class SaveServiceCoreData : SaveServiceInterface {
             groups_out.append(grp)
         }
         return groups_out
+    }
+    
+    func subscribeGroupsList(_ completion: @escaping ([AnyObject]) -> Void) {
     }
     
 }

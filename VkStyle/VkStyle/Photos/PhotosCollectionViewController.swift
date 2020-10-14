@@ -25,10 +25,10 @@ class PhotosCollectionViewController: UICollectionViewController {
     }
     
     @objc private func refreshData(_ sender: Any) {
-        reloadData(false)
+        reloadData()
     }
     
-    func reloadData(_ useCache: Bool = true) {
+    func reloadData() {
         guard let user = self.user else { return }
         VKApi.instance.getUserPhotos(user.id,
         {[weak self] photos in
@@ -42,7 +42,7 @@ class PhotosCollectionViewController: UICollectionViewController {
 
             self?.collectionView.reloadData()
             self?.refreshCtrl.endRefreshing()
-        }, useCache)
+        })
     }
     
     public func setUser(user: UserInfo) {

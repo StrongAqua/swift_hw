@@ -11,11 +11,17 @@ import RealmSwift
 
 class SaveServiceRealm : SaveServiceInterface {
     
+    var friendsNotificationToken: NotificationToken?
+    var photosNotificationToken: NotificationToken?
+    var photosNotificationTokenUserId = -1
+    var groupsNotificationToken: NotificationToken?
+    
     func saveUsers(_ users: [VkApiUsersItem]) {
         do {
             let realm = try Realm()
             realm.beginWrite()
             realm.add(users, update: .all)
+            debugPrint("Commit users to the Realms")
             try realm.commitWrite()
         } catch {
             debugPrint(error)
@@ -31,6 +37,33 @@ class SaveServiceRealm : SaveServiceInterface {
             debugPrint(error)
         }
         return [VkApiUsersItem]()
+    }
+    
+    func subscribeUsersList(_ completion: @escaping ([AnyObject]) -> Void) {
+        if friendsNotificationToken != nil { return }
+        do {
+            let realm = try Realm()
+            let objects = realm.objects(VkApiUsersItem.self)
+            debugPrint("Subscribe to users list changes")
+            friendsNotificationToken = objects.observe { (changes: RealmCollectionChange) in
+                debugPrint("Realm notified about changes.")
+                switch changes {
+                case .initial (let results):
+                    let users = [VkApiUsersItem](results)
+                    debugPrint(".initial : \(users.count) users loaded from DB")
+                    completion(users)
+                case .update(let results, _, _, _):
+                    let users = [VkApiUsersItem](results)
+                    debugPrint(".update : \(users.count) users changed")
+                    completion([VkApiUsersItem](results))
+                case .error(let error):
+                    debugPrint(".error")
+                    debugPrint(error)
+                }
+            }
+        } catch {
+            debugPrint(error)
+        }
     }
     
     func savePhotos(_ photos: [VkApiPhotoItem]) {
@@ -55,6 +88,33 @@ class SaveServiceRealm : SaveServiceInterface {
         return [VkApiPhotoItem]()
     }
     
+    func subscribePhotosList(_ userID: Int, _ completion: @escaping ([AnyObject]) -> Void) {
+        if photosNotificationToken != nil && userID == photosNotificationTokenUserId { return }
+        do {
+            let realm = try Realm()
+            let objects = realm.objects(VkApiPhotoItem.self).filter("owner_id == \(userID)")
+            debugPrint("Subscribe to photos list changes")
+            photosNotificationToken = objects.observe { (changes: RealmCollectionChange) in
+                debugPrint("Realm notified about changes.")
+                switch changes {
+                case .initial (let results):
+                    let photos = [VkApiPhotoItem](results)
+                    debugPrint(".initial : \(photos.count) groups loaded from DB")
+                    completion(photos)
+                case .update(let results, _, _, _):
+                    let photos = [VkApiPhotoItem](results)
+                    debugPrint(".update : \(photos.count) photos changed")
+                    completion([VkApiPhotoItem](results))
+                case .error(let error):
+                    debugPrint(".error")
+                    debugPrint(error)
+                }
+            }
+            photosNotificationTokenUserId = userID
+        } catch {
+            debugPrint(error)
+        }
+    }
     func saveGroups(_ groups: [VkApiGroupItem]) {
         do {
             let realm = try Realm()
@@ -76,7 +136,33 @@ class SaveServiceRealm : SaveServiceInterface {
         }
         return [VkApiGroupItem]()
     }
-
+    
+    func subscribeGroupsList(_ completion: @escaping ([AnyObject]) -> Void) {
+        if groupsNotificationToken != nil { return }
+        do {
+            let realm = try Realm()
+            let objects = realm.objects(VkApiGroupItem.self)
+            debugPrint("Subscribe to groups list changes")
+            groupsNotificationToken = objects.observe { (changes: RealmCollectionChange) in
+                debugPrint("Realm notified about changes.")
+                switch changes {
+                case .initial (let results):
+                    let groups = [VkApiGroupItem](results)
+                    debugPrint(".initial : \(groups.count) groups loaded from DB")
+                    completion(groups)
+                case .update(let results, _, _, _):
+                    let groups = [VkApiGroupItem](results)
+                    debugPrint(".update : \(groups.count) groups changed")
+                    completion([VkApiGroupItem](results))
+                case .error(let error):
+                    debugPrint(".error")
+                    debugPrint(error)
+                }
+            }
+        } catch {
+            debugPrint(error)
+        }
+    }
     func clearAllData() {
         do {
             let realm = try Realm()
