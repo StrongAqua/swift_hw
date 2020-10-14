@@ -55,7 +55,7 @@ class SaveServiceRealm : SaveServiceInterface {
                 case .update(let results, _, _, _):
                     let users = [VkApiUsersItem](results)
                     debugPrint(".update : \(users.count) users changed")
-                    completion([VkApiUsersItem](results))
+                    completion(users)
                 case .error(let error):
                     debugPrint(".error")
                     debugPrint(error)
@@ -104,7 +104,7 @@ class SaveServiceRealm : SaveServiceInterface {
                 case .update(let results, _, _, _):
                     let photos = [VkApiPhotoItem](results)
                     debugPrint(".update : \(photos.count) photos changed")
-                    completion([VkApiPhotoItem](results))
+                    completion(photos)
                 case .error(let error):
                     debugPrint(".error")
                     debugPrint(error)
@@ -153,7 +153,7 @@ class SaveServiceRealm : SaveServiceInterface {
                 case .update(let results, _, _, _):
                     let groups = [VkApiGroupItem](results)
                     debugPrint(".update : \(groups.count) groups changed")
-                    completion([VkApiGroupItem](results))
+                    completion(groups)
                 case .error(let error):
                     debugPrint(".error")
                     debugPrint(error)
