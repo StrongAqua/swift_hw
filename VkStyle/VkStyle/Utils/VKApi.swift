@@ -24,7 +24,7 @@ class VKApi {
     private func apiRequest(
         _ method: String,
         _ parameters: [String: Any],
-        _ completion: @escaping ([AnyObject]) -> Void
+        _ completion: @escaping ([AnyObject]) -> Void = {_ in }
     ) {
         var url = URLComponents()
 
@@ -58,17 +58,14 @@ class VKApi {
                     let photosResponse: VkApiPhotoResponse = try JSONDecoder().decode(VkApiPhotoResponse.self, from: data)
                     debugPrint("Photos loaded from the server, count = \(photosResponse.response.items.count)")
                     saveService.savePhotos(photosResponse.response.items)
-                    completion(photosResponse.response.items)
                 case "groups.get":
                     let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
                     debugPrint("Groups loaded from the server, count = \(groupsResponse.response.items.count)")
                     saveService.saveGroups(groupsResponse.response.items)
-                    completion(groupsResponse.response.items)
                 case "friends.get":
                     let friendsResponse: VkApiUsersResponse = try JSONDecoder().decode(VkApiUsersResponse.self, from: data)
                     debugPrint("Friends loaded from the server, count = \(friendsResponse.response.items.count)")
                     saveService.saveUsers(friendsResponse.response.items)
-                    completion(friendsResponse.response.items)
                 case "groups.search":
                     let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
                     completion(groupsResponse.response.items)
@@ -89,58 +86,37 @@ class VKApi {
     }
 
     // VK API friends.get wrapper
-    func getFriendsList(
-        _ completion: @escaping ([AnyObject]) -> Void,
-        _ useCache: Bool = true) {
-        let friends = useCache ? saveService.readUsersList() : []
-        if (friends.count > 0 ) {
-            debugPrint("Friends loaded from the local storage, count = \(friends.count)")
-            completion(friends)
-            return
-        }
+    func getFriendsList(_ completion: @escaping ([AnyObject]) -> Void) {
+        saveService.subscribeUsersList(completion)
         apiRequest( "friends.get", [
             "user_id": String(Session.instance.userId),
             "count": VKApi.MAX_OBJECTS_COUNT,
             "order": "name",
             "fields": "id,first_name,last_name,photo_200_orig"
-        ], completion)
+        ])
     }
     
     // VK API photos.get wrapper
-    func getUserPhotos(
-        _ userID: Int, _ completion: @escaping ([AnyObject]) -> Void,
-        _ useCache: Bool = true) {
-        let photos = useCache ? saveService.readPhotosList(userID) : []
-        if (photos.count > 0 ) {
-            debugPrint("Photos loaded from the local storage, count = \(photos.count)")
-            completion(photos)
-            return
-        }
+    func getUserPhotos(_ userID: Int, _ completion: @escaping ([AnyObject]) -> Void) {
+        saveService.subscribePhotosList(userID, completion)
         apiRequest( "photos.get", [
             "user_id": String(Session.instance.userId),
             "owner_id": userID,
             "extended": 1,
             "album_id": "profile",
             "count": VKApi.MAX_OBJECTS_COUNT
-        ], completion)
+        ])
     }
     
     // VK API photos.get wrapper
-    func getGroupsList(
-        _ completion: @escaping ([AnyObject]) -> Void,
-        _ useCache: Bool = true) {
-        let groups = useCache ? saveService.readGroupsList() : []
-        if (groups.count > 0 ) {
-            debugPrint("Groups loaded from the local storage, count = \(groups.count)")
-            completion(groups)
-            return
-        }
+    func getGroupsList(_ completion: @escaping ([AnyObject]) -> Void) {
+        saveService.subscribeGroupsList(completion)
         apiRequest( "groups.get", [
             "user_id": String(Session.instance.userId),
             "count": VKApi.MAX_OBJECTS_COUNT,
             "extended": 1,
             "fields": "id,name"
-        ], completion)
+        ])
     }
     
     func searchGroups(_ query: String, _ completion: @escaping ([AnyObject]) -> Void) {

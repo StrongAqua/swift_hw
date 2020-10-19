@@ -24,22 +24,22 @@ class UsersTableViewController: UITableViewController {
         searchBar.setup(delegate: self)
         reloadFriends()
         
-        
         tableView.addSubview(refreshCtrl)
         refreshCtrl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
     
     @objc private func refreshData(_ sender: Any) {
-        reloadFriends(false)
+        reloadFriends()
     }
     
-    func reloadFriends(_ useCache: Bool = true) {
+    func reloadFriends() {
         VKApi.instance.getFriendsList({ [weak self] friends in
+            debugPrint("completion block: update UI (tableView)");
             UsersManager.shared.setUsersInfo(friends as! [VkApiUsersItem])
             UsersManager.shared.rebuild()
             self?.tableView.reloadData()
             self?.refreshCtrl.endRefreshing()
-            }, useCache)
+            })
     }
     
     // MARK: - Table view data source
