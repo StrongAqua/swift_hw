@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import Firebase
 
 class VkApiPhotoResponse: Decodable {
     let response: VkApiPhotoResponseItems
@@ -31,6 +32,8 @@ class VkApiPhotoItem: Object, Decodable {
     @objc dynamic var size_s_url: String = ""
     @objc dynamic var size_m_url: String = ""
     @objc dynamic var size_x_url: String = ""
+    
+    let ref: DatabaseReference?
 
     override static func primaryKey() -> String? {
         return "id"
@@ -52,6 +55,10 @@ class VkApiPhotoItem: Object, Decodable {
     enum SizesKeys: String, CodingKey {
         case type
         case url
+    }
+    
+    required init() {
+        self.ref = nil
     }
 
     convenience required init(from decoder: Decoder) throws {
@@ -82,6 +89,47 @@ class VkApiPhotoItem: Object, Decodable {
                     break
             }
         }
+    }
+    
+    // ------------------------------------------------------------
+    // FIREBASE COMPATIBILITY:
+    init?(snapshot: DataSnapshot) {
+        guard
+            let value = snapshot.value as? [String: Any],
+            let id = value["id"] as? Int,
+            let date = value["date"] as? Int,
+            let owner_id = value["owner_id"] as? Int,
+            let likes_count = value["likes_count"] as? Int,
+            let user_likes = value["user_likes"] as? Int,
+            let size_s_url = value["size_s_url"] as? String,
+            let size_m_url = value["size_m_url"] as? String,
+            let size_x_url = value["size_x_url"] as? String
+        else {
+            return nil
+        }
+        
+        self.ref = snapshot.ref
+        self.id = id
+        self.date = date
+        self.owner_id = owner_id
+        self.likes_count = likes_count
+        self.user_likes = user_likes
+        self.size_s_url = size_s_url
+        self.size_m_url = size_m_url
+        self.size_x_url = size_x_url
+    }
+    
+    func toAnyObject() -> [String: Any] {
+        return [
+            "id": id,
+            "date": date,
+            "owner_id": owner_id,
+            "likes_count": likes_count,
+            "user_likes": user_likes,
+            "size_s_url": size_s_url,
+            "size_m_url": size_m_url,
+            "size_x_url": size_x_url
+        ]
     }
 }
 

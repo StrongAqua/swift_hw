@@ -31,16 +31,16 @@ class PhotosCollectionViewController: UICollectionViewController {
     func reloadData() {
         guard let user = self.user else { return }
         VKApi.instance.getUserPhotos(user.id,
-        {[weak self] photos in
-            guard let photoItems = photos as? [VkApiPhotoItem] else { return }
-            if photoItems.count <= 0 { return }
-
-            UsersManager.shared.setUserPhotos(
-                user.id,
-                photoItems
-            )
-
-            self?.collectionView.reloadData()
+        {[weak self] photos, event in
+            if (event == .dataLoadedFromDB) {
+                guard let photoItems = photos as? [VkApiPhotoItem] else { return }
+                if photoItems.count <= 0 { return }
+                UsersManager.shared.setUserPhotos(
+                    user.id,
+                    photoItems
+                )
+                self?.collectionView.reloadData()
+            }
             self?.refreshCtrl.endRefreshing()
         })
     }
