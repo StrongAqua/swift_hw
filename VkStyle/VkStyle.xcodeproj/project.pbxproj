@@ -22,6 +22,7 @@
 		FE4B5B552523344300743AE4 /* VkUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B542523344300743AE4 /* VkUsers.swift */; };
 		FE4B5B5725233A7B00743AE4 /* VkPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B5625233A7B00743AE4 /* VkPhotos.swift */; };
 		FE4B5B5925233A9500743AE4 /* VkGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B5825233A9500743AE4 /* VkGroups.swift */; };
+		FE5C3057253C66FC0055B736 /* SaveServiceFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C3056253C66FC0055B736 /* SaveServiceFirebase.swift */; };
 		FE6589A024D2FFB500BBB3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */; };
 		FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6589A124D2FFB500BBB3C0 /* SceneDelegate.swift */; };
 		FE6589A424D2FFB500BBB3C0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6589A324D2FFB500BBB3C0 /* LoginViewController.swift */; };
@@ -37,8 +38,8 @@
 		FE6885A424DAC62F0014CAB7 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885A324DAC62F0014CAB7 /* PhotosCollectionViewCell.swift */; };
 		FE6885A724DAC9CA0014CAB7 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885A624DAC9CA0014CAB7 /* UsersTableViewController.swift */; };
 		FE6885A924DACA200014CAB7 /* UsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885A824DACA200014CAB7 /* UsersTableViewCell.swift */; };
-		FE6885AC24DAD60E0014CAB7 /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885AB24DAD60E0014CAB7 /* GroupInfo.swift */; };
 		FE6885AE24DBF42C0014CAB7 /* InternalDataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6885AD24DBF42C0014CAB7 /* InternalDataModels.swift */; };
+		FE778457253B126500F5781E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE778456253B126500F5781E /* GoogleService-Info.plist */; };
 		FE7F3E4E24FA9F7900CF32F3 /* UsersTableCustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7F3E4D24FA9F7900CF32F3 /* UsersTableCustomHeader.swift */; };
 		FE7F3E5124FB8ED400CF32F3 /* MyNewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7F3E5024FB8ED400CF32F3 /* MyNewsTableViewController.swift */; };
 		FE7F3E5724FB961300CF32F3 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7F3E5624FB961300CF32F3 /* NewsCell.swift */; };
@@ -76,6 +77,7 @@
 		FE4B5B542523344300743AE4 /* VkUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkUsers.swift; sourceTree = "<group>"; };
 		FE4B5B5625233A7B00743AE4 /* VkPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkPhotos.swift; sourceTree = "<group>"; };
 		FE4B5B5825233A9500743AE4 /* VkGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkGroups.swift; sourceTree = "<group>"; };
+		FE5C3056253C66FC0055B736 /* SaveServiceFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveServiceFirebase.swift; sourceTree = "<group>"; };
 		FE65899C24D2FFB500BBB3C0 /* VkStyle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkStyle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE6589A124D2FFB500BBB3C0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,8 +95,8 @@
 		FE6885A324DAC62F0014CAB7 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		FE6885A624DAC9CA0014CAB7 /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		FE6885A824DACA200014CAB7 /* UsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewCell.swift; sourceTree = "<group>"; };
-		FE6885AB24DAD60E0014CAB7 /* GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
 		FE6885AD24DBF42C0014CAB7 /* InternalDataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalDataModels.swift; sourceTree = "<group>"; };
+		FE778456253B126500F5781E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FE7F3E4D24FA9F7900CF32F3 /* UsersTableCustomHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableCustomHeader.swift; sourceTree = "<group>"; };
 		FE7F3E5024FB8ED400CF32F3 /* MyNewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNewsTableViewController.swift; sourceTree = "<group>"; };
 		FE7F3E5624FB961300CF32F3 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			children = (
 				FE375DE82529C474004DDA14 /* CoreDataStack.swift */,
 				FE375DF42529D236004DDA14 /* SaveServiceInterface.swift */,
+				FE5C3056253C66FC0055B736 /* SaveServiceFirebase.swift */,
 				FE375E042531A533004DDA14 /* SaveServiceCoreData.swift */,
 				FE375E022531A37F004DDA14 /* SaveServiceRealm.swift */,
 				FE375DED2529CFA6004DDA14 /* VkStyleStore.xcdatamodeld */,
@@ -267,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				FE375E062531B7A4004DDA14 /* DataBase */,
-				FE6885AB24DAD60E0014CAB7 /* GroupInfo.swift */,
 				FE6885AD24DBF42C0014CAB7 /* InternalDataModels.swift */,
 				FE1DBDDD251B32F8008DA0B4 /* Session.swift */,
 				FE4B5B542523344300743AE4 /* VkUsers.swift */,
@@ -282,6 +284,7 @@
 			children = (
 				FE6589AD24D2FFB600BBB3C0 /* Info.plist */,
 				FE6589A524D2FFB500BBB3C0 /* Main.storyboard */,
+				FE778456253B126500F5781E /* GoogleService-Info.plist */,
 				FE6589A824D2FFB600BBB3C0 /* Assets.xcassets */,
 				FE6589AA24D2FFB600BBB3C0 /* LaunchScreen.storyboard */,
 			);
@@ -409,6 +412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE6589AC24D2FFB600BBB3C0 /* LaunchScreen.storyboard in Resources */,
+				FE778457253B126500F5781E /* GoogleService-Info.plist in Resources */,
 				FE8B2F6824FC1305003DB7EA /* NewsPhotoCollectionCell.xib in Resources */,
 				FEFFD51F24FF905B00D61F1D /* SignInAnimation.xib in Resources */,
 				FE9D5848250D4A5B00D809AB /* CustomSearchBar.xib in Resources */,
@@ -472,6 +476,7 @@
 				FE4B5B51251F41B500743AE4 /* URLHelper.swift in Sources */,
 				FEFFD52124FF909100D61F1D /* SignInAnimation.swift in Sources */,
 				FE375E052531A533004DDA14 /* SaveServiceCoreData.swift in Sources */,
+				FE5C3057253C66FC0055B736 /* SaveServiceFirebase.swift in Sources */,
 				FE9D582F2508E8F500D809AB /* CustomPushAnimator.swift in Sources */,
 				FE375DE92529C474004DDA14 /* CoreDataStack.swift in Sources */,
 				FE4B5B53251F49F600743AE4 /* VKApi.swift in Sources */,
@@ -488,7 +493,6 @@
 				FE6885A424DAC62F0014CAB7 /* PhotosCollectionViewCell.swift in Sources */,
 				FE9D58372509720C00D809AB /* AnimationHelpers.swift in Sources */,
 				FE9D58272503C54C00D809AB /* LoadingViewController.swift in Sources */,
-				FE6885AC24DAD60E0014CAB7 /* GroupInfo.swift in Sources */,
 				FE6589A024D2FFB500BBB3C0 /* AppDelegate.swift in Sources */,
 				FE68859F24DAB1910014CAB7 /* MyGroupsTableViewController.swift in Sources */,
 				FE7F3E5124FB8ED400CF32F3 /* MyNewsTableViewController.swift in Sources */,

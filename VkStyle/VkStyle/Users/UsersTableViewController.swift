@@ -33,13 +33,15 @@ class UsersTableViewController: UITableViewController {
     }
     
     func reloadFriends() {
-        VKApi.instance.getFriendsList({ [weak self] friends in
-            debugPrint("completion block: update UI (tableView)");
-            UsersManager.shared.setUsersInfo(friends as! [VkApiUsersItem])
-            UsersManager.shared.rebuild()
-            self?.tableView.reloadData()
+        VKApi.instance.getFriendsList({ [weak self] friends, event in
+            if (event == .dataLoadedFromDB) {
+                debugPrint("completion block: update UI (tableView)");
+                UsersManager.shared.setUsersInfo(friends as! [VkApiUsersItem])
+                UsersManager.shared.rebuild()
+                self?.tableView.reloadData()
+            }
             self?.refreshCtrl.endRefreshing()
-            })
+        })
     }
     
     // MARK: - Table view data source

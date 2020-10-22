@@ -10,7 +10,7 @@ import UIKit
 
 class MyGroupsTableViewController: UITableViewController {
     
-    var groups: [GroupInfo] = []
+    var groups: [VkApiGroupItem] = []
     
     let refreshCtrl = UIRefreshControl()
     
@@ -28,16 +28,18 @@ class MyGroupsTableViewController: UITableViewController {
     }
     
     func reloadGroups() {
-         VKApi.instance.getGroupsList({ [weak self] groups in
-            self?.setGroups(groups as! [VkApiGroupItem])
-            self?.tableView.reloadData()
+         VKApi.instance.getGroupsList({ [weak self] groups, event in
+            if (event == .dataLoadedFromDB) {
+                self?.setGroups(groups as! [VkApiGroupItem])
+                self?.tableView.reloadData()
+            }
             self?.refreshCtrl.endRefreshing()
-            })
+        })
     }
     func setGroups(_ groups: [VkApiGroupItem]) {
         self.groups = []
         for group in groups {
-            self.groups.append(GroupInfo(title: group.name, imageURL: group.photo_50_url))
+            self.groups.append(group)
         }
     }
     
@@ -53,7 +55,7 @@ class MyGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupsCell", for: indexPath) as! MyGroupsTableViewCell
         let group = groups[indexPath.row]
-        cell.setup(title: group.title, imageURL: group.imageURL)
+        cell.setup(title: group.name, imageURL: group.photo_50_url)
         return cell
     }
     
@@ -80,9 +82,9 @@ class MyGroupsTableViewController: UITableViewController {
                 // Проверяем, что такой группы нет в списке
                 if !groups.contains(group) {
                     // Добавляем группу в список выбранных групп
+                    debugPrint("Append group \(group.name)")
                     groups.append(group)
-                    // Обновляем таблицу
-                    tableView.reloadData()
+                    VKApi.instance.saveGroups([group])
                 }
             }
         }

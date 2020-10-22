@@ -13,7 +13,7 @@ class AllGroupsTableViewController: UITableViewController {
     @IBOutlet weak var searchBar: CustomSearchBar!
     weak var timer: Timer?
 
-    var groups: [GroupInfo] = []
+    var groups: [VkApiGroupItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class AllGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! AllGroupsTableViewCell
         let group = groups[indexPath.row]
-        cell.setup(title: group.title, imageURL: group.imageURL)
+        cell.setup(title: group.name, imageURL: group.photo_50_url)
         return cell
     }
     
@@ -48,9 +48,11 @@ class AllGroupsTableViewController: UITableViewController {
     }
 
     func doSearch() {
-        VKApi.instance.searchGroups(searchBar.searchBar.text ?? "", { [weak self] groups in
-            self?.setGroups(groups as! [VkApiGroupItem])
-            self?.tableView.reloadData()
+        VKApi.instance.searchGroups(searchBar.searchBar.text ?? "", { [weak self] groups, event in
+            if (event == .dataLoadedFromServer) {
+                self?.setGroups(groups as! [VkApiGroupItem])
+                self?.tableView.reloadData()
+            }
         })
         tableView.reloadData()
     }
@@ -58,7 +60,7 @@ class AllGroupsTableViewController: UITableViewController {
     func setGroups(_ groups: [VkApiGroupItem]) {
         self.groups = []
         for group in groups {
-            self.groups.append(GroupInfo(title: group.name, imageURL: group.photo_50_url))
+            self.groups.append(group)
         }
     }
     
