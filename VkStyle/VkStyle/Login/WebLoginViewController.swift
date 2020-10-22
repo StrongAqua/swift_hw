@@ -23,7 +23,7 @@ class WebLoginViewController: UIViewController {
     }
     
     func login() {
-        let scope = 262150 | (1 << 16) // 'offline' token - no time limit
+        let scope = 262150 | (1 << 16) | (1 << 13) // permission for the news access
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "oauth.vk.com"

@@ -23,6 +23,7 @@
 		FE4B5B5725233A7B00743AE4 /* VkPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B5625233A7B00743AE4 /* VkPhotos.swift */; };
 		FE4B5B5925233A9500743AE4 /* VkGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B5825233A9500743AE4 /* VkGroups.swift */; };
 		FE5C3057253C66FC0055B736 /* SaveServiceFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C3056253C66FC0055B736 /* SaveServiceFirebase.swift */; };
+		FE628ED72540277C00E0F466 /* VkNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE628ED62540277C00E0F466 /* VkNews.swift */; };
 		FE6589A024D2FFB500BBB3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */; };
 		FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6589A124D2FFB500BBB3C0 /* SceneDelegate.swift */; };
 		FE6589A424D2FFB500BBB3C0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6589A324D2FFB500BBB3C0 /* LoginViewController.swift */; };
@@ -78,6 +79,7 @@
 		FE4B5B5625233A7B00743AE4 /* VkPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkPhotos.swift; sourceTree = "<group>"; };
 		FE4B5B5825233A9500743AE4 /* VkGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkGroups.swift; sourceTree = "<group>"; };
 		FE5C3056253C66FC0055B736 /* SaveServiceFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveServiceFirebase.swift; sourceTree = "<group>"; };
+		FE628ED62540277C00E0F466 /* VkNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkNews.swift; sourceTree = "<group>"; };
 		FE65899C24D2FFB500BBB3C0 /* VkStyle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkStyle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE6589A124D2FFB500BBB3C0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				FE1DBDDD251B32F8008DA0B4 /* Session.swift */,
 				FE4B5B542523344300743AE4 /* VkUsers.swift */,
 				FE4B5B5825233A9500743AE4 /* VkGroups.swift */,
+				FE628ED62540277C00E0F466 /* VkNews.swift */,
 				FE4B5B5625233A7B00743AE4 /* VkPhotos.swift */,
 			);
 			path = Model;
@@ -477,6 +480,7 @@
 				FEFFD52124FF909100D61F1D /* SignInAnimation.swift in Sources */,
 				FE375E052531A533004DDA14 /* SaveServiceCoreData.swift in Sources */,
 				FE5C3057253C66FC0055B736 /* SaveServiceFirebase.swift in Sources */,
+				FE628ED72540277C00E0F466 /* VkNews.swift in Sources */,
 				FE9D582F2508E8F500D809AB /* CustomPushAnimator.swift in Sources */,
 				FE375DE92529C474004DDA14 /* CoreDataStack.swift in Sources */,
 				FE4B5B53251F49F600743AE4 /* VKApi.swift in Sources */,

@@ -20,7 +20,10 @@ class SaveServiceFirebase : SaveServiceInterface {
 
     let groupsListRef = Database.database().reference().child("\(Session.instance.userId)/groups")
     var isSetGroupsObserver : Bool = false
-
+    
+    let newsListRef = Database.database().reference().child("\(Session.instance.userId)/news")
+    var isSetNewsObserver : Bool = false
+    
     func saveUsers(_ users: [VkApiUsersItem]) {
         debugPrint("Save users to the Firebase")
         for user in users {
@@ -122,7 +125,37 @@ class SaveServiceFirebase : SaveServiceInterface {
             })
         }
     }
+ 
+    func saveNews(_ news: [VkApiNewsItem]) {
+        debugPrint("Save news to the Firebase, count = \(news.count)")
+        for note in news {
+            newsListRef.child("\(note.sourceId):\(note.postId)").setValue(note.toAnyObject())
+        }
+    }
     
+    func readNewsList() -> [VkApiNewsItem] {
+        return []
+    }
+
+    func subscribeNewsList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+        if isSetNewsObserver == false {
+            isSetNewsObserver = true
+            debugPrint("Subscribe to the Firebase events")
+            newsListRef.observe(.value, with: {
+                dataBaseSnapshot in
+                debugPrint("Firebase updated event")
+                var news : [VkApiNewsItem] = []
+                for child in dataBaseSnapshot.children {
+                    if let objectSnapshot = child as? DataSnapshot,
+                        let note = VkApiNewsItem(snapshot: objectSnapshot) {
+                        news.append(note)
+                    }
+                }
+                completion(news, .dataLoadedFromDB)
+            })
+        }
+    }
+
     func clearAllData() {
     }
 }

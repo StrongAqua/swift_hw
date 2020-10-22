@@ -20,8 +20,6 @@ class NewsCell: UITableViewCell
     @IBOutlet weak var messageImage: UIImageView!
     @IBOutlet weak var likeView: LikeUIView!
     
-    var photo = ""
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -34,25 +32,32 @@ class NewsCell: UITableViewCell
         super.setSelected(selected, animated: animated)
     }
     
-    func setup(_ user: UserInfo, _ message: NewsMessage) {
+    func setup(_ item: VkApiNewsItem) {
 
-        VKApi.instance.downloadImage(urlString: user.photo, completion: {
+        VKApi.instance.downloadImage(urlString: item.avatarPhoto ?? "", completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.avatarImage.image = UIImage(data: d)
         })
         
-        userName.text = user.user
-        messageText.text = message.messageText
+        let first_name = item.firstName ?? ""
+        let last_name = item.lastName ?? ""
+        userName.text = "\(first_name) \(last_name)"
+        messageText.text = "My new photo!"
         
-        photo = message.photo
-        messageImage.image = UIImage(named: photo)
+
+        VKApi.instance.downloadImage(urlString: item.photos?.items.first?.size_x_url ?? "", completion: {
+            [weak self] data in
+            guard let d = data else { return }
+            self?.messageImage.image = UIImage(data: d)
+        })
                 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        messageDate.text = dateFormatter.string(from: message.date)
-        likeView.setObject(object: message)
-
+        messageDate.text = dateFormatter.string(
+            from: Date(timeIntervalSince1970: TimeInterval(item.date))
+        )
+        // likeView.setObject(object: message)
     }
 }
