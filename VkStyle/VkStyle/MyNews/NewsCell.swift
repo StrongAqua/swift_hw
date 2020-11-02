@@ -43,15 +43,29 @@ class NewsCell: UITableViewCell
         let first_name = item.firstName ?? ""
         let last_name = item.lastName ?? ""
         userName.text = "\(first_name) \(last_name)"
-        messageText.text = "My new photo!"
         
+        messageText.text = item.text ?? ""
 
-        VKApi.instance.downloadImage(urlString: item.photos?.items.first?.size_x_url ?? "", completion: {
-            [weak self] data in
-            guard let d = data else { return }
-            self?.messageImage.image = UIImage(data: d)
-        })
-                
+        var imageUrl: String?
+        if (item.photos != nil && !(item.photos?.items.isEmpty ?? false)) {
+            imageUrl = item.photos?.items.first?.sizeXUrl ?? ""
+        } else if(item.attachments != nil) {
+            if let attachments = item.attachments {
+                for a in attachments {
+                    if a.type == "photo" {
+                        imageUrl = a.photo?.sizeXUrl ?? ""
+                    }
+                }
+            }
+        }
+        if let url = imageUrl {
+            VKApi.instance.downloadImage(urlString: url, completion: {
+                [weak self] data in
+                guard let d = data else { return }
+                self?.messageImage.image = UIImage(data: d)
+            })
+        }
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         

@@ -77,7 +77,8 @@ class LikeUIView: UIView {
     
     func setState(_ isLiked: Bool) {
         likeButton.setTitle(isLiked ? "💗" : "💙", for: .normal)
-        likeLabel.text = isLiked ? "1" : "0"
+        let likesCount = object?.likesCount ?? 0
+        likeLabel.text = isLiked ? "\(likesCount + 1)" : "\(likesCount)"
         likeLabel.textColor = isLiked ? UIColor.red : UIColor.white
         
     }

@@ -17,14 +17,25 @@ class VkApiNewsResponse: Decodable {
 class VkApiNewsResponseItems: Decodable {
     let items: [VkApiNewsItem]
     let profiles: [VkApiUsersItem]
-    
+    let groups: [VkApiGroupItem]
+
     func compose() {
         for item in items {
-            for profile in profiles {
-                if (item.sourceId == profile.id) {
-                    item.firstName = profile.firstName
-                    item.lastName = profile.lastName
-                    item.avatarPhoto = profile.photoUrl
+            if (item.sourceId >= 0) {
+                for profile in profiles {
+                    if (item.sourceId == profile.id) {
+                        item.firstName = profile.firstName
+                        item.lastName = profile.lastName
+                        item.avatarPhoto = profile.photoUrl
+                    }
+                }
+            } else {
+                for group in groups {
+                    if (abs(item.sourceId) == group.id) {
+                        item.firstName = group.name
+                        item.lastName = ""
+                        item.avatarPhoto = group.photo50Url
+                    }
                 }
             }
         }
@@ -35,20 +46,27 @@ class VkApiNewsItem: Decodable {
     @objc dynamic var postId: Int = 0
     @objc dynamic var date: Int = 0
     @objc dynamic var sourceId: Int = 0
-
+    
     @objc dynamic var lastName: String?
     @objc dynamic var firstName: String?
     @objc dynamic var avatarPhoto: String?
 
+    @objc dynamic var text: String?
+
     var photos: VkApiNewsPhotos?
+    var likes: VkApiLikes?
+    var attachments: [VkApiAttachment]?
 
     var ref: DatabaseReference?
     
     enum CodingKeys: String, CodingKey {
-        case post_id
+        case postId = "post_id"
         case date
-        case source_id
+        case sourceId = "source_id"
+        case text
         case photos
+        case likes
+        case attachments
     }
 
     required init() {
@@ -59,10 +77,21 @@ class VkApiNewsItem: Decodable {
         self.init()
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.postId = try values.decode(Int.self, forKey: .post_id)
+        self.postId = try values.decode(Int.self, forKey: .postId)
         self.date = try values.decode(Int.self, forKey: .date)
-        self.sourceId = try values.decode(Int.self, forKey: .source_id)
-        self.photos = try values.decode(VkApiNewsPhotos.self, forKey: .photos)
+        self.sourceId = try values.decode(Int.self, forKey: .sourceId)
+
+        self.text = try? values.decode(String.self, forKey: .text)
+        self.photos = try? values.decode(VkApiNewsPhotos.self, forKey: .photos)
+        self.likes = try? values.decode(VkApiLikes.self, forKey: .likes)
+        var attachments = try? values.nestedUnkeyedContainer(forKey: .attachments)
+        self.attachments = []
+        for _ in 0..<(attachments?.count ?? 0) {
+            if let a = try? attachments?.decode(VkApiAttachment.self) {
+                self.attachments!.append(a)
+            }
+        }
+        // self.attachments = attachments
     }
 
     // ------------------------------------------------------------
@@ -76,7 +105,7 @@ class VkApiNewsItem: Decodable {
             let firstName = value["first_name"] as? String,
             let lastName = value["last_name"] as? String,
             let avatarPhoto = value["avatar_photo"] as? String,
-            let photos = VkApiNewsPhotos(snapshot: snapshot.childSnapshot(forPath: "photos"))
+            let text = value["text"] as? String
         else {
             debugPrint("ERROR: DataSnapshot:VkApiNewsItem guard failed")
             return nil
@@ -89,7 +118,17 @@ class VkApiNewsItem: Decodable {
         self.firstName = firstName
         self.lastName = lastName
         self.avatarPhoto = avatarPhoto
-        self.photos = photos
+        self.text = text
+        if let photos = VkApiNewsPhotos(snapshot: snapshot.childSnapshot(forPath: "photos")) {
+            self.photos = photos
+        }
+        let attachments = snapshot.childSnapshot(forPath: "attachments")
+        self.attachments = []
+        for i in 0..<attachments.childrenCount {
+            if let a = VkApiAttachment(snapshot: attachments.childSnapshot(forPath: "\(i)")) {
+                self.attachments?.append(a)
+            }
+        }
     }
 
     func toAnyObject() -> [String: Any] {
@@ -99,10 +138,20 @@ class VkApiNewsItem: Decodable {
             "source_id": sourceId,
             "first_name": firstName ?? "",
             "last_name": lastName ?? "",
-            "avatar_photo": avatarPhoto ?? ""
+            "avatar_photo": avatarPhoto ?? "",
+            "text": text ?? ""
         ]
         if let ps = photos {
             result["photos"] = ps.toAnyObject()
+        }
+        if let ats = attachments {
+            var items: [Any] = []
+            for item in ats {
+                items.append(item.toAnyObject())
+            }
+            if (!items.isEmpty) {
+                result["attachments"] = items
+            }
         }
         return result
     }
@@ -142,3 +191,61 @@ class VkApiNewsPhotos: Decodable {
         ]
     }
 }
+
+class VkApiLikes: Decodable {
+    // snake style for parsing (!)
+    @objc dynamic var count: Int = 0
+    @objc dynamic var user_likes: Int = 0
+    
+    init?(snapshot: DataSnapshot) {
+        guard
+            let value = snapshot.value as? [String: Any],
+            let count = value["count"] as? Int,
+            let user_likes = value["user_likes"] as? Int
+        else {
+            return
+        }
+        self.count = count
+        self.user_likes = user_likes
+    }
+    
+    func toAnyObject() -> [String: Any] {
+        return [
+            "count": count,
+            "user_likes": user_likes
+        ]
+    }
+}
+
+class VkApiAttachment: Decodable {
+    var type: String?
+    // possible attachment is a photo
+    var photo: VkApiPhotoItem?
+    
+    init?(snapshot: DataSnapshot) {
+        guard
+            let value = snapshot.value as? [String: Any],
+            let type = value["type"] as? String
+        else {
+            return
+        }
+
+        self.type = type
+        
+        if let photo = VkApiPhotoItem(snapshot: snapshot.childSnapshot(forPath: "photo")) {
+            self.photo = photo
+        }
+
+    }
+    
+    func toAnyObject() -> [String: Any] {
+        if type == "photo" {
+            return [
+                "type": type!,
+                "photo": photo!.toAnyObject()
+            ]
+        }
+        return [:]
+    }
+}
+

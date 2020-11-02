@@ -33,9 +33,9 @@ class VkApiUsersItem: Object, Decodable {
 
     enum CodingKeys: String, CodingKey {
         case id
-        case first_name
-        case last_name
-        case photo_100
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case photo100 = "photo_100"
     }
     
     required init() {
@@ -47,9 +47,9 @@ class VkApiUsersItem: Object, Decodable {
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try values.decode(Int.self, forKey: .id)
-        self.firstName = try values.decode(String.self, forKey: .first_name)
-        self.lastName = try values.decode(String.self, forKey: .last_name)
-        self.photoUrl = try values.decode(String.self, forKey: .photo_100)
+        self.firstName = try values.decode(String.self, forKey: .firstName)
+        self.lastName = try values.decode(String.self, forKey: .lastName)
+        self.photoUrl = try values.decode(String.self, forKey: .photo100)
     }
     
     // ------------------------------------------------------------
@@ -58,18 +58,18 @@ class VkApiUsersItem: Object, Decodable {
         guard
             let value = snapshot.value as? [String: Any],
             let id = value["id"] as? Int,
-            let first_name = value["first_name"] as? String,
-            let last_name = value["last_name"] as? String,
-            let photo_url = value["photo_url"] as? String
+            let firstName = value["first_name"] as? String,
+            let lastName = value["last_name"] as? String,
+            let photoUrl = value["photo_url"] as? String
         else {
             return nil
         }
         
         self.ref = snapshot.ref
         self.id = id
-        self.firstName = first_name
-        self.lastName = last_name
-        self.photoUrl = photo_url
+        self.firstName = firstName
+        self.lastName = lastName
+        self.photoUrl = photoUrl
     }
     
     func toAnyObject() -> [String: Any] {

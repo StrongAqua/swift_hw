@@ -97,10 +97,10 @@ class VKApi {
                 }
             } catch DecodingError.dataCorrupted(let context) {
                 debugPrint(DecodingError.dataCorrupted(context))
-            } catch { // let error
+            } catch let error {
                 debugPrint("Error while decoding json from \(url)")
-                // debugPrint(error)
-                // debugPrint(String(bytes: data, encoding: .utf8) ?? "")
+                debugPrint(error)
+                debugPrint(String(bytes: data, encoding: .utf8) ?? "")
             }
         case .failure(let error):
             debugPrint(error)
@@ -146,8 +146,9 @@ class VKApi {
         apiRequest( "newsfeed.get", [
             "count": VKApi.MAX_OBJECTS_COUNT,
             "max_photos": 1,
-            "source_ids": "friends",
-            "filters": "photo,wall_photo"
+            "source_ids": "friends,groups",
+            // "filters": "photo,wall_photo,post"
+            "filters": "post"
         ], completion)
     }
     
