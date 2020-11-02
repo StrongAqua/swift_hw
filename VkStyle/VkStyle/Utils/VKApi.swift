@@ -84,6 +84,13 @@ class VKApi {
                     let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
                     debugPrint("Groups search results arrived from the server")
                     completion(groupsResponse.response.items, .dataLoadedFromServer)
+                case "newsfeed.get":
+                    let newsResponse: VkApiNewsResponse = try JSONDecoder().decode(VkApiNewsResponse.self, from: data)
+                    // debugPrint(String(bytes: data, encoding: .utf8) ?? "")
+                    debugPrint("News results arrived from the server, \(newsResponse.response.items.count)")
+                    newsResponse.response.compose()
+                    saveService.saveNews(newsResponse.response.items)
+                    completion(newsResponse.response.items, .dataLoadedFromServer)
                 default:
                     // doesn't matter
                     break
@@ -107,7 +114,7 @@ class VKApi {
             "user_id": String(Session.instance.userId),
             "count": VKApi.MAX_OBJECTS_COUNT,
             "order": "name",
-            "fields": "id,first_name,last_name,photo_200_orig"
+            "fields": "id,first_name,last_name,photo_100"
         ], completion)
     }
     
@@ -131,6 +138,16 @@ class VKApi {
             "count": VKApi.MAX_OBJECTS_COUNT,
             "extended": 1,
             "fields": "id,name"
+        ], completion)
+    }
+    
+    func getNewsList(_ completion: @escaping ([AnyObject], Event) -> Void) {
+        saveService.subscribeNewsList(completion)
+        apiRequest( "newsfeed.get", [
+            "count": VKApi.MAX_OBJECTS_COUNT,
+            "max_photos": 1,
+            "source_ids": "friends",
+            "filters": "photo,wall_photo"
         ], completion)
     }
     

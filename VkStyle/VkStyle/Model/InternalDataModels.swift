@@ -79,10 +79,10 @@ class UsersManager {
     
     func setUsersInfo(_ users: [VkApiUsersItem]) {
         for user in users {
-            let name = user.first_name + " " + user.last_name
+            let name = user.firstName + " " + user.lastName
             self.users[user.id] =
                 UserInfo(id: user.id, user: name,
-                         photo: user.photo_url,
+                         photo: user.photoUrl,
                      photoList: [],
                      newsList: []
             )
@@ -134,7 +134,7 @@ class UsersManager {
     
     func rebuild() {
         applyFilter("")
-        generateRandomNews()
+        // generateRandomNews()
         newsList = prepareNewsList()
     }
 

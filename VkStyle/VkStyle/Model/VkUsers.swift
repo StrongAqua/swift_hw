@@ -21,9 +21,9 @@ class VkApiUsersResponseItems: Decodable {
 class VkApiUsersItem: Object, Decodable {
 
     @objc dynamic var id: Int = 0
-    @objc dynamic var first_name: String = ""
-    @objc dynamic var last_name: String = ""
-    @objc dynamic var photo_url: String = ""
+    @objc dynamic var firstName: String = ""
+    @objc dynamic var lastName: String = ""
+    @objc dynamic var photoUrl: String = ""
     
     let ref: DatabaseReference?
     
@@ -35,7 +35,7 @@ class VkApiUsersItem: Object, Decodable {
         case id
         case first_name
         case last_name
-        case photo_200_orig
+        case photo_100
     }
     
     required init() {
@@ -47,9 +47,9 @@ class VkApiUsersItem: Object, Decodable {
         
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try values.decode(Int.self, forKey: .id)
-        self.first_name = try values.decode(String.self, forKey: .first_name)
-        self.last_name = try values.decode(String.self, forKey: .last_name)
-        self.photo_url = try values.decode(String.self, forKey: .photo_200_orig)
+        self.firstName = try values.decode(String.self, forKey: .first_name)
+        self.lastName = try values.decode(String.self, forKey: .last_name)
+        self.photoUrl = try values.decode(String.self, forKey: .photo_100)
     }
     
     // ------------------------------------------------------------
@@ -67,17 +67,17 @@ class VkApiUsersItem: Object, Decodable {
         
         self.ref = snapshot.ref
         self.id = id
-        self.first_name = first_name
-        self.last_name = last_name
-        self.photo_url = photo_url
+        self.firstName = first_name
+        self.lastName = last_name
+        self.photoUrl = photo_url
     }
     
     func toAnyObject() -> [String: Any] {
         return [
             "id": id,
-            "first_name": first_name,
-            "last_name": last_name,
-            "photo_url": photo_url
+            "first_name": firstName,
+            "last_name": lastName,
+            "photo_url": photoUrl
         ]
     }
 

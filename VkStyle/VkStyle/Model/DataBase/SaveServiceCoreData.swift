@@ -47,9 +47,9 @@ class SaveServiceCoreData : SaveServiceInterface {
         for user in users {
             let u = (fetchUniqueObject(uniquePredicate: "id == \(user.id)", entity: "Users") as? Users?) ?? Users(context: context)
             u?.id = Int64(user.id)
-            u?.first_name = user.first_name
-            u?.last_name = user.last_name
-            u?.photo_url = user.photo_url
+            u?.first_name = user.firstName
+            u?.last_name = user.lastName
+            u?.photo_url = user.photoUrl
         }
         storeStack.saveContext()
     }
@@ -64,9 +64,9 @@ class SaveServiceCoreData : SaveServiceInterface {
         for user in users {
             let friend = VkApiUsersItem()
             friend.id = Int(user.id)
-            friend.first_name = user.first_name ?? "(error)"
-            friend.last_name = user.last_name ?? "(error)"
-            friend.photo_url = user.photo_url ?? "(error)"
+            friend.firstName = user.first_name ?? "(error)"
+            friend.lastName = user.last_name ?? "(error)"
+            friend.photoUrl = user.photo_url ?? "(error)"
             friends.append(friend)
         }
         return friends
