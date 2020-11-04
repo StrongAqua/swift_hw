@@ -24,7 +24,7 @@ class MyNewsTableViewController: UITableViewController {
         
         reloadNews()
         
-        tableView.addSubview(refreshCtrl)
+        tableView.refreshControl = refreshCtrl
         refreshCtrl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
     

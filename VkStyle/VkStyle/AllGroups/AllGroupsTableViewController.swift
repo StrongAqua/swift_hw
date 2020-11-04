@@ -32,7 +32,7 @@ class AllGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! AllGroupsTableViewCell
         let group = groups[indexPath.row]
-        cell.setup(title: group.name, imageURL: group.photo_50_url)
+        cell.setup(title: group.name, imageURL: group.photo50Url)
         return cell
     }
     

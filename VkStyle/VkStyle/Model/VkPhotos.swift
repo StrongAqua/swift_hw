@@ -22,16 +22,15 @@ class VkApiPhotoItem: Object, Decodable {
     // photo object fields
     @objc dynamic var id: Int = 0
     @objc dynamic var date: Int = 0
-    @objc dynamic var owner_id: Int = 0
+    @objc dynamic var ownerId: Int = 0
 
     // fields of the likes counter
-    @objc dynamic var likes_count: Int = 0
-    @objc dynamic var user_likes: Int = 0
+    var likes: VkApiLikes?
 
     // urls of different photo sizes
-    @objc dynamic var size_s_url: String = ""
-    @objc dynamic var size_m_url: String = ""
-    @objc dynamic var size_x_url: String = ""
+    @objc dynamic var sizeSUrl: String = ""
+    @objc dynamic var sizeMUrl: String = ""
+    @objc dynamic var sizeXUrl: String = ""
     
     let ref: DatabaseReference?
 
@@ -44,14 +43,9 @@ class VkApiPhotoItem: Object, Decodable {
         case date
         case likes
         case sizes
-        case owner_id
+        case ownerId = "owner_id"
     }
     
-    enum LikesKeys: String, CodingKey {
-        case likes_count = "count"
-        case user_likes
-    }
-
     enum SizesKeys: String, CodingKey {
         case type
         case url
@@ -67,11 +61,9 @@ class VkApiPhotoItem: Object, Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.date = try values.decode(Int.self, forKey: .date)
         self.id = try values.decode(Int.self, forKey: .id)
-        self.owner_id = try values.decode(Int.self, forKey: .owner_id)
+        self.ownerId = try values.decode(Int.self, forKey: .ownerId)
 
-        let likes = try values.nestedContainer(keyedBy: LikesKeys.self, forKey: .likes)
-        self.likes_count = try likes.decode(Int.self, forKey: .likes_count)
-        self.user_likes = try likes.decode(Int.self, forKey: .user_likes)
+        self.likes = try? values.decode(VkApiLikes.self, forKey: .likes)
         
         var sizes = try values.nestedUnkeyedContainer(forKey: .sizes)
         for _ in 0..<(sizes.count ?? 0) {
@@ -79,11 +71,11 @@ class VkApiPhotoItem: Object, Decodable {
             let type = try firstSizeValues.decode(String.self, forKey: .type)
             switch (type) {
                 case "s":
-                    self.size_s_url = try firstSizeValues.decode(String.self, forKey: .url)
+                    self.sizeSUrl = try firstSizeValues.decode(String.self, forKey: .url)
                 case "m":
-                    self.size_m_url = try firstSizeValues.decode(String.self, forKey: .url)
+                    self.sizeMUrl = try firstSizeValues.decode(String.self, forKey: .url)
                 case "x":
-                    self.size_x_url = try firstSizeValues.decode(String.self, forKey: .url)
+                    self.sizeXUrl = try firstSizeValues.decode(String.self, forKey: .url)
                 default:
                     // won't use it and ever know about it :)
                     break
@@ -98,12 +90,10 @@ class VkApiPhotoItem: Object, Decodable {
             let value = snapshot.value as? [String: Any],
             let id = value["id"] as? Int,
             let date = value["date"] as? Int,
-            let owner_id = value["owner_id"] as? Int,
-            let likes_count = value["likes_count"] as? Int,
-            let user_likes = value["user_likes"] as? Int,
-            let size_s_url = value["size_s_url"] as? String,
-            let size_m_url = value["size_m_url"] as? String,
-            let size_x_url = value["size_x_url"] as? String
+            let ownerId = value["owner_id"] as? Int,
+            let sizeSUrl = value["size_s_url"] as? String,
+            let sizeMUrl = value["size_m_url"] as? String,
+            let sizeXUrl = value["size_x_url"] as? String
         else {
             return nil
         }
@@ -111,25 +101,29 @@ class VkApiPhotoItem: Object, Decodable {
         self.ref = snapshot.ref
         self.id = id
         self.date = date
-        self.owner_id = owner_id
-        self.likes_count = likes_count
-        self.user_likes = user_likes
-        self.size_s_url = size_s_url
-        self.size_m_url = size_m_url
-        self.size_x_url = size_x_url
+        self.ownerId = ownerId
+        self.sizeSUrl = sizeSUrl
+        self.sizeMUrl = sizeMUrl
+        self.sizeXUrl = sizeXUrl
+
+        if let likes = VkApiLikes(snapshot: snapshot.childSnapshot(forPath: "likes")) {
+            self.likes = likes
+        }
     }
     
     func toAnyObject() -> [String: Any] {
-        return [
+        var anyDict: [String: Any] = [
             "id": id,
             "date": date,
-            "owner_id": owner_id,
-            "likes_count": likes_count,
-            "user_likes": user_likes,
-            "size_s_url": size_s_url,
-            "size_m_url": size_m_url,
-            "size_x_url": size_x_url
+            "owner_id": ownerId,
+            "size_s_url": sizeSUrl,
+            "size_m_url": sizeMUrl,
+            "size_x_url": sizeXUrl
         ]
+        if let likes = self.likes?.toAnyObject() {
+            anyDict["likes"] = likes
+        }
+        return anyDict
     }
 }
 

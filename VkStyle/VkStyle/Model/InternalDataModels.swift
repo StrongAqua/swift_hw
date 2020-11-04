@@ -93,8 +93,8 @@ class UsersManager {
         guard let user = users[userId] else { return }
         var newPhotoList: [Photo] = []
         for photo in photos {
-            let likes_count = photo.likes_count
-            let photoURL = photo.size_x_url
+            let likes_count = photo.likes?.count ?? 0
+            let photoURL = photo.sizeXUrl
             let photoObject = Photo(photoURL, likes_count)
             newPhotoList.append(photoObject)
         }

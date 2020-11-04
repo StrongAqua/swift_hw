@@ -21,9 +21,9 @@ class VkApiGroupResponseItems: Decodable {
 class VkApiGroupItem: Object, Decodable {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
-    @objc dynamic var is_closed: Int = 0
-    @objc dynamic var is_member: Int = 0
-    @objc dynamic var photo_50_url: String = ""
+    @objc dynamic var isClosed: Int = 0
+    @objc dynamic var isMember: Int = 0
+    @objc dynamic var photo50Url: String = ""
     
     let ref: DatabaseReference?
     
@@ -34,9 +34,9 @@ class VkApiGroupItem: Object, Decodable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case is_closed
-        case is_member
-        case photo_50_url = "photo_50"
+        case isClosed = "is_closed"
+        case isMember = "is_member"
+        case photo50Url = "photo_50"
     }
     
     required init() {
@@ -49,9 +49,9 @@ class VkApiGroupItem: Object, Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try values.decode(String.self, forKey: .name)
         self.id = try values.decode(Int.self, forKey: .id)
-        self.is_closed = try values.decode(Int.self, forKey: .is_closed)
-        self.is_member = try values.decode(Int.self, forKey: .is_member)
-        self.photo_50_url = try values.decode(String.self, forKey: .photo_50_url)
+        self.isClosed = try values.decode(Int.self, forKey: .isClosed)
+        self.isMember = try values.decode(Int.self, forKey: .isMember)
+        self.photo50Url = try values.decode(String.self, forKey: .photo50Url)
 
         // debugPrint("Group[\(self.id)]: name = \(self.name)")
     }
@@ -63,9 +63,9 @@ class VkApiGroupItem: Object, Decodable {
             let value = snapshot.value as? [String: Any],
             let id = value["id"] as? Int,
             let name = value["name"] as? String,
-            let is_closed = value["is_closed"] as? Int,
-            let is_member = value["is_member"] as? Int,
-            let photo_50_url = value["photo_50_url"] as? String
+            let isClosed = value["is_closed"] as? Int,
+            let isMember = value["is_member"] as? Int,
+            let photo50Url = value["photo_50_url"] as? String
         else {
             return nil
         }
@@ -73,18 +73,18 @@ class VkApiGroupItem: Object, Decodable {
         self.ref = snapshot.ref
         self.id = id
         self.name = name
-        self.is_closed = is_closed
-        self.is_member = is_member
-        self.photo_50_url = photo_50_url
+        self.isClosed = isClosed
+        self.isMember = isMember
+        self.photo50Url = photo50Url
     }
     
     func toAnyObject() -> [String: Any] {
         return [
             "id": id,
             "name": name,
-            "is_closed": is_closed,
-            "is_member": is_member,
-            "photo_50_url": photo_50_url
+            "is_closed": isClosed,
+            "is_member": isMember,
+            "photo_50_url": photo50Url
         ]
     }
 }

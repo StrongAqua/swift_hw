@@ -78,12 +78,10 @@ class SaveServiceCoreData : SaveServiceInterface {
             let ph = (fetchUniqueObject(uniquePredicate: "id == \(photo.id)", entity: "Photos") as? Photos?) ?? Photos(context: context)
             ph?.id = Int64(photo.id)
             ph?.date = Int64(photo.date)
-            ph?.likes_count = Int64(photo.likes_count)
-            ph?.user_likes = Int64(photo.user_likes)
-            ph?.size_s_url = photo.size_s_url
-            ph?.size_m_url = photo.size_m_url
-            ph?.size_x_url = photo.size_x_url
-            ph?.owner_id = Int64(photo.owner_id)
+            ph?.size_s_url = photo.sizeSUrl
+            ph?.size_m_url = photo.sizeMUrl
+            ph?.size_x_url = photo.sizeXUrl
+            ph?.owner_id = Int64(photo.ownerId)
         }
         storeStack.saveContext()
     }
@@ -104,11 +102,9 @@ class SaveServiceCoreData : SaveServiceInterface {
             let p = VkApiPhotoItem()
             p.id = Int(photo.id)
             p.date = Int(photo.date)
-            p.likes_count = Int(photo.likes_count)
-            p.user_likes = Int(photo.user_likes)
-            p.size_s_url = photo.size_s_url ?? ""
-            p.size_m_url = photo.size_m_url ?? ""
-            p.size_x_url = photo.size_x_url ?? ""
+            p.sizeSUrl = photo.size_s_url ?? ""
+            p.sizeMUrl = photo.size_m_url ?? ""
+            p.sizeXUrl = photo.size_x_url ?? ""
             photos_out.append(p)
         }
         return photos_out
@@ -120,9 +116,9 @@ class SaveServiceCoreData : SaveServiceInterface {
             let g = (fetchUniqueObject(uniquePredicate: "id == \(group.id)", entity: "Groups") as? Groups?) ?? Groups(context: context)
             g?.id = Int64(group.id)
             g?.name = group.name
-            g?.is_closed = Int64(group.is_closed)
-            g?.is_member = Int64(group.is_member)
-            g?.photo_50_url = group.photo_50_url
+            g?.is_closed = Int64(group.isClosed)
+            g?.is_member = Int64(group.isMember)
+            g?.photo_50_url = group.photo50Url
         }
         storeStack.saveContext()
     }
@@ -135,9 +131,9 @@ class SaveServiceCoreData : SaveServiceInterface {
             let grp = VkApiGroupItem()
             grp.id = Int(group.id)
             grp.name = group.name ?? "(error)"
-            grp.is_closed = Int(group.is_closed)
-            grp.is_member = Int(group.is_member)
-            grp.photo_50_url = group.photo_50_url ?? ""
+            grp.isClosed = Int(group.is_closed)
+            grp.isMember = Int(group.is_member)
+            grp.photo50Url = group.photo_50_url ?? ""
             groups_out.append(grp)
         }
         return groups_out
