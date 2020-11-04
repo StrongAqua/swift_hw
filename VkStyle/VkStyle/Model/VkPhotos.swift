@@ -47,7 +47,7 @@ class VkApiPhotoItem: Object, Decodable {
         case date
         case likes
         case sizes
-        case ownerId = "owner_id"
+        case ownerId
     }
     
     enum SizesKeys: String, CodingKey {

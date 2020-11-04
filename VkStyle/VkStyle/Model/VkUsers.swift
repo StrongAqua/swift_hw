@@ -33,9 +33,9 @@ class VkApiUsersItem: Object, Decodable {
 
     enum CodingKeys: String, CodingKey {
         case id
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case photo100 = "photo_100"
+        case firstName
+        case lastName
+        case photo100
     }
     
     required init() {

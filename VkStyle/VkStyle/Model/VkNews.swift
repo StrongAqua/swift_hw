@@ -60,9 +60,9 @@ class VkApiNewsItem: Object, Decodable {
     var ref: DatabaseReference?
     
     enum CodingKeys: String, CodingKey {
-        case postId = "post_id"
+        case postId
         case date
-        case sourceId = "source_id"
+        case sourceId
         case text
         case photos
         case likes

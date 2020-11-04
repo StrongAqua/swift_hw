@@ -34,9 +34,9 @@ class VkApiGroupItem: Object, Decodable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case isClosed = "is_closed"
-        case isMember = "is_member"
-        case photo50Url = "photo_50"
+        case isClosed
+        case isMember
+        case photo50
     }
     
     required init() {
@@ -61,7 +61,7 @@ class VkApiGroupItem: Object, Decodable {
         self.isClosed = try values.decode(Int.self, forKey: .isClosed)
         let isMember = try? values.decode(Int.self, forKey: .isMember) // may not be in incoming json
         self.isMember = isMember ?? 0
-        self.photo50Url = try values.decode(String.self, forKey: .photo50Url)
+        self.photo50Url = try values.decode(String.self, forKey: .photo50)
 
         // debugPrint("Group[\(self.id)]: name = \(self.name)")
     }

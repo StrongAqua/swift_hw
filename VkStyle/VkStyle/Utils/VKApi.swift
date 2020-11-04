@@ -64,35 +64,37 @@ class VKApi {
         _ response: AFDataResponse<Data>,
         _ completion: @escaping ([AnyObject], VKApi.Event) -> Void)
     {
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         switch response.result {
         case .success(let data):
             do {
                 switch(method) {
                 case "photos.get":
-                    let photosResponse: VkApiPhotoResponse = try JSONDecoder().decode(VkApiPhotoResponse.self, from: data)
+                    let photosResponse: VkApiPhotoResponse = try jsonDecoder.decode(VkApiPhotoResponse.self, from: data)
                     saveService.savePhotos(photosResponse.response.items)
                     DispatchQueue.main.async {
                         completion(photosResponse.response.items, .dataLoadedFromServer)
                     }
                 case "groups.get":
-                    let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
+                    let groupsResponse: VkApiGroupResponse = try jsonDecoder.decode(VkApiGroupResponse.self, from: data)
                     saveService.saveGroups(groupsResponse.response.items)
                     DispatchQueue.main.async {
                         completion(groupsResponse.response.items, .dataLoadedFromServer)
                     }
                 case "friends.get":
-                    let friendsResponse: VkApiUsersResponse = try JSONDecoder().decode(VkApiUsersResponse.self, from: data)
+                    let friendsResponse: VkApiUsersResponse = try jsonDecoder.decode(VkApiUsersResponse.self, from: data)
                     saveService.saveUsers(friendsResponse.response.items)
                     DispatchQueue.main.async {
                         completion(friendsResponse.response.items, .dataLoadedFromServer)
                     }
                 case "groups.search":
-                    let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
+                    let groupsResponse: VkApiGroupResponse = try jsonDecoder.decode(VkApiGroupResponse.self, from: data)
                     DispatchQueue.main.async {
                         completion(groupsResponse.response.items, .dataLoadedFromServer)
                     }
                 case "newsfeed.get":
-                    let newsResponse: VkApiNewsResponse = try JSONDecoder().decode(VkApiNewsResponse.self, from: data)
+                    let newsResponse: VkApiNewsResponse = try jsonDecoder.decode(VkApiNewsResponse.self, from: data)
                     newsResponse.response.compose()
                     saveService.saveNews(newsResponse.response.items)
                     DispatchQueue.main.async {
