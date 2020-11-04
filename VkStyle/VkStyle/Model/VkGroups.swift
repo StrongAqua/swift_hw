@@ -43,6 +43,15 @@ class VkApiGroupItem: Object, Decodable {
         self.ref = nil
     }
     
+    init(fromCoreData group: Groups) {
+        self.ref = nil
+        self.id = Int(group.id)
+        self.name = group.name ?? "(error)"
+        self.isClosed = Int(group.is_closed)
+        self.isMember = Int(group.is_member)
+        self.photo50Url = group.photo_50_url ?? ""
+    }
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
 
@@ -50,7 +59,8 @@ class VkApiGroupItem: Object, Decodable {
         self.name = try values.decode(String.self, forKey: .name)
         self.id = try values.decode(Int.self, forKey: .id)
         self.isClosed = try values.decode(Int.self, forKey: .isClosed)
-        self.isMember = try values.decode(Int.self, forKey: .isMember)
+        let isMember = try? values.decode(Int.self, forKey: .isMember) // may not be in incoming json
+        self.isMember = isMember ?? 0
         self.photo50Url = try values.decode(String.self, forKey: .photo50Url)
 
         // debugPrint("Group[\(self.id)]: name = \(self.name)")

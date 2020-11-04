@@ -57,7 +57,10 @@ class NewsCell: UITableViewCell
                     }
                 }
             }
+        } else {
+            messageImage.image = nil
         }
+        
         if let url = imageUrl {
             VKApi.instance.downloadImage(urlString: url, completion: {
                 [weak self] data in

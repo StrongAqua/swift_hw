@@ -42,6 +42,14 @@ class VkApiUsersItem: Object, Decodable {
         self.ref = nil
     }
     
+    init(fromCoreData user: Users) {
+        self.ref = nil
+        self.id = Int(user.id)
+        self.firstName = user.first_name ?? "(error)"
+        self.lastName = user.last_name ?? "(error)"
+        self.photoUrl = user.photo_url ?? "(error)"
+    }
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         
