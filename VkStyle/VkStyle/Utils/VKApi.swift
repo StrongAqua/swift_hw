@@ -27,12 +27,12 @@ class VKApi {
     
     // let's limit number of objects to download up to 10
     // will do pagination l8r
-    static let MAX_OBJECTS_COUNT = 10
+    static let maxObjectsCount = 10
 
     static let instance = VKApi()
     private init() {} // dummy
     
-    // VK API request wrapper
+    // VK API server request wrapper
     private func apiRequest(
         _ method: String,
         _ parameters: [String: Any],
@@ -49,67 +49,53 @@ class VKApi {
             URLQueryItem(name: "v", value: "5.124")
         ]
 
-        DispatchQueue.global(qos: .default).async { [weak self] in
-            AF.request(url.url!, method: .get, parameters: parameters).responseData
-            { response in
-                self?.processResponse(url.url!, method, response, completion)
-            }
+        AF.request(url.url!, method: .get, parameters: parameters)
+            .responseData(queue: DispatchQueue.global())
+        { [weak self] response in
+            self?.parseResponse(url.url!, method, response, completion)
         }
     }
     
-    // VK API response processor
-    private func processResponse(
+    // VK API server response processor
+    private func parseResponse(
         _ url: URL,
         _ method: String,
         _ response: AFDataResponse<Data>,
         _ completion: @escaping ([AnyObject], VKApi.Event) -> Void)
     {
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         switch response.result {
         case .success(let data):
-            do {
-                switch(method) {
-                case "photos.get":
-                    let photosResponse: VkApiPhotoResponse = try jsonDecoder.decode(VkApiPhotoResponse.self, from: data)
-                    saveService.savePhotos(photosResponse.response.items)
-                    DispatchQueue.main.async {
-                        completion(photosResponse.response.items, .dataLoadedFromServer)
-                    }
-                case "groups.get":
-                    let groupsResponse: VkApiGroupResponse = try jsonDecoder.decode(VkApiGroupResponse.self, from: data)
-                    saveService.saveGroups(groupsResponse.response.items)
-                    DispatchQueue.main.async {
-                        completion(groupsResponse.response.items, .dataLoadedFromServer)
-                    }
-                case "friends.get":
-                    let friendsResponse: VkApiUsersResponse = try jsonDecoder.decode(VkApiUsersResponse.self, from: data)
-                    saveService.saveUsers(friendsResponse.response.items)
-                    DispatchQueue.main.async {
-                        completion(friendsResponse.response.items, .dataLoadedFromServer)
-                    }
-                case "groups.search":
-                    let groupsResponse: VkApiGroupResponse = try jsonDecoder.decode(VkApiGroupResponse.self, from: data)
-                    DispatchQueue.main.async {
-                        completion(groupsResponse.response.items, .dataLoadedFromServer)
-                    }
-                case "newsfeed.get":
-                    let newsResponse: VkApiNewsResponse = try jsonDecoder.decode(VkApiNewsResponse.self, from: data)
-                    newsResponse.response.compose()
-                    saveService.saveNews(newsResponse.response.items)
-                    DispatchQueue.main.async {
-                        completion(newsResponse.response.items, .dataLoadedFromServer)
-                    }
-                default:
-                    // doesn't matter
-                    break
+            switch(method) {
+            case "photos.get":
+                // no need to call UI controller completion here,
+                // the SaveServiceCoreData will do this
+                AsyncJSONDecoder<VkApiPhotoResponse>
+                    .decode(data) { self.saveService.savePhotos($0.response.items) }
+                // TODO: eliminate subscriptions and do display data independently
+                // from db IO operation
+            case "groups.get":
+                AsyncJSONDecoder<VkApiGroupResponse>
+                    .decode(data) { self.saveService.saveGroups($0.response.items) }
+            case "friends.get":
+                AsyncJSONDecoder<VkApiUsersResponse>
+                    .decode(data) { self.saveService.saveUsers($0.response.items) }
+            case "groups.search":
+                AsyncJSONDecoder<VkApiGroupResponse>
+                    .decode(data) {searchResponse in
+                        DispatchQueue.main.async {
+                            completion(searchResponse.response.items, .dataLoadedFromServer)
+                        }
                 }
-            } catch DecodingError.dataCorrupted(let context) {
-                debugPrint(DecodingError.dataCorrupted(context))
-            } catch let error {
-                debugPrint("Error while decoding json from \(url)")
-                debugPrint(error)
-                debugPrint(String(bytes: data, encoding: .utf8) ?? "")
+            case "newsfeed.get":
+                AsyncJSONDecoder<VkApiNewsResponse>
+                    .decode(data) {
+                        $0.response.compose()
+                        self.saveService.saveNews($0.response.items)
+                        
+                }
+            default:
+                // doesn't matter
+                break
             }
         case .failure(let error):
             debugPrint(error)
@@ -118,13 +104,17 @@ class VKApi {
 
     // VK API friends.get wrapper
     func getFriendsList(_ completion: @escaping ([AnyObject], Event) -> Void) {
+        // Subscribe to DB notification with UI controller completion block.
+        // SaveService controls that you subscribed only once.
         saveService.subscribeUsersList(completion)
+        // Call the server. When the server data is got, parsed and stored DB will
+        // call UI controller completion to display the data (friends list).
         apiRequest( "friends.get", [
             "user_id": String(Session.instance.userId),
-            "count": VKApi.MAX_OBJECTS_COUNT,
+            "count": VKApi.maxObjectsCount,
             "order": "name",
             "fields": "id,first_name,last_name,photo_100"
-        ], completion)
+        ])
     }
     
     // VK API photos.get wrapper
@@ -135,8 +125,8 @@ class VKApi {
             "owner_id": userID,
             "extended": 1,
             "album_id": "profile",
-            "count": VKApi.MAX_OBJECTS_COUNT
-        ], completion)
+            "count": VKApi.maxObjectsCount
+        ])
     }
     
     // VK API photos.get wrapper
@@ -144,20 +134,20 @@ class VKApi {
         saveService.subscribeGroupsList(completion)
         apiRequest( "groups.get", [
             "user_id": String(Session.instance.userId),
-            "count": VKApi.MAX_OBJECTS_COUNT,
+            "count": VKApi.maxObjectsCount,
             "extended": 1,
             "fields": "id,name"
-        ], completion)
+        ])
     }
     
     func getNewsList(_ completion: @escaping ([AnyObject], Event) -> Void) {
         saveService.subscribeNewsList(completion)
         apiRequest( "newsfeed.get", [
-            "count": VKApi.MAX_OBJECTS_COUNT,
+            "count": VKApi.maxObjectsCount,
             "max_photos": 1,
             "source_ids": "friends,groups",
             "filters": "photo,post"
-        ], completion)
+        ])
     }
     
     func searchGroups(_ query: String, _ completion: @escaping ([AnyObject], Event) -> Void) {
@@ -165,8 +155,8 @@ class VKApi {
         apiRequest( "groups.search", [
             "q": query,
             "type": "group",
-            "count": VKApi.MAX_OBJECTS_COUNT
-        ], completion)
+            "count": VKApi.maxObjectsCount
+        ], completion) // completion will be called immediately after parsing is done
     }
     
     private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {

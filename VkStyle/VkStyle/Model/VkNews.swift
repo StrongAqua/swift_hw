@@ -55,7 +55,7 @@ class VkApiNewsItem: Object, Decodable {
 
     var photos: VkApiNewsPhotos?
     var likes: VkApiLikes?
-    var attachments: [VkApiAttachment]?
+    var attachments: [VkApiAttachment] = []
 
     var ref: DatabaseReference?
     
@@ -95,20 +95,25 @@ class VkApiNewsItem: Object, Decodable {
         self.text = try? values.decode(String.self, forKey: .text)
         self.photos = try? values.decode(VkApiNewsPhotos.self, forKey: .photos)
         self.likes = try? values.decode(VkApiLikes.self, forKey: .likes)
-        var attachments = try? values.nestedUnkeyedContainer(forKey: .attachments)
-        self.attachments = []
-        for _ in 0..<(attachments?.count ?? 0) {
-            if let a = try? attachments?.decode(VkApiAttachment.self) {
-                a.photo?.newsPostId = self.postId
-                a.photo?.newsSourceId = self.sourceId
-                self.attachments!.append(a)
+
+        if var attachments = try? values.nestedUnkeyedContainer(forKey: .attachments),
+           let attachmentsCount = attachments.count
+        {
+            for _ in 0..<attachmentsCount {
+                if let a = try? attachments.decode(VkApiAttachment.self) {
+                    a.photo?.newsPostId = self.postId
+                    a.photo?.newsSourceId = self.sourceId
+                    self.attachments.append(a)
+                }
             }
         }
 
         // post-processing
-        for photo in (self.photos?.items ?? []) {
-            photo.newsPostId = self.postId
-            photo.newsSourceId = self.sourceId
+        if let photos = self.photos {
+            for photo in photos.items {
+                photo.newsPostId = self.postId
+                photo.newsSourceId = self.sourceId
+            }
         }
     }
 
@@ -141,10 +146,9 @@ class VkApiNewsItem: Object, Decodable {
             self.photos = photos
         }
         let attachments = snapshot.childSnapshot(forPath: "attachments")
-        self.attachments = []
         for i in 0..<attachments.childrenCount {
             if let a = VkApiAttachment(snapshot: attachments.childSnapshot(forPath: "\(i)")) {
-                self.attachments?.append(a)
+                self.attachments.append(a)
             }
         }
     }
@@ -162,14 +166,12 @@ class VkApiNewsItem: Object, Decodable {
         if let ps = photos {
             result["photos"] = ps.toAnyObject()
         }
-        if let ats = attachments {
-            var items: [Any] = []
-            for item in ats {
-                items.append(item.toAnyObject())
-            }
-            if (!items.isEmpty) {
-                result["attachments"] = items
-            }
+        var items: [Any] = []
+        for item in attachments {
+            items.append(item.toAnyObject())
+        }
+        if (!items.isEmpty) {
+            result["attachments"] = items
         }
         return result
     }
