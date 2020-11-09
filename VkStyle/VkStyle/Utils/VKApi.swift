@@ -11,8 +11,9 @@ import Alamofire
 
 class VKApi {
     
+    let saveService : SaveServiceInterface = SaveServiceCoreData()
     // let saveService : SaveServiceInterface = SaveServiceRealm()
-    let saveService : SaveServiceFirebase = SaveServiceFirebase()
+    // let saveService : SaveServiceFirebase = SaveServiceFirebase()
     
     enum Event {
         // this events is used if data really changed or initial load completed
@@ -27,7 +28,7 @@ class VKApi {
     // let's limit number of objects to download up to 10
     // will do pagination l8r
     static let MAX_OBJECTS_COUNT = 10
-    
+
     static let instance = VKApi()
     private init() {} // dummy
     
@@ -48,9 +49,11 @@ class VKApi {
             URLQueryItem(name: "v", value: "5.124")
         ]
 
-        AF.request(url.url!, method: .get, parameters: parameters).responseData
+        DispatchQueue.global(qos: .default).async { [weak self] in
+            AF.request(url.url!, method: .get, parameters: parameters).responseData
             { response in
-                self.processResponse(url.url!, method, response, completion)
+                self?.processResponse(url.url!, method, response, completion)
+            }
         }
     }
     
@@ -61,36 +64,42 @@ class VKApi {
         _ response: AFDataResponse<Data>,
         _ completion: @escaping ([AnyObject], VKApi.Event) -> Void)
     {
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         switch response.result {
         case .success(let data):
             do {
                 switch(method) {
                 case "photos.get":
-                    let photosResponse: VkApiPhotoResponse = try JSONDecoder().decode(VkApiPhotoResponse.self, from: data)
-                    debugPrint("Photos loaded from the server, count = \(photosResponse.response.items.count)")
+                    let photosResponse: VkApiPhotoResponse = try jsonDecoder.decode(VkApiPhotoResponse.self, from: data)
                     saveService.savePhotos(photosResponse.response.items)
-                    completion(photosResponse.response.items, .dataLoadedFromServer)
+                    DispatchQueue.main.async {
+                        completion(photosResponse.response.items, .dataLoadedFromServer)
+                    }
                 case "groups.get":
-                    let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
-                    debugPrint("Groups loaded from the server, count = \(groupsResponse.response.items.count)")
+                    let groupsResponse: VkApiGroupResponse = try jsonDecoder.decode(VkApiGroupResponse.self, from: data)
                     saveService.saveGroups(groupsResponse.response.items)
-                    completion(groupsResponse.response.items, .dataLoadedFromServer)
+                    DispatchQueue.main.async {
+                        completion(groupsResponse.response.items, .dataLoadedFromServer)
+                    }
                 case "friends.get":
-                    let friendsResponse: VkApiUsersResponse = try JSONDecoder().decode(VkApiUsersResponse.self, from: data)
-                    debugPrint("Friends loaded from the server, count = \(friendsResponse.response.items.count)")
+                    let friendsResponse: VkApiUsersResponse = try jsonDecoder.decode(VkApiUsersResponse.self, from: data)
                     saveService.saveUsers(friendsResponse.response.items)
-                    completion(friendsResponse.response.items, .dataLoadedFromServer)
+                    DispatchQueue.main.async {
+                        completion(friendsResponse.response.items, .dataLoadedFromServer)
+                    }
                 case "groups.search":
-                    let groupsResponse: VkApiGroupResponse = try JSONDecoder().decode(VkApiGroupResponse.self, from: data)
-                    debugPrint("Groups search results arrived from the server")
-                    completion(groupsResponse.response.items, .dataLoadedFromServer)
+                    let groupsResponse: VkApiGroupResponse = try jsonDecoder.decode(VkApiGroupResponse.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(groupsResponse.response.items, .dataLoadedFromServer)
+                    }
                 case "newsfeed.get":
-                    let newsResponse: VkApiNewsResponse = try JSONDecoder().decode(VkApiNewsResponse.self, from: data)
-                    // debugPrint(String(bytes: data, encoding: .utf8) ?? "")
-                    debugPrint("News results arrived from the server, \(newsResponse.response.items.count)")
+                    let newsResponse: VkApiNewsResponse = try jsonDecoder.decode(VkApiNewsResponse.self, from: data)
                     newsResponse.response.compose()
                     saveService.saveNews(newsResponse.response.items)
-                    completion(newsResponse.response.items, .dataLoadedFromServer)
+                    DispatchQueue.main.async {
+                        completion(newsResponse.response.items, .dataLoadedFromServer)
+                    }
                 default:
                     // doesn't matter
                     break
@@ -147,8 +156,7 @@ class VKApi {
             "count": VKApi.MAX_OBJECTS_COUNT,
             "max_photos": 1,
             "source_ids": "friends,groups",
-            // "filters": "photo,wall_photo,post"
-            "filters": "post"
+            "filters": "photo,post"
         ], completion)
     }
     

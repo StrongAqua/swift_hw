@@ -21,7 +21,11 @@ protocol SaveServiceInterface {
     func saveGroups(_ groups: [VkApiGroupItem])
     func readGroupsList() -> [VkApiGroupItem]
     func subscribeGroupsList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void)
-
+    
+    func saveNews(_ news: [VkApiNewsItem])
+    func readNewsList() -> [VkApiNewsItem]
+    func subscribeNewsList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void)
+    
     func clearAllData()
 }
 

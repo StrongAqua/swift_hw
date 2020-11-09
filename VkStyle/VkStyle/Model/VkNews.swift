@@ -42,7 +42,7 @@ class VkApiNewsResponseItems: Decodable {
     }
 }
 
-class VkApiNewsItem: Decodable {
+class VkApiNewsItem: Object, Decodable {
     @objc dynamic var postId: Int = 0
     @objc dynamic var date: Int = 0
     @objc dynamic var sourceId: Int = 0
@@ -60,9 +60,9 @@ class VkApiNewsItem: Decodable {
     var ref: DatabaseReference?
     
     enum CodingKeys: String, CodingKey {
-        case postId = "post_id"
+        case postId
         case date
-        case sourceId = "source_id"
+        case sourceId
         case text
         case photos
         case likes
@@ -71,6 +71,17 @@ class VkApiNewsItem: Decodable {
 
     required init() {
         self.ref = nil
+    }
+    
+    init(fromCoreData note: News) {
+        self.ref = nil
+        self.postId = Int(note.postId)
+        self.date = Int(note.date)
+        self.sourceId = Int(note.sourceId)
+        self.lastName = note.lastName
+        self.firstName = note.firstName
+        self.avatarPhoto = note.avatarPhoto
+        self.text = note.text
     }
 
     convenience required init(from decoder: Decoder) throws {
@@ -88,10 +99,17 @@ class VkApiNewsItem: Decodable {
         self.attachments = []
         for _ in 0..<(attachments?.count ?? 0) {
             if let a = try? attachments?.decode(VkApiAttachment.self) {
+                a.photo?.newsPostId = self.postId
+                a.photo?.newsSourceId = self.sourceId
                 self.attachments!.append(a)
             }
         }
-        // self.attachments = attachments
+
+        // post-processing
+        for photo in (self.photos?.items ?? []) {
+            photo.newsPostId = self.postId
+            photo.newsSourceId = self.sourceId
+        }
     }
 
     // ------------------------------------------------------------
@@ -160,6 +178,8 @@ class VkApiNewsItem: Decodable {
 class VkApiNewsPhotos: Decodable {
     @objc dynamic var count: Int = 0
     @objc dynamic var items: [VkApiPhotoItem] = []
+    
+    init() {} // dummy initializer
     
     init?(snapshot: DataSnapshot) {
         guard

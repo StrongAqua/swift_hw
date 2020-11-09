@@ -31,7 +31,11 @@ class VkApiPhotoItem: Object, Decodable {
     @objc dynamic var sizeSUrl: String = ""
     @objc dynamic var sizeMUrl: String = ""
     @objc dynamic var sizeXUrl: String = ""
-    
+
+    // news post relationship
+    @objc dynamic var newsPostId: Int = 0
+    @objc dynamic var newsSourceId: Int = 0
+
     let ref: DatabaseReference?
 
     override static func primaryKey() -> String? {
@@ -43,7 +47,7 @@ class VkApiPhotoItem: Object, Decodable {
         case date
         case likes
         case sizes
-        case ownerId = "owner_id"
+        case ownerId
     }
     
     enum SizesKeys: String, CodingKey {
@@ -53,6 +57,17 @@ class VkApiPhotoItem: Object, Decodable {
     
     required init() {
         self.ref = nil
+    }
+    
+    init(fromCoreData photo: Photos) {
+        self.ref = nil
+        self.id = Int(photo.id)
+        self.date = Int(photo.date)
+        self.sizeSUrl = photo.size_s_url ?? ""
+        self.sizeMUrl = photo.size_m_url ?? ""
+        self.sizeXUrl = photo.size_x_url ?? ""
+        self.newsPostId = Int(photo.news_post_id)
+        self.newsSourceId = Int(photo.news_source_id)
     }
 
     convenience required init(from decoder: Decoder) throws {

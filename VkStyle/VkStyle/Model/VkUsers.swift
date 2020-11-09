@@ -33,13 +33,21 @@ class VkApiUsersItem: Object, Decodable {
 
     enum CodingKeys: String, CodingKey {
         case id
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case photo100 = "photo_100"
+        case firstName
+        case lastName
+        case photo100
     }
     
     required init() {
         self.ref = nil
+    }
+    
+    init(fromCoreData user: Users) {
+        self.ref = nil
+        self.id = Int(user.id)
+        self.firstName = user.first_name ?? "(error)"
+        self.lastName = user.last_name ?? "(error)"
+        self.photoUrl = user.photo_url ?? "(error)"
     }
     
     convenience required init(from decoder: Decoder) throws {
