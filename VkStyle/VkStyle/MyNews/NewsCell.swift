@@ -47,14 +47,12 @@ class NewsCell: UITableViewCell
         messageText.text = item.text ?? ""
 
         var imageUrl: String?
-        if (item.photos != nil && !(item.photos?.items.isEmpty ?? false)) {
+        if item.photos != nil && !(item.photos?.items.isEmpty ?? false) {
             imageUrl = item.photos?.items.first?.sizeXUrl ?? ""
-        } else if(item.attachments != nil) {
-            if let attachments = item.attachments {
-                for a in attachments {
-                    if a.type == "photo" {
-                        imageUrl = a.photo?.sizeXUrl ?? ""
-                    }
+        } else if item.attachments.isEmpty == false {
+            for a in item.attachments {
+                if a.type == "photo" {
+                    imageUrl = a.photo?.sizeXUrl ?? ""
                 }
             }
         } else {

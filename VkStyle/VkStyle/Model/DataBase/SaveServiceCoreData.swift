@@ -212,11 +212,9 @@ class SaveServiceCoreData : SaveServiceInterface {
             n?.avatarPhoto = note.avatarPhoto
             n?.text = note.text
             savePhotosWithContext(context, note.photos?.items ?? [])
-            if let attachments = note.attachments {
-                for item in attachments {
-                    if let photo = item.photo {
-                        savePhotosWithContext(context, [photo])
-                    }
+            for item in note.attachments {
+                if let photo = item.photo {
+                    savePhotosWithContext(context, [photo])
                 }
             }
         }
