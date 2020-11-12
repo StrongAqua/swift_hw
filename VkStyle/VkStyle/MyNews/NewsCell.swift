@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class NewsCell: UITableViewCell
     //, UICollectionViewDataSource
@@ -31,14 +32,17 @@ class NewsCell: UITableViewCell
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
     func setup(_ item: VkApiNewsItem) {
 
-        VKApi.instance.downloadImage(urlString: item.avatarPhoto ?? "", completion: {
-            [weak self] data in
-            guard let d = data else { return }
-            self?.avatarImage.image = UIImage(data: d)
-        })
+        VKApi.instance.downloadImageWithPromise(item.avatarPhoto ?? "")
+            .get {
+                [weak self] data in
+                self?.avatarImage.image = UIImage(data: data)
+            }
+            .catch { error in
+                debugPrint("Fail to download image: \(error)")
+            }
         
         let first_name = item.firstName ?? ""
         let last_name = item.lastName ?? ""
@@ -59,13 +63,14 @@ class NewsCell: UITableViewCell
             messageImage.image = nil
         }
         
-        if let url = imageUrl {
-            VKApi.instance.downloadImage(urlString: url, completion: {
+        VKApi.instance.downloadImageWithPromise(imageUrl ?? "")
+            .get {
                 [weak self] data in
-                guard let d = data else { return }
-                self?.messageImage.image = UIImage(data: d)
-            })
-        }
+                self?.messageImage.image = UIImage(data: data)
+            }
+            .catch { error in
+                debugPrint("Fail to download image: \(error)")
+            }
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -75,4 +80,5 @@ class NewsCell: UITableViewCell
         )
         // likeView.setObject(object: message)
     }
+
 }
