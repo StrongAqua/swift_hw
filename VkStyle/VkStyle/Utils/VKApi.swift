@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import PromiseKit
 
 class VKApi {
     
@@ -163,6 +164,29 @@ class VKApi {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
     
+    enum DownloadErrors : Error {
+        case wrongURL
+    }
+
+    func downloadImageWithPromise(_ urlString: String) -> Promise<Data> {
+        let promiseData = Promise<Data> { resolver in
+            guard let url = URL(string: urlString) else {
+                resolver.reject(DownloadErrors.wrongURL)
+                return
+            }
+            URLSession.shared.dataTask(with: url) {
+                data, _, error in
+                if let error = error {
+                    resolver.reject(error)
+                } else {
+                    resolver.fulfill(data ?? Data())
+                }
+            }
+            .resume()
+        }
+        return promiseData
+    }
+
     func downloadImage(urlString: String, completion: @escaping (Data?) -> ()) {
         guard let url = URL(string: urlString) else { return }
         getData(from: url) { data, response, error in
