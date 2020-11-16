@@ -25,10 +25,10 @@ class AllGroupsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setup(title: String?, imageURL: String?) {
+    func setup(title: String?, imageURL: String?, dataService: DataService) {
         self.groupName.text = title ?? "(unset)"
         guard let url = imageURL else { return }
-        VKApi.instance.downloadImage(urlString: url, completion: {
+        dataService.data(byUrl: url, completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.groupImage.image = UIImage(data: d)

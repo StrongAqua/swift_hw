@@ -10,27 +10,17 @@ import UIKit
 import PromiseKit
 
 class NewsCell: UITableViewCell
-    //, UICollectionViewDataSource
 {
     
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var messageDate: UILabel!
     @IBOutlet weak var messageText: UILabel!
-    // @IBOutlet weak var messagePhotos: UICollectionView!
     @IBOutlet weak var messageImage: UIImageView!
     @IBOutlet weak var likeView: LikeUIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        // let nibName = UINib(nibName: "NewsPhotoCollectionCell", bundle:nil)
-        // messagePhotos.register(nibName, forCellWithReuseIdentifier: "NewsPhotoCollectionCell")
-        // messagePhotos.dataSource = self
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 
     func setup(_ item: VkApiNewsItem) {

@@ -14,13 +14,13 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var likeView: LikeUIView!
     var photo: Photo?
     
-    public func setPhotoURL(photoURL: Photo?) {
+    public func setPhotoURL(photoURL: Photo?, dataService: DataService) {
         guard let p = photoURL else { return }
         self.photo = p
         likeView.setObject(object: self.photo)
 
         guard let url = p.photoURL else { return }
-        VKApi.instance.downloadImage(urlString: url, completion: {
+        dataService.data(byUrl: url, completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.image.image = UIImage(data: d)

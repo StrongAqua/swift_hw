@@ -27,8 +27,8 @@ class UsersTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func setup(user: UserInfo) {
-        VKApi.instance.downloadImage(urlString: user.photo, completion: {
+    func setup(user: UserInfo, dataService: DataService) {
+        dataService.data(byUrl: user.photo, completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.avatarView.avatarPhoto.image = UIImage(data: d)

@@ -12,7 +12,7 @@ import UIKit
 class PhotosCollectionViewController: UICollectionViewController {
     
     var user: UserInfo?
-    
+    var dataService = DataService()
     let refreshCtrl = UIRefreshControl()
     
     override func viewDidLoad() {
@@ -71,7 +71,7 @@ class PhotosCollectionViewController: UICollectionViewController {
             guard let user = self.user else { return cell }
 
             // Configure the cell
-            cell.setPhotoURL(photoURL: user.photoList[indexPath.row])
+            cell.setPhotoURL(photoURL: user.photoList[indexPath.row], dataService: dataService)
             return cell
     }
     

@@ -12,6 +12,7 @@ class BigPhotoUIViewController: UIViewController {
     
     let photoImageCurrent = UIImageView()
     let likeView = LikeUIView()
+    let dataService = DataService()
     
     var indexPhoto: Int?
     var photoList: [Photo?]?
@@ -44,7 +45,7 @@ class BigPhotoUIViewController: UIViewController {
         if count <= index {return}
         
         guard let url = photo.photoURL else { return }
-        VKApi.instance.downloadImage(urlString: url, completion: {
+        dataService.data(byUrl: url, completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.photoImageCurrent.image = UIImage(data: d)
@@ -176,7 +177,7 @@ class BigPhotoUIViewController: UIViewController {
                 self.likeView.setObject(object: self.photoList?[index])
                 
                 if let url = self.photoList?[index]?.photoURL {
-                    VKApi.instance.downloadImage(urlString: url, completion: {
+                    self.dataService.data(byUrl: url, completion: {
                         [weak self] data in
                         guard let d = data else { return }
                         self?.photoImageCurrent.image = UIImage(data: d)

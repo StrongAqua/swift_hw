@@ -13,6 +13,7 @@ class UsersTableViewController: UITableViewController {
     @IBOutlet weak var searchBar: CustomSearchBar!
     
     let refreshCtrl = UIRefreshControl()
+    let dataService = DataService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +61,7 @@ class UsersTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as! UsersTableViewCell
         let userKey = UsersManager.shared.alphabet[indexPath.section]
         if let user = UsersManager.shared.dict[userKey] {
-            cell.setup(user: user[indexPath.row])
+            cell.setup(user: user[indexPath.row], dataService: dataService)
             cell.indexPath = indexPath
         }
         
