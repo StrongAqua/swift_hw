@@ -13,6 +13,7 @@ class MyGroupsTableViewController: UITableViewController {
     var groups: [VkApiGroupItem] = []
     
     let refreshCtrl = UIRefreshControl()
+    let dataService = DataService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +56,7 @@ class MyGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupsCell", for: indexPath) as! MyGroupsTableViewCell
         let group = groups[indexPath.row]
-        cell.setup(title: group.name, imageURL: group.photo50Url)
+        cell.setup(title: group.name, imageURL: group.photo50Url, dataService: dataService)
         return cell
     }
     

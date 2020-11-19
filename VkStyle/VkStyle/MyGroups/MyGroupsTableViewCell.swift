@@ -21,10 +21,10 @@ class MyGroupsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setup(title: String?, imageURL: String?) {
+    func setup(title: String?, imageURL: String?, dataService: DataService) {
         self.myGroupName.text = title ?? "(unset)"
         guard let url = imageURL else { return }
-        VKApi.instance.downloadImage(urlString: url, completion: {
+        dataService.data(byUrl: url, completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.myGroupImage.image = UIImage(data: d)

@@ -14,6 +14,7 @@ class AllGroupsTableViewController: UITableViewController {
     weak var timer: Timer?
 
     var groups: [VkApiGroupItem] = []
+    let dataService = DataService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class AllGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! AllGroupsTableViewCell
         let group = groups[indexPath.row]
-        cell.setup(title: group.name, imageURL: group.photo50Url)
+        cell.setup(title: group.name, imageURL: group.photo50Url, dataService: dataService)
         return cell
     }
     
