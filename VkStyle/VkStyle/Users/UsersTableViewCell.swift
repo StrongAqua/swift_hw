@@ -28,7 +28,7 @@ class UsersTableViewCell: UITableViewCell {
     }
 
     func setup(user: UserInfo, dataService: DataService) {
-        dataService.data(byUrl: user.photo, completion: {
+        dataService.get(byUrl: user.photo, completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.avatarView.avatarPhoto.image = UIImage(data: d)

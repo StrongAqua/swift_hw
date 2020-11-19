@@ -28,7 +28,7 @@ class AllGroupsTableViewCell: UITableViewCell {
     func setup(title: String?, imageURL: String?, dataService: DataService) {
         self.groupName.text = title ?? "(unset)"
         guard let url = imageURL else { return }
-        dataService.data(byUrl: url, completion: {
+        dataService.get(byUrl: url, completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.groupImage.image = UIImage(data: d)

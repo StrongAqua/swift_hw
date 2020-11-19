@@ -14,6 +14,7 @@ class UsersTableViewController: UITableViewController {
     
     let refreshCtrl = UIRefreshControl()
     let dataService = DataService()
+    let vkFriends = VKApiFriends()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +35,16 @@ class UsersTableViewController: UITableViewController {
     }
     
     func reloadFriends() {
-        VKApi.instance.getFriendsList({ [weak self] friends, event in
-            if (event == .dataLoadedFromDB) {
-                debugPrint("completion block: update UI (tableView)");
-                UsersManager.shared.setUsersInfo(friends as! [VkApiUsersItem])
-                UsersManager.shared.rebuild()
-                self?.tableView.reloadData()
-            }
-            self?.refreshCtrl.endRefreshing()
-        })
+        vkFriends.get(
+            completion: { [weak self] friends, source in
+                if (source == .cached) {
+                    debugPrint("completion block: update UI (tableView)");
+                    UsersManager.shared.setUsersInfo(friends as! [VkApiUsersItem])
+                    UsersManager.shared.rebuild()
+                    self?.tableView.reloadData()
+                }
+                self?.refreshCtrl.endRefreshing()
+            })
     }
     
     // MARK: - Table view data source

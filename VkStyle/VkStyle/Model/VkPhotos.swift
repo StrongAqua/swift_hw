@@ -55,7 +55,7 @@ class VkApiPhotoItem: Object, Decodable {
         case url
     }
     
-    required init() {
+    required override init() {
         self.ref = nil
     }
     

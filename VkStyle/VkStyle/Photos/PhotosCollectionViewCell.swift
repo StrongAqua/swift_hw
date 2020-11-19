@@ -20,7 +20,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         likeView.setObject(object: self.photo)
 
         guard let url = p.photoURL else { return }
-        dataService.data(byUrl: url, completion: {
+        dataService.get(byUrl: url, completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.image.image = UIImage(data: d)

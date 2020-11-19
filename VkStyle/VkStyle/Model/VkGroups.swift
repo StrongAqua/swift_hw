@@ -39,7 +39,7 @@ class VkApiGroupItem: Object, Decodable {
         case photo50
     }
     
-    required init() {
+    required override init() {
         self.ref = nil
     }
     

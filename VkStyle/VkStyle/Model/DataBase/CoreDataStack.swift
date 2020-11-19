@@ -35,12 +35,13 @@ class CoreDataStack {
     // MARK: - Core Data Saving support
     func saveContext() {
         let context = persistentContainer.viewContext
+        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         if context.hasChanges {
             do {
                 try context.save()
             } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                let error = error as NSError
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
     }

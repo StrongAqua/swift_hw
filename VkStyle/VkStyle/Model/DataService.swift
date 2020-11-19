@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 class DataService {
     
@@ -53,7 +54,7 @@ class DataService {
                 } else {
                     removeFile = true
                 }
-                if (removeFile) {
+                if removeFile {
                     try fileManager.removeItem(atPath: fullFilePath)
                 }
             }
@@ -85,14 +86,25 @@ class DataService {
         }
         return data
     }
+    
+    private func download(urlString: String, completion: @escaping (Data?) -> ()) {
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url, completionHandler: {
+            data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() {
+                completion(data)
+            }
+        }).resume()
+    }
 
-    func data(byUrl url: String, completion: @escaping (Data?) -> ()) {
+    func get(byUrl url: String, completion: @escaping (Data?) -> ()) {
         if let data = dataCollection[url] {
             completion(data)
         } else if let data = getDataFromCache(url: url) {
             completion(data)
         } else {
-            VKApi.instance.downloadImage(urlString: url, completion: {
+            download(urlString: url, completion: {
                 [weak self] data in
                 guard let data = data else {return}
                 self?.saveDataToCache(url: url, data: data)
@@ -102,5 +114,28 @@ class DataService {
                 completion(data)
             })
         }
+    }
+    
+    enum DownloadErrors : Error {
+        case wrongURL
+    }
+
+    func getPromise(_ urlString: String) -> Promise<Data> {
+        let promiseData = Promise<Data> { resolver in
+            guard let url = URL(string: urlString) else {
+                resolver.reject(DownloadErrors.wrongURL)
+                return
+            }
+            URLSession.shared.dataTask(with: url) {
+                data, _, error in
+                if let error = error {
+                    resolver.reject(error)
+                } else {
+                    resolver.fulfill(data ?? Data())
+                }
+            }
+            .resume()
+        }
+        return promiseData
     }
 }
