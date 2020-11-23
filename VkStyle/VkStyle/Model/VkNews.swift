@@ -18,6 +18,7 @@ class VkApiNewsResponseItems: Decodable {
     let items: [VkApiNewsItem]
     let profiles: [VkApiUsersItem]
     let groups: [VkApiGroupItem]
+    let nextFrom: String
 
     func compose() {
         for item in items {
@@ -174,6 +175,21 @@ class VkApiNewsItem: Object, Decodable {
             result["attachments"] = items
         }
         return result
+    }
+    
+    func getPhoto() -> VkApiPhotoItem? {
+        var photo: VkApiPhotoItem?
+        if self.photos != nil && !(self.photos?.items.isEmpty ?? false) {
+            photo = self.photos?.items.first
+        }
+        else if self.attachments.isEmpty == false {
+            for attachment in self.attachments {
+                if attachment.type == "photo" {
+                    photo = attachment.photo
+                }
+            }
+        }
+        return photo
     }
 }
 

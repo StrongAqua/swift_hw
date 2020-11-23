@@ -15,12 +15,14 @@ class VKApiGroups {
     func get(args: [String: Any] = [:], completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         let method = "groups.get"
         api.saveService.subscribeGroupsList(completion)
-        api.apiRequest( method, [
+        var params: [String: Any] = [
             "user_id": String(Session.instance.userId),
             "count": VKApi.maxObjectsCount,
             "extended": 1,
             "fields": "id,name"
-        ], { [weak self] data in
+        ]
+        params.merge(args, uniquingKeysWith: { _, new in new})
+        api.apiRequest( method, params, { [weak self] data in
             self?.parse(method, data, completion)
         })
     }

@@ -32,7 +32,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     func reloadData() {
         guard let user = self.user else { return }
         vkPhotos.get(
-            args: ["owner": user.id],
+            args: ["owner_id": user.id],
             completion: {[weak self] photos, source in
                 if (source == .cached) {
                     guard let photoItems = photos as? [VkApiPhotoItem] else { return }

@@ -20,6 +20,7 @@
 		FE3E1C6A256682F20069B6C8 /* VKApiUserPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E1C69256682F20069B6C8 /* VKApiUserPhotos.swift */; };
 		FE3E1C6D256686FE0069B6C8 /* VKApiGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E1C6C256686FE0069B6C8 /* VKApiGroups.swift */; };
 		FE3E1C70256688EC0069B6C8 /* VKApiNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E1C6F256688EC0069B6C8 /* VKApiNews.swift */; };
+		FE46EE3A256B84990046032F /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE46EE39256B84990046032F /* UILabelExtensions.swift */; };
 		FE4B5B4E251F38D800743AE4 /* WebLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B4D251F38D800743AE4 /* WebLoginViewController.swift */; };
 		FE4B5B51251F41B500743AE4 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B50251F41B500743AE4 /* URLHelper.swift */; };
 		FE4B5B53251F49F600743AE4 /* VKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B52251F49F600743AE4 /* VKApi.swift */; };
@@ -83,6 +84,7 @@
 		FE3E1C69256682F20069B6C8 /* VKApiUserPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiUserPhotos.swift; sourceTree = "<group>"; };
 		FE3E1C6C256686FE0069B6C8 /* VKApiGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiGroups.swift; sourceTree = "<group>"; };
 		FE3E1C6F256688EC0069B6C8 /* VKApiNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiNews.swift; sourceTree = "<group>"; };
+		FE46EE39256B84990046032F /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
 		FE4B5B4D251F38D800743AE4 /* WebLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebLoginViewController.swift; sourceTree = "<group>"; };
 		FE4B5B50251F41B500743AE4 /* URLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHelper.swift; sourceTree = "<group>"; };
 		FE4B5B52251F49F600743AE4 /* VKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApi.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				FE4B5B50251F41B500743AE4 /* URLHelper.swift */,
+				FE46EE39256B84990046032F /* UILabelExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				FE4B5B5925233A9500743AE4 /* VkGroups.swift in Sources */,
 				FE9D582B2503CC1200D809AB /* LoadingView.swift in Sources */,
 				FE3E1C6225667BE10069B6C8 /* VKApiFriends.swift in Sources */,
+				FE46EE3A256B84990046032F /* UILabelExtensions.swift in Sources */,
 				FE9D58332508ECDB00D809AB /* CustomNavigationController.swift in Sources */,
 				FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */,
 				FE9D58312508EBB400D809AB /* CustomPopAnimator.swift in Sources */,

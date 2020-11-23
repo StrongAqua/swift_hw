@@ -1,4 +1,4 @@
-1. Split VK objects depends on data frameworks.   - in progress
-2. Split VK API objects processing.               - done
-3. Exclude Data Downloader from VK API.           - done
-4. Fix snakes in coredata model                   - todo
+1. Re-implement all VK objects parsing, remove manual fields parsing
+2. Repair CoreData cache for the news
+3. Split VK objects depends on data storage frameworks   - in progress
+4. Fix snakes in coredata model

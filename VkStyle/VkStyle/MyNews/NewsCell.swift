@@ -19,12 +19,31 @@ class NewsCell: UITableViewCell
     @IBOutlet weak var messageImage: UIImageView!
     @IBOutlet weak var likeView: LikeUIView!
     
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    @IBOutlet weak var messageTextHeight: NSLayoutConstraint!
+
+    @IBOutlet weak var showMoreButton: UIButton!
+    @IBOutlet weak var showMoreButtonHeight: NSLayoutConstraint!
+
+    let fiveLinesText = "\n\n\n\n\n"
+    var maxMessageHeight: CGFloat?
+    var onShowMoreClicked: ((NewsCell) -> Void)?
+
+    @IBAction func showMoreAction(_ sender: Any) {
+        onShowMoreClicked?(self)
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    func setup(_ item: VkApiNewsItem,
+               _ dataService: DataService,
+               _ expanded: Bool,
+               _ onShowMoreClicked: @escaping (NewsCell) -> Void ) {
 
-    func setup(_ item: VkApiNewsItem, _ dataService: DataService) {
-
+        self.onShowMoreClicked = onShowMoreClicked
+        
         dataService.getPromise(item.avatarPhoto ?? "")
             .get {
                 [weak self] data in
@@ -38,29 +57,62 @@ class NewsCell: UITableViewCell
         let last_name = item.lastName ?? ""
         userName.text = "\(first_name) \(last_name)"
         
-        messageText.text = item.text ?? ""
-
-        var imageUrl: String?
-        if item.photos != nil && !(item.photos?.items.isEmpty ?? false) {
-            imageUrl = item.photos?.items.first?.sizeXUrl ?? ""
-        } else if item.attachments.isEmpty == false {
-            for a in item.attachments {
-                if a.type == "photo" {
-                    imageUrl = a.photo?.sizeXUrl ?? ""
-                }
-            }
+        let text = item.text ?? ""
+        messageText.numberOfLines = 0
+        messageText.text = text
+        
+        if self.maxMessageHeight == nil {
+            self.maxMessageHeight = messageText.calculateHeight(forText: fiveLinesText)
+        }
+        let maxMessageHeight = self.maxMessageHeight ?? 0
+        
+        if text.isEmpty {
+            messageText.isHidden = true
+            messageTextHeight.constant = 0
+            showMoreButton.isHidden = true
+            showMoreButtonHeight.constant = 0
         } else {
-            messageImage.image = nil
+            showMoreButton.setTitle(expanded ? "Show less..." : "Show more...", for: .normal)
+            messageText.isHidden = false
+            let requiredTextHeight = messageText.requiredHeight
+            if requiredTextHeight > maxMessageHeight {
+                messageText.isHidden = false
+                messageTextHeight.constant =
+                    expanded
+                        ? requiredTextHeight
+                        : maxMessageHeight
+                showMoreButton.isHidden = false
+                showMoreButtonHeight.constant = 30
+            } else {
+                messageTextHeight.constant = requiredTextHeight
+                showMoreButton.isHidden = true
+                showMoreButtonHeight.constant = 0
+            }
         }
         
-        dataService.getPromise(imageUrl ?? "")
-            .get {
-                [weak self] data in
-                self?.messageImage.image = UIImage(data: data)
-            }
-            .catch { error in
-                debugPrint("Fail to download image: \(error)")
-            }
+        if let vkPhoto = item.getPhoto(),
+           let size = vkPhoto.getSize("x") {
+
+            let aspectRatio = CGFloat(size.height) / CGFloat(size.width)
+            messageImage.isHidden = false
+            imageHeight.constant =
+                min( self.messageImage.frame.width * aspectRatio, 400 )
+            
+            dataService.getPromise(vkPhoto.sizeXUrl)
+                .get {
+                    [weak self] data in
+                    guard let self = self else {return}
+                    self.messageImage.image = UIImage(data: data)
+                }
+                .catch { error in
+                    debugPrint("Fail to download image: \(error)")
+                }
+        }
+        else {
+            messageImage.image = nil
+            messageImage.isHidden = true
+            imageHeight.constant = 0
+        }
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
