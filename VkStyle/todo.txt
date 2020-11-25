@@ -1,0 +1,4 @@
+1. Split VK objects depends on data frameworks.   - in progress
+2. Split VK API objects processing.               - done
+3. Exclude Data Downloader from VK API.           - done
+4. Fix snakes in coredata model                   - todo

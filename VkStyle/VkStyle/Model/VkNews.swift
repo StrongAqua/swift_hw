@@ -69,7 +69,7 @@ class VkApiNewsItem: Object, Decodable {
         case attachments
     }
 
-    required init() {
+    required override init() {
         self.ref = nil
     }
     

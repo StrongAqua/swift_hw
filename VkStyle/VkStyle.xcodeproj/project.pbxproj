@@ -16,6 +16,10 @@
 		FE375DF52529D237004DDA14 /* SaveServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE375DF42529D236004DDA14 /* SaveServiceInterface.swift */; };
 		FE375E032531A37F004DDA14 /* SaveServiceRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE375E022531A37F004DDA14 /* SaveServiceRealm.swift */; };
 		FE375E052531A533004DDA14 /* SaveServiceCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE375E042531A533004DDA14 /* SaveServiceCoreData.swift */; };
+		FE3E1C6225667BE10069B6C8 /* VKApiFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E1C6125667BE10069B6C8 /* VKApiFriends.swift */; };
+		FE3E1C6A256682F20069B6C8 /* VKApiUserPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E1C69256682F20069B6C8 /* VKApiUserPhotos.swift */; };
+		FE3E1C6D256686FE0069B6C8 /* VKApiGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E1C6C256686FE0069B6C8 /* VKApiGroups.swift */; };
+		FE3E1C70256688EC0069B6C8 /* VKApiNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E1C6F256688EC0069B6C8 /* VKApiNews.swift */; };
 		FE4B5B4E251F38D800743AE4 /* WebLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B4D251F38D800743AE4 /* WebLoginViewController.swift */; };
 		FE4B5B51251F41B500743AE4 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B50251F41B500743AE4 /* URLHelper.swift */; };
 		FE4B5B53251F49F600743AE4 /* VKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B52251F49F600743AE4 /* VKApi.swift */; };
@@ -75,6 +79,10 @@
 		FE375DF42529D236004DDA14 /* SaveServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveServiceInterface.swift; sourceTree = "<group>"; };
 		FE375E022531A37F004DDA14 /* SaveServiceRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveServiceRealm.swift; sourceTree = "<group>"; };
 		FE375E042531A533004DDA14 /* SaveServiceCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveServiceCoreData.swift; sourceTree = "<group>"; };
+		FE3E1C6125667BE10069B6C8 /* VKApiFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiFriends.swift; sourceTree = "<group>"; };
+		FE3E1C69256682F20069B6C8 /* VKApiUserPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiUserPhotos.swift; sourceTree = "<group>"; };
+		FE3E1C6C256686FE0069B6C8 /* VKApiGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiGroups.swift; sourceTree = "<group>"; };
+		FE3E1C6F256688EC0069B6C8 /* VKApiNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiNews.swift; sourceTree = "<group>"; };
 		FE4B5B4D251F38D800743AE4 /* WebLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebLoginViewController.swift; sourceTree = "<group>"; };
 		FE4B5B50251F41B500743AE4 /* URLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHelper.swift; sourceTree = "<group>"; };
 		FE4B5B52251F49F600743AE4 /* VKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApi.swift; sourceTree = "<group>"; };
@@ -176,6 +184,18 @@
 			path = DataBase;
 			sourceTree = "<group>";
 		};
+		FE3E1C6025667BB10069B6C8 /* VKApi */ = {
+			isa = PBXGroup;
+			children = (
+				FE4B5B52251F49F600743AE4 /* VKApi.swift */,
+				FE3E1C6F256688EC0069B6C8 /* VKApiNews.swift */,
+				FE3E1C6125667BE10069B6C8 /* VKApiFriends.swift */,
+				FE3E1C69256682F20069B6C8 /* VKApiUserPhotos.swift */,
+				FE3E1C6C256686FE0069B6C8 /* VKApiGroups.swift */,
+			);
+			path = VKApi;
+			sourceTree = "<group>";
+		};
 		FE4B5B4C251F388A00743AE4 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				FE4B5B50251F41B500743AE4 /* URLHelper.swift */,
-				FE4B5B52251F49F600743AE4 /* VKApi.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -215,6 +234,7 @@
 		FE65899E24D2FFB500BBB3C0 /* VkStyle */ = {
 			isa = PBXGroup;
 			children = (
+				FE3E1C6025667BB10069B6C8 /* VKApi */,
 				FE90DFDC255848C600B8D5F6 /* AsyncOperations */,
 				FE4B5B4F251F417F00743AE4 /* Utils */,
 				FE4B5B4C251F388A00743AE4 /* Login */,
@@ -400,7 +420,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = Alla;
 				TargetAttributes = {
 					FE65899B24D2FFB500BBB3C0 = {
@@ -503,6 +523,7 @@
 				FE375DE92529C474004DDA14 /* CoreDataStack.swift in Sources */,
 				FE4B5B53251F49F600743AE4 /* VKApi.swift in Sources */,
 				FE6589A424D2FFB500BBB3C0 /* LoginViewController.swift in Sources */,
+				FE3E1C70256688EC0069B6C8 /* VKApiNews.swift in Sources */,
 				FE90DFE22558517800B8D5F6 /* AsyncJsonDecoder.swift in Sources */,
 				FE68859D24DAB1650014CAB7 /* MyGroupsTableViewCell.swift in Sources */,
 				FE375E032531A37F004DDA14 /* SaveServiceRealm.swift in Sources */,
@@ -514,6 +535,7 @@
 				FE9D584A250D4A9300D809AB /* CustomSearchBar.swift in Sources */,
 				FE375DEF2529CFA6004DDA14 /* VkStyleStore.xcdatamodeld in Sources */,
 				FE6885A424DAC62F0014CAB7 /* PhotosCollectionViewCell.swift in Sources */,
+				FE3E1C6A256682F20069B6C8 /* VKApiUserPhotos.swift in Sources */,
 				FE9D58372509720C00D809AB /* AnimationHelpers.swift in Sources */,
 				FEF0E9C025626E3D00BC73BE /* DataService.swift in Sources */,
 				FE9D58272503C54C00D809AB /* LoadingViewController.swift in Sources */,
@@ -523,8 +545,10 @@
 				FE6885A924DACA200014CAB7 /* UsersTableViewCell.swift in Sources */,
 				FE6885AE24DBF42C0014CAB7 /* InternalDataModels.swift in Sources */,
 				FE9D58352508EFC400D809AB /* CustomInteractiveTransition.swift in Sources */,
+				FE3E1C6D256686FE0069B6C8 /* VKApiGroups.swift in Sources */,
 				FE4B5B5925233A9500743AE4 /* VkGroups.swift in Sources */,
 				FE9D582B2503CC1200D809AB /* LoadingView.swift in Sources */,
+				FE3E1C6225667BE10069B6C8 /* VKApiFriends.swift in Sources */,
 				FE9D58332508ECDB00D809AB /* CustomNavigationController.swift in Sources */,
 				FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */,
 				FE9D58312508EBB400D809AB /* CustomPopAnimator.swift in Sources */,
@@ -588,6 +612,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -648,6 +673,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

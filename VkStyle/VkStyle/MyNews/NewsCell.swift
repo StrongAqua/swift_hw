@@ -23,9 +23,9 @@ class NewsCell: UITableViewCell
         super.awakeFromNib()
     }
 
-    func setup(_ item: VkApiNewsItem) {
+    func setup(_ item: VkApiNewsItem, _ dataService: DataService) {
 
-        VKApi.instance.downloadImageWithPromise(item.avatarPhoto ?? "")
+        dataService.getPromise(item.avatarPhoto ?? "")
             .get {
                 [weak self] data in
                 self?.avatarImage.image = UIImage(data: data)
@@ -53,7 +53,7 @@ class NewsCell: UITableViewCell
             messageImage.image = nil
         }
         
-        VKApi.instance.downloadImageWithPromise(imageUrl ?? "")
+        dataService.getPromise(imageUrl ?? "")
             .get {
                 [weak self] data in
                 self?.messageImage.image = UIImage(data: data)

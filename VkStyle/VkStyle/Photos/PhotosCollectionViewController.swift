@@ -14,6 +14,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     var user: UserInfo?
     var dataService = DataService()
     let refreshCtrl = UIRefreshControl()
+    let vkPhotos = VKApiUserPhotos()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,19 +31,20 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     func reloadData() {
         guard let user = self.user else { return }
-        VKApi.instance.getUserPhotos(user.id,
-        {[weak self] photos, event in
-            if (event == .dataLoadedFromDB) {
-                guard let photoItems = photos as? [VkApiPhotoItem] else { return }
-                if photoItems.count <= 0 { return }
-                UsersManager.shared.setUserPhotos(
-                    user.id,
-                    photoItems
-                )
-                self?.collectionView.reloadData()
-            }
-            self?.refreshCtrl.endRefreshing()
-        })
+        vkPhotos.get(
+            args: ["owner": user.id],
+            completion: {[weak self] photos, source in
+                if (source == .cached) {
+                    guard let photoItems = photos as? [VkApiPhotoItem] else { return }
+                    if photoItems.count <= 0 { return }
+                    UsersManager.shared.setUserPhotos(
+                        user.id,
+                        photoItems
+                    )
+                    self?.collectionView.reloadData()
+                }
+                self?.refreshCtrl.endRefreshing()
+            })
     }
     
     public func setUser(user: UserInfo) {

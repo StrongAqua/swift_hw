@@ -15,6 +15,7 @@ class AllGroupsTableViewController: UITableViewController {
 
     var groups: [VkApiGroupItem] = []
     let dataService = DataService()
+    let vkGroups = VKApiGroups()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,12 +50,14 @@ class AllGroupsTableViewController: UITableViewController {
     }
 
     func doSearch() {
-        VKApi.instance.searchGroups(searchBar.searchBar.text ?? "", { [weak self] groups, event in
-            if (event == .dataLoadedFromServer) {
-                self?.setGroups(groups as! [VkApiGroupItem])
-                self?.tableView.reloadData()
-            }
-        })
+        vkGroups.search(
+            args: ["query": searchBar.searchBar.text ?? ""],
+            completion: { [weak self] groups, source in
+                if (source == .live) {
+                    self?.setGroups(groups as! [VkApiGroupItem])
+                    self?.tableView.reloadData()
+                }
+            })
         tableView.reloadData()
     }
     

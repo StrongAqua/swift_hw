@@ -14,7 +14,8 @@ class MyGroupsTableViewController: UITableViewController {
     
     let refreshCtrl = UIRefreshControl()
     let dataService = DataService()
-    
+    let vkGroups = VKApiGroups()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,13 +30,14 @@ class MyGroupsTableViewController: UITableViewController {
     }
     
     func reloadGroups() {
-         VKApi.instance.getGroupsList({ [weak self] groups, event in
-            if (event == .dataLoadedFromDB) {
-                self?.setGroups(groups as! [VkApiGroupItem])
-                self?.tableView.reloadData()
-            }
-            self?.refreshCtrl.endRefreshing()
-        })
+        vkGroups.get(
+            completion: { [weak self] groups, source in
+                if (source == .cached) {
+                    self?.setGroups(groups as! [VkApiGroupItem])
+                    self?.tableView.reloadData()
+                }
+                self?.refreshCtrl.endRefreshing()
+            })
     }
     func setGroups(_ groups: [VkApiGroupItem]) {
         self.groups = []
@@ -85,7 +87,7 @@ class MyGroupsTableViewController: UITableViewController {
                     // Добавляем группу в список выбранных групп
                     debugPrint("Append group \(group.name)")
                     groups.append(group)
-                    VKApi.instance.saveGroups([group])
+                    vkGroups.save([group])
                 }
             }
         }

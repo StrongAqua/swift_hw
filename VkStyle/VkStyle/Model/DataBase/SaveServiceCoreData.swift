@@ -13,10 +13,10 @@ class SaveServiceCoreData : SaveServiceInterface {
     
     let storeStack = CoreDataStack(modelName: "VkStyleStore")
     
-    var friendsNotification: ([AnyObject], VKApi.Event) -> Void = { _, _ in }
-    var photosNotification: ([AnyObject], VKApi.Event) -> Void = { _, _ in }
-    var groupNotification: ([AnyObject], VKApi.Event) -> Void = { _, _ in }
-    var newsNotification: ([AnyObject], VKApi.Event) -> Void = { _, _ in }
+    var friendsNotification: ([AnyObject], VKApi.DataSource) -> Void = { _, _ in }
+    var photosNotification: ([AnyObject], VKApi.DataSource) -> Void = { _, _ in }
+    var groupNotification: ([AnyObject], VKApi.DataSource) -> Void = { _, _ in }
+    var newsNotification: ([AnyObject], VKApi.DataSource) -> Void = { _, _ in }
 
     init() {
         NotificationCenter.default.addObserver(
@@ -34,26 +34,18 @@ class SaveServiceCoreData : SaveServiceInterface {
         storeStack.clearAllData()
     }
     
-    func fetchUniqueObject(uniquePredicate: String, entity: String) -> NSManagedObject? {
-        var object: NSManagedObject?
+    func fetch(context: NSManagedObjectContext, predicate: String, entity: String) -> NSManagedObject? {
 
-        let context = storeStack.context
-        let predicate = NSPredicate(format: uniquePredicate)
+        var object: NSManagedObject?
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
 
-        request.predicate = predicate
+        request.predicate = NSPredicate(format: predicate)
         if let fetchResults = try? context.fetch(request) as? [NSManagedObject] {
             if fetchResults.count > 0 {
                 object = fetchResults[0]
             }
-            // remove non-unique objects,
-            // restore uniqueness
             if fetchResults.count > 1 {
-                debugPrint("WARNING: this code should never be called in normal situation")
-                for i in 1..<fetchResults.count {
-                    let managedObject = fetchResults[i]
-                    context.delete(managedObject)
-                }
+                fatalError("non unique object, predicate: \(predicate), entity: \(entity)")
             }
         }
         return object
@@ -62,7 +54,11 @@ class SaveServiceCoreData : SaveServiceInterface {
     func saveUsers(_ users: [VkApiUsersItem]) {
         let context = storeStack.context
         for user in users {
-            var u = fetchUniqueObject(uniquePredicate: "id == \(user.id)", entity: "Users") as? Users
+            var u = fetch(
+                context: context,
+                predicate: "id == \(user.id)",
+                entity: "Users"
+            ) as? Users
             if u == nil {
                 u = Users(context: context)
             }
@@ -74,10 +70,10 @@ class SaveServiceCoreData : SaveServiceInterface {
         storeStack.saveContext()
     }
     
-    func subscribeUsersList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribeUsersList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         let friends = readUsersList()
         if friends.isEmpty == false {
-            completion(friends, VKApi.Event.dataLoadedFromDB)
+            completion(friends, VKApi.DataSource.cached)
         }
         friendsNotification = completion
     }
@@ -104,12 +100,14 @@ class SaveServiceCoreData : SaveServiceInterface {
     
     func savePhotosWithContext(_ context: NSManagedObjectContext, _ photos: [VkApiPhotoItem]) {
         for photo in photos {
-            var ph: Photos? = fetchUniqueObject(
-                uniquePredicate:
+            var ph: Photos? = fetch(
+                context: context,
+                predicate:
                     "id == \(photo.id) "
                   + "and news_post_id == \(photo.newsPostId) "
                   + "and news_source_id == \(photo.newsSourceId) "
-                , entity: "Photos") as? Photos
+                , entity: "Photos"
+            ) as? Photos
             if ph == nil {
                 ph = Photos(context: context)
             }
@@ -124,10 +122,10 @@ class SaveServiceCoreData : SaveServiceInterface {
         }
     }
     
-    func subscribePhotosList(_ userID: Int, _ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribePhotosList(_ userID: Int, _ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         let photos = readPhotosList(userID)
         if photos.isEmpty == false {
-            completion(photos, VKApi.Event.dataLoadedFromDB)
+            completion(photos, VKApi.DataSource.cached)
         }
         photosNotification = completion
     }
@@ -159,7 +157,11 @@ class SaveServiceCoreData : SaveServiceInterface {
     func saveGroups(_ groups: [VkApiGroupItem]) {
         let context = storeStack.context
         for group in groups {
-            var g = fetchUniqueObject(uniquePredicate: "id == \(group.id)", entity: "Groups") as? Groups
+            var g = fetch(
+                context: context,
+                predicate: "id == \(group.id)",
+                entity: "Groups"
+            ) as? Groups
             if g == nil {
                 g = Groups(context: context)
             }
@@ -188,10 +190,10 @@ class SaveServiceCoreData : SaveServiceInterface {
         return groups_out
     }
     
-    func subscribeGroupsList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribeGroupsList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         let groups = readGroupsList()
         if groups.isEmpty == false {
-            completion(groups, VKApi.Event.dataLoadedFromDB)
+            completion(groups, VKApi.DataSource.cached)
         }
         groupNotification = completion
     }
@@ -200,7 +202,11 @@ class SaveServiceCoreData : SaveServiceInterface {
     func saveNews(_ news: [VkApiNewsItem]) {
         let context = storeStack.context
         for note in news {
-            var n = fetchUniqueObject(uniquePredicate: "sourceId == \(note.sourceId) and postId == \(note.postId)", entity: "News") as? News
+            var n = fetch(
+                context: context,
+                predicate: "sourceId == \(note.sourceId) and postId == \(note.postId)",
+                entity: "News"
+            ) as? News
             if n == nil {
                 n = News(context: context)
             }
@@ -236,10 +242,10 @@ class SaveServiceCoreData : SaveServiceInterface {
         return newsResult
     }
     
-    func subscribeNewsList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribeNewsList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         let news = readNewsList()
         if news.isEmpty == false {
-            completion(news, VKApi.Event.dataLoadedFromDB)
+            completion(news, VKApi.DataSource.cached)
         }
         newsNotification = completion
     }
@@ -266,12 +272,12 @@ class SaveServiceCoreData : SaveServiceInterface {
         }
         if friends.isEmpty == false {
             DispatchQueue.main.async { [weak self] in
-                self?.friendsNotification(friends, VKApi.Event.dataLoadedFromDB)
+                self?.friendsNotification(friends, VKApi.DataSource.cached)
             }
         } else
         if groups.isEmpty == false {
             DispatchQueue.main.async { [weak self] in
-                self?.groupNotification(groups, VKApi.Event.dataLoadedFromDB)
+                self?.groupNotification(groups, VKApi.DataSource.cached)
             }
         } else
         if news.isEmpty == false {
@@ -290,12 +296,12 @@ class SaveServiceCoreData : SaveServiceInterface {
                 }
             }
             DispatchQueue.main.async { [weak self] in
-                self?.newsNotification(news, VKApi.Event.dataLoadedFromDB)
+                self?.newsNotification(news, VKApi.DataSource.cached)
             }
         } else
         if photos.isEmpty == false {
             DispatchQueue.main.async { [weak self] in
-                self?.photosNotification(photos, VKApi.Event.dataLoadedFromDB)
+                self?.photosNotification(photos, VKApi.DataSource.cached)
             }
         }
     }

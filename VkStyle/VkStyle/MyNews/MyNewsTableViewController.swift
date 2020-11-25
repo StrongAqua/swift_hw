@@ -12,6 +12,8 @@ class MyNewsTableViewController: UITableViewController {
     
     var news: [VkApiNewsItem] = []
     let refreshCtrl = UIRefreshControl()
+    let dataService = DataService()
+    let vkNews = VKApiNews()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,15 +35,16 @@ class MyNewsTableViewController: UITableViewController {
     }
     
     func reloadNews() {
-        VKApi.instance.getNewsList({ [weak self] news, event in
-            if (event == .dataLoadedFromDB) {
-                debugPrint("completion block: update UI (tableView), \(news.count)");
-                let newsList = news as! [VkApiNewsItem]
-                self?.news = newsList.sorted(by: {$0.date > $1.date})
-                self?.tableView.reloadData()
-            }
-            self?.refreshCtrl.endRefreshing()
-        })
+        vkNews.get(
+            completion: { [weak self] news, source in
+                if (source == .cached) {
+                    debugPrint("completion block: update UI (tableView), \(news.count)");
+                    let newsList = news as! [VkApiNewsItem]
+                    self?.news = newsList.sorted(by: {$0.date > $1.date})
+                    self?.tableView.reloadData()
+                }
+                self?.refreshCtrl.endRefreshing()
+            })
     }
 
     // MARK: - Table view data source
@@ -68,7 +71,7 @@ class MyNewsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
         // Configure the cell...
         let item = news[indexPath.row]
-        cell.setup(item)
+        cell.setup(item, dataService)
         return cell
     }
     

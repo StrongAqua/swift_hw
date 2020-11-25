@@ -39,7 +39,7 @@ class SaveServiceRealm : SaveServiceInterface {
         return [VkApiUsersItem]()
     }
     
-    func subscribeUsersList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribeUsersList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         if friendsNotificationToken != nil { return }
         do {
             let realm = try Realm()
@@ -51,11 +51,11 @@ class SaveServiceRealm : SaveServiceInterface {
                 case .initial (let results):
                     let users = [VkApiUsersItem](results)
                     debugPrint(".initial : \(users.count) users loaded from DB")
-                    completion(users, .dataLoadedFromDB)
+                    completion(users, .cached)
                 case .update(let results, _, _, _):
                     let users = [VkApiUsersItem](results)
                     debugPrint(".update : \(users.count) users changed")
-                    completion(users, .dataLoadedFromDB)
+                    completion(users, .cached)
                 case .error(let error):
                     debugPrint(".error")
                     debugPrint(error)
@@ -88,7 +88,7 @@ class SaveServiceRealm : SaveServiceInterface {
         return [VkApiPhotoItem]()
     }
     
-    func subscribePhotosList(_ userID: Int, _ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribePhotosList(_ userID: Int, _ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         if photosNotificationToken != nil && userID == photosNotificationTokenUserId { return }
         do {
             let realm = try Realm()
@@ -100,11 +100,11 @@ class SaveServiceRealm : SaveServiceInterface {
                 case .initial (let results):
                     let photos = [VkApiPhotoItem](results)
                     debugPrint(".initial : \(photos.count) groups loaded from DB")
-                    completion(photos, .dataLoadedFromDB)
+                    completion(photos, .cached)
                 case .update(let results, _, _, _):
                     let photos = [VkApiPhotoItem](results)
                     debugPrint(".update : \(photos.count) photos changed")
-                    completion(photos, .dataLoadedFromDB)
+                    completion(photos, .cached)
                 case .error(let error):
                     debugPrint(".error")
                     debugPrint(error)
@@ -137,7 +137,7 @@ class SaveServiceRealm : SaveServiceInterface {
         return [VkApiGroupItem]()
     }
     
-    func subscribeGroupsList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribeGroupsList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         if groupsNotificationToken != nil { return }
         do {
             let realm = try Realm()
@@ -149,11 +149,11 @@ class SaveServiceRealm : SaveServiceInterface {
                 case .initial (let results):
                     let groups = [VkApiGroupItem](results)
                     debugPrint(".initial : \(groups.count) groups loaded from DB")
-                    completion(groups, .dataLoadedFromDB)
+                    completion(groups, .cached)
                 case .update(let results, _, _, _):
                     let groups = [VkApiGroupItem](results)
                     debugPrint(".update : \(groups.count) groups changed")
-                    completion(groups, .dataLoadedFromDB)
+                    completion(groups, .cached)
                 case .error(let error):
                     debugPrint(".error")
                     debugPrint(error)
@@ -173,7 +173,7 @@ class SaveServiceRealm : SaveServiceInterface {
         // return [VkApiNewsItem]()
     }
     
-    func subscribeNewsList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribeNewsList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         fatalError("ERROR: Realms subscribeNewsList not yet implemented")
     }
     

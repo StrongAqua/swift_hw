@@ -37,7 +37,7 @@ class SaveServiceFirebase : SaveServiceInterface {
         return []
     }
     
-    func subscribeUsersList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribeUsersList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         if isSetFriendsObserver == false {
             isSetFriendsObserver = true
             debugPrint("Subscribe to the Firebase events")
@@ -52,7 +52,7 @@ class SaveServiceFirebase : SaveServiceInterface {
                         friends.append(friend)
                     }
                 }
-                completion(friends, .dataLoadedFromDB)
+                completion(friends, .cached)
             })
         }
     }
@@ -69,7 +69,7 @@ class SaveServiceFirebase : SaveServiceInterface {
         return []
     }
     
-    func subscribePhotosList(_ userID: Int, _ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribePhotosList(_ userID: Int, _ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         if isSetPhotosObserver == false || userID != photosObserverUserID {
             isSetPhotosObserver = true
 
@@ -90,7 +90,7 @@ class SaveServiceFirebase : SaveServiceInterface {
                     }
                 }
                 debugPrint("  - call completion for \(photos.count) photo(s)")
-                completion(photos, .dataLoadedFromDB)
+                completion(photos, .cached)
             })
         }
     }
@@ -106,7 +106,7 @@ class SaveServiceFirebase : SaveServiceInterface {
         return []
     }
     
-    func subscribeGroupsList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribeGroupsList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         if isSetGroupsObserver == false {
             isSetGroupsObserver = true
             debugPrint("Subscribe to the Firebase events")
@@ -121,7 +121,7 @@ class SaveServiceFirebase : SaveServiceInterface {
                         groups.append(group)
                     }
                 }
-                completion(groups, .dataLoadedFromDB)
+                completion(groups, .cached)
             })
         }
     }
@@ -137,7 +137,7 @@ class SaveServiceFirebase : SaveServiceInterface {
         return []
     }
 
-    func subscribeNewsList(_ completion: @escaping ([AnyObject], VKApi.Event) -> Void) {
+    func subscribeNewsList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         if isSetNewsObserver == false {
             isSetNewsObserver = true
             debugPrint("Subscribe to the Firebase events")
@@ -151,7 +151,7 @@ class SaveServiceFirebase : SaveServiceInterface {
                         news.append(note)
                     }
                 }
-                completion(news, .dataLoadedFromDB)
+                completion(news, .cached)
             })
         }
     }

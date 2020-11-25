@@ -45,7 +45,7 @@ class BigPhotoUIViewController: UIViewController {
         if count <= index {return}
         
         guard let url = photo.photoURL else { return }
-        dataService.data(byUrl: url, completion: {
+        dataService.get(byUrl: url, completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.photoImageCurrent.image = UIImage(data: d)
@@ -177,7 +177,7 @@ class BigPhotoUIViewController: UIViewController {
                 self.likeView.setObject(object: self.photoList?[index])
                 
                 if let url = self.photoList?[index]?.photoURL {
-                    self.dataService.data(byUrl: url, completion: {
+                    self.dataService.get(byUrl: url, completion: {
                         [weak self] data in
                         guard let d = data else { return }
                         self?.photoImageCurrent.image = UIImage(data: d)
