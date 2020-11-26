@@ -18,12 +18,14 @@ class VKApiFriends {
         api.saveService.subscribeUsersList(completion)
         // Call the server. When the server data is got, parsed and stored DB will
         // call UI controller completion to display the data (friends list).
-        api.apiRequest( "friends.get", [
+        var params: [String: Any] = [
             "user_id": String(Session.instance.userId),
             "count": VKApi.maxObjectsCount,
             "order": "name",
             "fields": "id,first_name,last_name,photo_100"
-        ], { [weak self] data in
+        ]
+        params.merge(args, uniquingKeysWith: { _, new in new})
+        api.apiRequest( "friends.get", params, { [weak self] data in
             self?.parse(data, completion)
         })
     }

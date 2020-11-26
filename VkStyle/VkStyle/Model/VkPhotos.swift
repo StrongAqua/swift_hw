@@ -18,6 +18,15 @@ class VkApiPhotoResponseItems: Decodable {
     let items: [VkApiPhotoItem]
 }
 
+class VkApiPhotoSize: Decodable {
+    let type: String
+    let url: String
+    let width: Int
+    let height: Int
+}
+
+// TODO: re-implement with automatic parse
+// TODO: repair CoreData cache for the news
 class VkApiPhotoItem: Object, Decodable {
     // photo object fields
     @objc dynamic var id: Int = 0
@@ -26,6 +35,7 @@ class VkApiPhotoItem: Object, Decodable {
 
     // fields of the likes counter
     var likes: VkApiLikes?
+    var sizes: [VkApiPhotoSize] = []
 
     // urls of different photo sizes
     @objc dynamic var sizeSUrl: String = ""
@@ -53,6 +63,8 @@ class VkApiPhotoItem: Object, Decodable {
     enum SizesKeys: String, CodingKey {
         case type
         case url
+        case width
+        case height
     }
     
     required override init() {
@@ -79,23 +91,13 @@ class VkApiPhotoItem: Object, Decodable {
         self.ownerId = try values.decode(Int.self, forKey: .ownerId)
 
         self.likes = try? values.decode(VkApiLikes.self, forKey: .likes)
+        self.sizes = (try? values.decode([VkApiPhotoSize].self, forKey: .sizes)) ?? []
         
-        var sizes = try values.nestedUnkeyedContainer(forKey: .sizes)
-        for _ in 0..<(sizes.count ?? 0) {
-            let firstSizeValues = try sizes.nestedContainer(keyedBy: SizesKeys.self)
-            let type = try firstSizeValues.decode(String.self, forKey: .type)
-            switch (type) {
-                case "s":
-                    self.sizeSUrl = try firstSizeValues.decode(String.self, forKey: .url)
-                case "m":
-                    self.sizeMUrl = try firstSizeValues.decode(String.self, forKey: .url)
-                case "x":
-                    self.sizeXUrl = try firstSizeValues.decode(String.self, forKey: .url)
-                default:
-                    // won't use it and ever know about it :)
-                    break
-            }
-        }
+        debugPrint("sizes count = \(self.sizes.count)")
+        
+        sizeSUrl = getSize("s")?.url ?? ""
+        sizeMUrl = getSize("m")?.url ?? ""
+        sizeXUrl = getSize("x")?.url ?? ""
     }
     
     // ------------------------------------------------------------
@@ -140,5 +142,16 @@ class VkApiPhotoItem: Object, Decodable {
         }
         return anyDict
     }
+
+    // TODO: temporary required till parsing will be re-implemented
+    func getSize(_ type: String) -> VkApiPhotoSize? {
+        for size in sizes {
+            if size.type == type {
+                return size
+            }
+        }
+        return nil
+    }
+
 }
 
