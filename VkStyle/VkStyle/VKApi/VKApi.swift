@@ -11,10 +11,6 @@ import Alamofire
 
 class VKApi {
     
-    let saveService : SaveServiceInterface = SaveServiceCoreData()
-    // let saveService : SaveServiceInterface = SaveServiceRealm()
-    // let saveService : SaveServiceFirebase = SaveServiceFirebase()
-
     enum DataSource {
         case cached
         case live
@@ -22,7 +18,7 @@ class VKApi {
 
     // let's limit number of objects to download up to 10
     // will do pagination l8r
-    static let maxObjectsCount = 10
+    static let maxObjectsCount = 100
     
     // VK API server request wrapper
     func apiRequest(

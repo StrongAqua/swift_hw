@@ -164,19 +164,6 @@ class SaveServiceRealm : SaveServiceInterface {
         }
     }
     
-    func saveNews(_ news: [VkApiNewsItem]) {
-        fatalError("ERROR: Realms saveNews not yet implemented")
-    }
-    
-    func readNewsList() -> [VkApiNewsItem] {
-        fatalError("ERROR: Realms readNewsList not yet implemented")
-        // return [VkApiNewsItem]()
-    }
-    
-    func subscribeNewsList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
-        fatalError("ERROR: Realms subscribeNewsList not yet implemented")
-    }
-    
     func clearAllData() {
         do {
             let realm = try Realm()

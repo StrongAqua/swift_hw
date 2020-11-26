@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         // Uncomment this if you wanna clear all cached data
         Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-        // VKApi.instance.clearCachedData()
+        // SaveService.instance().clearAllData()
         return true
     }
 

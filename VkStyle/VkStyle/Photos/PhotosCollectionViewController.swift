@@ -7,158 +7,147 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 
+class PhotoAlbum {
+    
+    var id = 0
+    var photoIds: Set<Int> = []
+    var photos: [VkApiPhotoItem] = []
+    
+    init(_ id: Int) {
+        self.id = id
+    }
+    
+    func push(_ photo: VkApiPhotoItem) {
+        guard photoIds.contains(photo.id) == false else {return}
+        photoIds.insert(photo.id)
+        photos.append(photo)
+    }
+}
 
-class PhotosCollectionViewController: UICollectionViewController {
+class PhotosCollectionViewController: ASDKViewController<ASDisplayNode>, ASCollectionDelegate, ASCollectionDataSource {
     
     var user: UserInfo?
+    var albums: [PhotoAlbum] = []
+    
     var dataService = DataService()
-    let refreshCtrl = UIRefreshControl()
     let vkPhotos = VKApiUserPhotos()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        reloadData()
+    let collectionNode: ASCollectionNode
+    
+    override init() {
+        let screenSize: CGRect = UIScreen.main.bounds
+        let effectiveWidth = screenSize.width - 20
+        let flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset = UIEdgeInsets(top: 4, left: 4, bottom: 40, right: 4)
+        flowLayout.itemSize = CGSize(width: effectiveWidth / 2, height: effectiveWidth / 2)
+
+        collectionNode = ASCollectionNode(frame: CGRect.zero, collectionViewLayout: flowLayout)
         
-        collectionView.addSubview(refreshCtrl)
-        refreshCtrl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        super.init(node: collectionNode)
+        
+        collectionNode.delegate = self
+        collectionNode.dataSource = self
     }
     
-    @objc private func refreshData(_ sender: Any) {
-        reloadData()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
+    func pushPhoto(_ photo: VkApiPhotoItem) {
+        for album in albums {
+            if album.id == photo.albumId {
+                album.push(photo)
+                return
+            }
+        }
+        let album = PhotoAlbum(photo.albumId)
+        album.push(photo)
+        albums.append(album)
+    }
+    
+    func processPhotos(_ photos: [VkApiPhotoItem]) {
+        for photo in photos {
+            pushPhoto(photo)
+        }
+        collectionNode.reloadData()
+    }
+
     func reloadData() {
         guard let user = self.user else { return }
         vkPhotos.get(
-            args: ["owner_id": user.id],
+            args: ["owner_id": user.id, "album_id": "profile"],
+            completion: {[weak self] photos, source in
+                if (source == .cached) {
+                    guard let photoItems = photos as? [VkApiPhotoItem] else { return }
+                    self?.processPhotos(photoItems)
+                }
+                // TODO: fix refresh-control
+                // self?.refreshCtrl.endRefreshing()
+            })
+        vkPhotos.get(
+            args: ["owner_id": user.id, "album_id": "wall"],
             completion: {[weak self] photos, source in
                 if (source == .cached) {
                     guard let photoItems = photos as? [VkApiPhotoItem] else { return }
                     if photoItems.count <= 0 { return }
-                    UsersManager.shared.setUserPhotos(
-                        user.id,
-                        photoItems
-                    )
-                    self?.collectionView.reloadData()
+                    self?.processPhotos(photoItems)
                 }
-                self?.refreshCtrl.endRefreshing()
+                // TODO: fix refresh-control
+                // self?.refreshCtrl.endRefreshing()
             })
     }
     
     public func setUser(user: UserInfo) {
         self.user = user
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        reloadData()
     }
     
     // MARK: UICollectionViewDataSource
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return albums.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
+        return albums[section].photoIds.count
+    }
+    
+    func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath)
+        -> ASCellNodeBlock
     {
-        guard let user = self.user else { return 0 }
-        return user.photoList.count
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) ->
-        UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoUser", for: indexPath) as! PhotosCollectionViewCell
-            
-            guard let user = self.user else { return cell }
+        guard albums.count > indexPath.section else {return {ASCellNode()}}
+        guard albums[indexPath.section].photoIds.count > indexPath.row else {return {ASCellNode()}}
+        
+        let cellNodeBlock = { [weak self] () -> ASCellNode in
+            guard let self = self else {return ASCellNode()}
+            let photos = self.albums[indexPath.section].photos
 
-            // Configure the cell
-            cell.setPhotoURL(photoURL: user.photoList[indexPath.row], dataService: dataService)
-            return cell
+            let cellNode = PhotosCollectionViewCell(
+                photo: photos[indexPath.row]
+            )
+            return cellNode
+        }
+          
+        return cellNodeBlock
     }
     
-    // MARK: UICollectionViewDelegate
-    /*
-     // Uncomment this method to specify if the specified item should be highlighted during tracking
-     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     */
-    
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
+        guard albums.count > indexPath.section else {return}
+        guard albums[indexPath.section].photoIds.count > indexPath.row else {return}
+
+        let photos = self.albums[indexPath.section].photos
+
         let bigPhotoController = BigPhotoUIViewController()
         
-        guard let user = self.user else { return }
-        bigPhotoController.photoList = user.photoList
+        bigPhotoController.photoList = photos
         bigPhotoController.indexPhoto = indexPath.row
         bigPhotoController.navigationItem.title = "\(navigationItem.title ?? "User")\("'s photos")"
         
         navigationController?.pushViewController(bigPhotoController, animated: true)
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        // sort visible cells by row
-        let cells = collectionView.visibleCells.sorted(by: {
-            return collectionView.indexPath(for: $0)!.row <
-                collectionView.indexPath(for: $1)!.row })
-        
-        // get index path for the first visible cell
-        let firstVisibleIndexPath = (cells.first == nil)
-            ? indexPath
-            : collectionView.indexPath(for: cells.first!)
-        
-        // we should have only one section, otherwise this code will not work
-        // calculate 'visibility index' of the first visible cell based from 0
-        let index = indexPath.row - (firstVisibleIndexPath?.row ?? 0)
-        
-        // move-in the cell from the left side of the table
-        let tableWidth: CGFloat = collectionView.bounds.size.width
-        cell.transform = CGAffineTransform(translationX: -tableWidth, y: 0)
-        UIView.animate(
-            withDuration: 1,
-            delay: 0.1 * Double(index), // calculate animation delay based in 'visibility index'
-            usingSpringWithDamping: 1.2,
-            initialSpringVelocity: 0,
-            options: .transitionFlipFromTop,
-            animations: {
-                cell.transform = CGAffineTransform(translationX: 0, y: 0);
-        },
-            completion: nil)
-        
-        // fade-in the cell
-        let opacity = CABasicAnimation(keyPath: "opacity")
-        opacity.beginTime = CACurrentMediaTime() + 0.1 * Double(index)
-        opacity.duration = 2
-        opacity.fromValue = 0
-        opacity.toValue = 1
-        opacity.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        opacity.autoreverses = false
-        opacity.repeatCount = 1
-        
-        cell.layer.add(opacity, forKey: "opacity")
-        
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.5) {
-            if let cell = collectionView.cellForItem(at: indexPath) as? PhotosCollectionViewCell {
-                cell.transform = .init(scaleX: 1.4, y: 1.4)
-                cell.contentView.backgroundColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.3)
-            }
-        }
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.5) {
-            if let cell = collectionView.cellForItem(at: indexPath) as? PhotosCollectionViewCell {
-                cell.transform = .identity
-                cell.contentView.backgroundColor = .clear
-            }
-        }
-    }
+
+    // TODO: fix data prefetch
+
 }
+

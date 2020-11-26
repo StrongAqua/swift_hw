@@ -20,6 +20,7 @@
 		FE3E1C6A256682F20069B6C8 /* VKApiUserPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E1C69256682F20069B6C8 /* VKApiUserPhotos.swift */; };
 		FE3E1C6D256686FE0069B6C8 /* VKApiGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E1C6C256686FE0069B6C8 /* VKApiGroups.swift */; };
 		FE3E1C70256688EC0069B6C8 /* VKApiNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3E1C6F256688EC0069B6C8 /* VKApiNews.swift */; };
+		FE45A725256FFBAB000F416B /* SaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE45A724256FFBAB000F416B /* SaveService.swift */; };
 		FE46EE3A256B84990046032F /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE46EE39256B84990046032F /* UILabelExtensions.swift */; };
 		FE4B5B4E251F38D800743AE4 /* WebLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B4D251F38D800743AE4 /* WebLoginViewController.swift */; };
 		FE4B5B51251F41B500743AE4 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B50251F41B500743AE4 /* URLHelper.swift */; };
@@ -84,6 +85,7 @@
 		FE3E1C69256682F20069B6C8 /* VKApiUserPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiUserPhotos.swift; sourceTree = "<group>"; };
 		FE3E1C6C256686FE0069B6C8 /* VKApiGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiGroups.swift; sourceTree = "<group>"; };
 		FE3E1C6F256688EC0069B6C8 /* VKApiNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiNews.swift; sourceTree = "<group>"; };
+		FE45A724256FFBAB000F416B /* SaveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveService.swift; sourceTree = "<group>"; };
 		FE46EE39256B84990046032F /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
 		FE4B5B4D251F38D800743AE4 /* WebLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebLoginViewController.swift; sourceTree = "<group>"; };
 		FE4B5B50251F41B500743AE4 /* URLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHelper.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				FE375E042531A533004DDA14 /* SaveServiceCoreData.swift */,
 				FE375E022531A37F004DDA14 /* SaveServiceRealm.swift */,
 				FE375DED2529CFA6004DDA14 /* VkStyleStore.xcdatamodeld */,
+				FE45A724256FFBAB000F416B /* SaveService.swift */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				FE68859824DAA52A0014CAB7 /* AllGroupsTableViewController.swift in Sources */,
 				FE7F3E5724FB961300CF32F3 /* NewsCell.swift in Sources */,
 				FE6755EA24F7994600C6A7FA /* BigPhotoUIViewController.swift in Sources */,
+				FE45A725256FFBAB000F416B /* SaveService.swift in Sources */,
 				FE68859A24DAA5780014CAB7 /* AllGroupsTableViewCell.swift in Sources */,
 				FE9D584A250D4A9300D809AB /* CustomSearchBar.swift in Sources */,
 				FE375DEF2529CFA6004DDA14 /* VkStyleStore.xcdatamodeld in Sources */,

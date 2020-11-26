@@ -16,7 +16,6 @@ class SaveServiceCoreData : SaveServiceInterface {
     var friendsNotification: ([AnyObject], VKApi.DataSource) -> Void = { _, _ in }
     var photosNotification: ([AnyObject], VKApi.DataSource) -> Void = { _, _ in }
     var groupNotification: ([AnyObject], VKApi.DataSource) -> Void = { _, _ in }
-    var newsNotification: ([AnyObject], VKApi.DataSource) -> Void = { _, _ in }
 
     init() {
         NotificationCenter.default.addObserver(
@@ -98,15 +97,12 @@ class SaveServiceCoreData : SaveServiceInterface {
         storeStack.saveContext()
     }
     
-    func savePhotosWithContext(_ context: NSManagedObjectContext, _ photos: [VkApiPhotoItem]) {
+    private func savePhotosWithContext(_ context: NSManagedObjectContext, _ photos: [VkApiPhotoItem]) {
         for photo in photos {
-            var ph: Photos? = fetch(
+            var ph: Photos? = self.fetch(
                 context: context,
-                predicate:
-                    "id == \(photo.id) "
-                  + "and news_post_id == \(photo.newsPostId) "
-                  + "and news_source_id == \(photo.newsSourceId) "
-                , entity: "Photos"
+                predicate: "id == \(photo.id) ",
+                entity: "Photos"
             ) as? Photos
             if ph == nil {
                 ph = Photos(context: context)
@@ -117,8 +113,7 @@ class SaveServiceCoreData : SaveServiceInterface {
             ph?.size_m_url = photo.sizeMUrl
             ph?.size_x_url = photo.sizeXUrl
             ph?.owner_id = Int64(photo.ownerId)
-            ph?.news_post_id = Int64(photo.newsPostId)
-            ph?.news_source_id = Int64(photo.newsSourceId)
+            ph?.album_id = Int64(photo.albumId)
         }
     }
     
@@ -173,7 +168,7 @@ class SaveServiceCoreData : SaveServiceInterface {
         }
         storeStack.saveContext()
     }
-    
+
     func readGroupsList() -> [VkApiGroupItem] {
         var groups_out: [VkApiGroupItem] = []
         let context = storeStack.context
@@ -198,63 +193,10 @@ class SaveServiceCoreData : SaveServiceInterface {
         groupNotification = completion
     }
     
-    // var likes: VkApiLikes?
-    func saveNews(_ news: [VkApiNewsItem]) {
-        let context = storeStack.context
-        for note in news {
-            var n = fetch(
-                context: context,
-                predicate: "sourceId == \(note.sourceId) and postId == \(note.postId)",
-                entity: "News"
-            ) as? News
-            if n == nil {
-                n = News(context: context)
-            }
-            n?.postId = Int64(note.postId)
-            n?.date = Int64(note.date)
-            n?.sourceId = Int64(note.sourceId)
-            n?.lastName = note.lastName
-            n?.firstName = note.firstName
-            n?.avatarPhoto = note.avatarPhoto
-            n?.text = note.text
-            savePhotosWithContext(context, note.photos?.items ?? [])
-            for item in note.attachments {
-                if let photo = item.photo {
-                    savePhotosWithContext(context, [photo])
-                }
-            }
-        }
-        storeStack.saveContext()
-    }
-    
-    func readNewsList() -> [VkApiNewsItem] {
-        var newsResult: [VkApiNewsItem] = []
-        let context = storeStack.context
-        let news = (try? context.fetch(News.fetchRequest()) as? [News]) ?? []
-        for note in news {
-            let n = VkApiNewsItem(fromCoreData: note)
-            let photoList = readPhotosList(n.postId, n.sourceId)
-            n.photos = VkApiNewsPhotos()
-            n.photos?.count = photoList.count
-            n.photos?.items = photoList
-            newsResult.append(n)
-        }
-        return newsResult
-    }
-    
-    func subscribeNewsList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
-        let news = readNewsList()
-        if news.isEmpty == false {
-            completion(news, VKApi.DataSource.cached)
-        }
-        newsNotification = completion
-    }
-    
     func processObjects(_ objects: [NSManagedObject]) {
         var friends: [VkApiUsersItem] = []
         var photos: [VkApiPhotoItem] = []
         var groups: [VkApiGroupItem] = []
-        var news: [VkApiNewsItem] = []
         for object in objects {
             if let friend = object as? Users {
                 friends.append(VkApiUsersItem(fromCoreData: friend))
@@ -262,9 +204,6 @@ class SaveServiceCoreData : SaveServiceInterface {
                 photos.append(VkApiPhotoItem(fromCoreData: photo))
             } else if let group = object as? Groups {
                 groups.append(VkApiGroupItem(fromCoreData: group))
-            } else if let note = object as? News {
-                let n = VkApiNewsItem(fromCoreData: note)
-                news.append(n)
             } else {
                 debugPrint("[CoreData]: WARNING: can't process unknown object")
                 debugPrint(objects)
@@ -278,25 +217,6 @@ class SaveServiceCoreData : SaveServiceInterface {
         if groups.isEmpty == false {
             DispatchQueue.main.async { [weak self] in
                 self?.groupNotification(groups, VKApi.DataSource.cached)
-            }
-        } else
-        if news.isEmpty == false {
-            // photos for news are come as a mix with the news objects
-            // we should bucket them properly
-            // NOTE: not optimal, but works
-            for photo in photos {
-                for n in news {
-                    if photo.newsPostId == n.postId && photo.newsSourceId == n.sourceId {
-                        if (n.photos == nil) {
-                            n.photos = VkApiNewsPhotos()
-                        }
-                        n.photos?.items.append(photo)
-                        n.photos?.count = n.photos?.items.count ?? 0
-                    }
-                }
-            }
-            DispatchQueue.main.async { [weak self] in
-                self?.newsNotification(news, VKApi.DataSource.cached)
             }
         } else
         if photos.isEmpty == false {

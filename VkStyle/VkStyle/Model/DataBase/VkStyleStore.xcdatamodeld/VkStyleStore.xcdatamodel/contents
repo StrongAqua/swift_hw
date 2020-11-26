@@ -12,27 +12,11 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="News" representedClassName="News" syncable="YES" codeGenerationType="class">
-        <attribute name="avatarPhoto" optional="YES" attributeType="String"/>
-        <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="firstName" optional="YES" attributeType="String"/>
-        <attribute name="lastName" optional="YES" attributeType="String"/>
-        <attribute name="postId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="sourceId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="text" optional="YES" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="sourceId"/>
-                <constraint value="postId"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
     <entity name="Photos" representedClassName="Photos" syncable="YES" codeGenerationType="class">
+        <attribute name="album_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="likes_count" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="news_post_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="news_source_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="owner_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="size_m_url" optional="YES" attributeType="String"/>
         <attribute name="size_s_url" optional="YES" attributeType="String"/>
@@ -41,8 +25,6 @@
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="id"/>
-                <constraint value="news_source_id"/>
-                <constraint value="news_post_id"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
@@ -59,8 +41,7 @@
     </entity>
     <elements>
         <element name="Groups" positionX="18" positionY="117" width="128" height="118"/>
-        <element name="News" positionX="-9" positionY="99" width="128" height="148"/>
-        <element name="Photos" positionX="-9" positionY="27" width="128" height="193"/>
+        <element name="Photos" positionX="-9" positionY="27" width="128" height="178"/>
         <element name="Users" positionX="-45" positionY="0" width="128" height="103"/>
     </elements>
 </model>

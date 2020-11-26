@@ -53,7 +53,7 @@ class AllGroupsTableViewController: UITableViewController {
         vkGroups.search(
             args: ["query": searchBar.searchBar.text ?? ""],
             completion: { [weak self] groups, source in
-                if (source == .live) {
+                if source == .live {
                     self?.setGroups(groups as! [VkApiGroupItem])
                     self?.tableView.reloadData()
                 }

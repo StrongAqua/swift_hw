@@ -15,7 +15,7 @@ class VKApiFriends {
     func get(args: [String: Any] = [:], completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         // Subscribe to DB notification with UI controller completion block.
         // SaveService controls that you subscribed only once.
-        api.saveService.subscribeUsersList(completion)
+        SaveService.instance().subscribeUsersList(completion)
         // Call the server. When the server data is got, parsed and stored DB will
         // call UI controller completion to display the data (friends list).
         var params: [String: Any] = [
@@ -35,8 +35,7 @@ class VKApiFriends {
         // the SaveServiceCoreData will do this
         AsyncJSONDecoder<VkApiUsersResponse>
             .decode(data) {
-                [weak self] in
-                self?.api.saveService.saveUsers($0.response.items)
+                SaveService.instance().saveUsers($0.response.items)
             }
         // TODO: eliminate subscriptions and do display data independently
         // from db IO operation
