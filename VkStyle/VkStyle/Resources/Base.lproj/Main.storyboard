@@ -101,7 +101,6 @@
                                 <connections>
                                     <outlet property="avatarView" destination="86p-it-vux" id="DsL-4n-3Y2"/>
                                     <outlet property="userName" destination="GOT-L3-vj5" id="G8L-9t-MHi"/>
-                                    <segue destination="d1k-Ld-YNS" kind="show" identifier="SegueToPhotoCollection" id="9xj-PP-uMD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

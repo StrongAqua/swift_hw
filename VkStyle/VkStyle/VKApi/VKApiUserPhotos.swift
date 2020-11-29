@@ -18,11 +18,15 @@ class VKApiUserPhotos {
             fatalError("VKApiFriends requires 'owner' id in args")
         }
 
-        api.saveService.subscribePhotosList(ownerId, completion)
+        guard let albumId = args["album_id"] as? String else {
+            fatalError("VKApiFriends requires 'album_id' id in args")
+        }
+
+        SaveService.instance().subscribePhotosList(ownerId, completion)
         var params: [String: Any] = [
             "user_id": String(Session.instance.userId),
             "extended": 1,
-            "album_id": "profile",
+            "album_id": albumId,
             "count": VKApi.maxObjectsCount
         ]
         params.merge(args, uniquingKeysWith: { _, new in new})
@@ -34,8 +38,7 @@ class VKApiUserPhotos {
     func parse(_ data: Data, _ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         AsyncJSONDecoder<VkApiPhotoResponse>
             .decode(data) {
-                [weak self] in
-                self?.api.saveService.savePhotos($0.response.items)
+                SaveService.instance().savePhotos($0.response.items)
             }
     }
 }

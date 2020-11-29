@@ -7,24 +7,32 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 
-class PhotosCollectionViewCell: UICollectionViewCell {
-    
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var likeView: LikeUIView!
-    var photo: Photo?
-    
-    public func setPhotoURL(photoURL: Photo?, dataService: DataService) {
-        guard let p = photoURL else { return }
-        self.photo = p
-        likeView.setObject(object: self.photo)
+class PhotosCollectionViewCell: ASCellNode {
 
-        guard let url = p.photoURL else { return }
-        dataService.get(byUrl: url, completion: {
-            [weak self] data in
-            guard let d = data else { return }
-            self?.image.image = UIImage(data: d)
-        })
+    private let imageNode = ASNetworkImageNode()
+    private var photo: VkApiPhotoItem?
+    private let imageHeight: CGFloat = 50
+    
+    init(photo: VkApiPhotoItem?) {
+        super.init()
+        
+        guard let photo = photo else { return }
+        let url = photo.sizeXUrl
+
+        self.photo = photo
+        backgroundColor = UIColor.red
+        
+        imageNode.url = URL(string: url)
+        imageNode.clipsToBounds = false
+        imageNode.shouldRenderProgressImages = true
+        imageNode.contentMode = .scaleAspectFill
+        addSubnode(imageNode)
     }
     
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        imageNode.style.preferredSize = CGSize(width: 100, height: 100)
+        return ASWrapperLayoutSpec(layoutElement: imageNode)
+    }
 }

@@ -14,7 +14,7 @@ class VKApiGroups {
 
     func get(args: [String: Any] = [:], completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         let method = "groups.get"
-        api.saveService.subscribeGroupsList(completion)
+        SaveService.instance().subscribeGroupsList(completion)
         var params: [String: Any] = [
             "user_id": String(Session.instance.userId),
             "count": VKApi.maxObjectsCount,
@@ -46,7 +46,7 @@ class VKApiGroups {
         switch method {
         case "groups.get":
             AsyncJSONDecoder<VkApiGroupResponse>
-                .decode(data) { self.api.saveService.saveGroups($0.response.items) }
+                .decode(data) { SaveService.instance().saveGroups($0.response.items) }
         case "groups.search":
             AsyncJSONDecoder<VkApiGroupResponse>
                 .decode(data) {searchResponse in
@@ -60,7 +60,7 @@ class VKApiGroups {
     }
     
     func save(_ groups: [VkApiGroupItem]) {
-        api.saveService.saveGroups(groups)
+        SaveService.instance().saveGroups(groups)
     }
 
 }

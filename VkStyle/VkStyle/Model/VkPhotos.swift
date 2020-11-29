@@ -46,6 +46,8 @@ class VkApiPhotoItem: Object, Decodable {
     @objc dynamic var newsPostId: Int = 0
     @objc dynamic var newsSourceId: Int = 0
 
+    @objc dynamic var albumId: Int = 0
+    
     let ref: DatabaseReference?
 
     override static func primaryKey() -> String? {
@@ -58,6 +60,7 @@ class VkApiPhotoItem: Object, Decodable {
         case likes
         case sizes
         case ownerId
+        case albumId
     }
     
     enum SizesKeys: String, CodingKey {
@@ -78,8 +81,7 @@ class VkApiPhotoItem: Object, Decodable {
         self.sizeSUrl = photo.size_s_url ?? ""
         self.sizeMUrl = photo.size_m_url ?? ""
         self.sizeXUrl = photo.size_x_url ?? ""
-        self.newsPostId = Int(photo.news_post_id)
-        self.newsSourceId = Int(photo.news_source_id)
+        self.albumId = Int(photo.album_id)
     }
 
     convenience required init(from decoder: Decoder) throws {
@@ -92,7 +94,9 @@ class VkApiPhotoItem: Object, Decodable {
 
         self.likes = try? values.decode(VkApiLikes.self, forKey: .likes)
         self.sizes = (try? values.decode([VkApiPhotoSize].self, forKey: .sizes)) ?? []
-        
+
+        self.albumId = try values.decode(Int.self, forKey: .albumId)
+
         debugPrint("sizes count = \(self.sizes.count)")
         
         sizeSUrl = getSize("s")?.url ?? ""
@@ -110,7 +114,8 @@ class VkApiPhotoItem: Object, Decodable {
             let ownerId = value["owner_id"] as? Int,
             let sizeSUrl = value["size_s_url"] as? String,
             let sizeMUrl = value["size_m_url"] as? String,
-            let sizeXUrl = value["size_x_url"] as? String
+            let sizeXUrl = value["size_x_url"] as? String,
+            let albumId = value["album_id"] as? Int
         else {
             return nil
         }
@@ -122,6 +127,7 @@ class VkApiPhotoItem: Object, Decodable {
         self.sizeSUrl = sizeSUrl
         self.sizeMUrl = sizeMUrl
         self.sizeXUrl = sizeXUrl
+        self.albumId = albumId
 
         if let likes = VkApiLikes(snapshot: snapshot.childSnapshot(forPath: "likes")) {
             self.likes = likes
@@ -135,7 +141,8 @@ class VkApiPhotoItem: Object, Decodable {
             "owner_id": ownerId,
             "size_s_url": sizeSUrl,
             "size_m_url": sizeMUrl,
-            "size_x_url": sizeXUrl
+            "size_x_url": sizeXUrl,
+            "album_id": albumId
         ]
         if let likes = self.likes?.toAnyObject() {
             anyDict["likes"] = likes
@@ -155,3 +162,27 @@ class VkApiPhotoItem: Object, Decodable {
 
 }
 
+class VkApiLikes: Decodable {
+    // snake style for parsing (!)
+    @objc dynamic var count: Int = 0
+    @objc dynamic var user_likes: Int = 0
+    
+    init?(snapshot: DataSnapshot) {
+        guard
+            let value = snapshot.value as? [String: Any],
+            let count = value["count"] as? Int,
+            let user_likes = value["user_likes"] as? Int
+        else {
+            return
+        }
+        self.count = count
+        self.user_likes = user_likes
+    }
+    
+    func toAnyObject() -> [String: Any] {
+        return [
+            "count": count,
+            "user_likes": user_likes
+        ]
+    }
+}

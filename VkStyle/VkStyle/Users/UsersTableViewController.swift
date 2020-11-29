@@ -69,7 +69,8 @@ class UsersTableViewController: UITableViewController {
         
         return cell
     }
-    
+
+/* TODO: fix storyboard segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let targetPhotoCollection
             = segue.destination as? PhotosCollectionViewController else { return }
@@ -78,7 +79,14 @@ class UsersTableViewController: UITableViewController {
         guard let user = UsersManager.shared.getUserByIndexPath(indexPath) else { return }
         
         targetPhotoCollection.setUser(user: user)
-        targetPhotoCollection.navigationItem.title = user.user
+        // targetPhotoCollection.navigationItem.title = user.user
+    }
+*/
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let user = UsersManager.shared.getUserByIndexPath(indexPath) else { return }
+        let photoCollectionController = PhotosCollectionViewController()
+        photoCollectionController.setUser(user: user)
+        self.navigationController?.pushViewController(photoCollectionController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

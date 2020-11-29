@@ -1,4 +1,7 @@
 1. Re-implement all VK objects parsing, remove manual fields parsing
-2. Repair CoreData cache for the news
-3. Split VK objects depends on data storage frameworks   - in progress
-4. Fix snakes in coredata model
+2. Split VK objects depends on data storage frameworks   - in progress
+3. Fix snakes in coredata model
+4. fix storyboard segue to the photo collection view
+5. restore likes count
+6. restore photo collection refresh control
+

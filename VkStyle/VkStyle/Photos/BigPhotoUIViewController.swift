@@ -15,7 +15,7 @@ class BigPhotoUIViewController: UIViewController {
     let dataService = DataService()
     
     var indexPhoto: Int?
-    var photoList: [Photo?]?
+    var photoList: [VkApiPhotoItem] = []
     var interactiveAnimator: UIViewPropertyAnimator?
     
     // do we swipe to the right?
@@ -38,23 +38,22 @@ class BigPhotoUIViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         guard let index = indexPhoto else {return}
-        guard let count = photoList?.count else {return}
-        guard let photo = photoList?[index] else {return}
+        let count = photoList.count
         
         if count == 0 {return}
         if count <= index {return}
+
+        let photo = photoList[index]
+        let url = photo.sizeXUrl
         
-        guard let url = photo.photoURL else { return }
         dataService.get(byUrl: url, completion: {
             [weak self] data in
             guard let d = data else { return }
             self?.photoImageCurrent.image = UIImage(data: d)
         })
         
-        likeView.setObject(object: photo)
-        
-        // let dismissRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleDismiss))
-        // self.view.addGestureRecognizer(dismissRecognizer)
+        // TODO: fix likes
+        // likeView.setObject(object: photo)
         
         // set up a brand new gesture recognizer
         let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
@@ -160,7 +159,7 @@ class BigPhotoUIViewController: UIViewController {
             // when swipe animation completed, let's start next image appearance
             interactiveAnimator?.addCompletion({ (_) in
                 guard var index = self.indexPhoto else {return}
-                guard let count = self.photoList?.count else {return}
+                let count = self.photoList.count
                 
                 // unwrap optional value
                 let isRightDirection = self.isRightDirection ?? true
@@ -172,17 +171,17 @@ class BigPhotoUIViewController: UIViewController {
                 } else {
                     index = (index + 1) % count
                 }
-                
+
+                // TODO: fix likes
                 // set up next photo image to our image view
-                self.likeView.setObject(object: self.photoList?[index])
+                // self.likeView.setObject(object: self.photoList[index])
                 
-                if let url = self.photoList?[index]?.photoURL {
-                    self.dataService.get(byUrl: url, completion: {
-                        [weak self] data in
-                        guard let d = data else { return }
-                        self?.photoImageCurrent.image = UIImage(data: d)
-                    })
-                }
+                let url = self.photoList[index].sizeXUrl
+                self.dataService.get(byUrl: url, completion: {
+                    [weak self] data in
+                    guard let d = data else { return }
+                    self?.photoImageCurrent.image = UIImage(data: d)
+                })
                 
                 // update current photo index
                 self.indexPhoto = index
