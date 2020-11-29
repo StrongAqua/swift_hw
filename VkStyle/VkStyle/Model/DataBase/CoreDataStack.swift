@@ -37,11 +37,17 @@ class CoreDataStack {
         let context = persistentContainer.viewContext
         context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let error = error as NSError
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+            context.performAndWait {
+                do {
+                    try context.save()
+                } catch {
+                    let error = error as NSError
+                    print("Callstack :")
+                    for symbol: String in Thread.callStackSymbols {
+                        print(" > \(symbol)")
+                    }
+                    fatalError("Failure to save mastr context \(error), \(error.userInfo)")
+                }
             }
         }
     }
@@ -50,5 +56,25 @@ class CoreDataStack {
         guard let storeUrl = persistentContainer.persistentStoreCoordinator.persistentStores.first?.url else { return }
         let fileManager = FileManager.default
         try? fileManager.removeItem(at: storeUrl)
+    }
+
+    func performInBackground(_ doBlock: @escaping (_ context: NSManagedObjectContext) -> Void) {
+        let childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        childContext.parent = self.context
+        childContext.perform {
+            [weak self] in
+            do {
+                doBlock(childContext)
+                try childContext.save()
+            } catch {
+                let error = error as NSError
+                print("Callstack :")
+                for symbol: String in Thread.callStackSymbols {
+                    print(" > \(symbol)")
+                }
+                fatalError("Failure to save background context: \(error)")
+            }
+            self?.saveContext()
+        }
     }
 }
