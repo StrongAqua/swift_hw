@@ -10,7 +10,7 @@ import Foundation
 
 class SaveService {
 
-    static let service = SaveService()
+    private static let service = SaveService()
     
     let saveServiceImpl: SaveServiceInterface = SaveServiceCoreData()
     // let saveService : SaveServiceInterface = SaveServiceRealm()

@@ -51,22 +51,23 @@ class SaveServiceCoreData : SaveServiceInterface {
     }
     
     func saveUsers(_ users: [VkApiUsersItem]) {
-        let context = storeStack.context
-        for user in users {
-            var u = fetch(
-                context: context,
-                predicate: "id == \(user.id)",
-                entity: "Users"
-            ) as? Users
-            if u == nil {
-                u = Users(context: context)
+        storeStack.performInBackground {
+            [weak self] context in
+            for user in users {
+                var u = self?.fetch(
+                    context: context,
+                    predicate: "id == \(user.id)",
+                    entity: "Users"
+                ) as? Users
+                if u == nil {
+                    u = Users(context: context)
+                }
+                u?.id = Int64(user.id)
+                u?.first_name = user.firstName
+                u?.last_name = user.lastName
+                u?.photo_url = user.photoUrl
             }
-            u?.id = Int64(user.id)
-            u?.first_name = user.firstName
-            u?.last_name = user.lastName
-            u?.photo_url = user.photoUrl
         }
-        storeStack.saveContext()
     }
     
     func subscribeUsersList(_ completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
@@ -92,16 +93,17 @@ class SaveServiceCoreData : SaveServiceInterface {
     }
     
     func savePhotos(_ photos: [VkApiPhotoItem]) {
-        let context = storeStack.context
-        savePhotosWithContext(context, photos)
-        storeStack.saveContext()
+        storeStack.performInBackground {
+            [weak self] context in
+            self?.savePhotosWithContext(context, photos)
+        }
     }
     
     private func savePhotosWithContext(_ context: NSManagedObjectContext, _ photos: [VkApiPhotoItem]) {
         for photo in photos {
-            var ph: Photos? = self.fetch(
+            var ph: Photos? = fetch(
                 context: context,
-                predicate: "id == \(photo.id) ",
+                predicate: "id == \(photo.id)",
                 entity: "Photos"
             ) as? Photos
             if ph == nil {
@@ -150,23 +152,24 @@ class SaveServiceCoreData : SaveServiceInterface {
     }
     
     func saveGroups(_ groups: [VkApiGroupItem]) {
-        let context = storeStack.context
-        for group in groups {
-            var g = fetch(
-                context: context,
-                predicate: "id == \(group.id)",
-                entity: "Groups"
-            ) as? Groups
-            if g == nil {
-                g = Groups(context: context)
+        storeStack.performInBackground {
+            [weak self] context in
+            for group in groups {
+                var g = self?.fetch(
+                    context: context,
+                    predicate: "id == \(group.id)",
+                    entity: "Groups"
+                ) as? Groups
+                if g == nil {
+                    g = Groups(context: context)
+                }
+                g?.id = Int64(group.id)
+                g?.name = group.name
+                g?.is_closed = Int64(group.isClosed)
+                g?.is_member = Int64(group.isMember)
+                g?.photo_50_url = group.photo50Url
             }
-            g?.id = Int64(group.id)
-            g?.name = group.name
-            g?.is_closed = Int64(group.isClosed)
-            g?.is_member = Int64(group.isMember)
-            g?.photo_50_url = group.photo50Url
         }
-        storeStack.saveContext()
     }
 
     func readGroupsList() -> [VkApiGroupItem] {
