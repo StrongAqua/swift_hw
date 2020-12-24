@@ -13,7 +13,7 @@ class CustomSearchBar: UIView {
     @IBOutlet var rootView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchBarCover: UIImageView!
-    let bgColor = UIColor.init(displayP3Red: 0.85, green: 0.78, blue: 0.85, alpha: 1)
+    let bgColor = MyColors.searchBarBgColor
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,7 +37,7 @@ class CustomSearchBar: UIView {
 
         rootView.backgroundColor = bgColor
         searchBarCover.isHidden = false
-        searchBarCover.backgroundColor = UIColor.white.withAlphaComponent(0)
+        searchBarCover.backgroundColor = MyColors.transparent
 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CustomSearchBar.dismissCover))
         tap.cancelsTouchesInView = false
