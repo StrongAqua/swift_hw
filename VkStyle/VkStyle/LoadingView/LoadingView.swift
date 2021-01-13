@@ -56,7 +56,7 @@ import UIKit
         path.close()
         
         let shapeLayer = CAShapeLayer()
-        shapeLayer.fillColor = UIColor.magenta.withAlphaComponent(0.1).cgColor
+        shapeLayer.fillColor = MyColors.tableHeaderBgColor.cgColor
             // UIColor.darkGray.withAlphaComponent(0.10).cgColor
         shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = UIColor.magenta.withAlphaComponent(0.5).cgColor

@@ -29,6 +29,9 @@
 		FE4B5B5725233A7B00743AE4 /* VkPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B5625233A7B00743AE4 /* VkPhotos.swift */; };
 		FE4B5B5925233A9500743AE4 /* VkGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4B5B5825233A9500743AE4 /* VkGroups.swift */; };
 		FE5C3057253C66FC0055B736 /* SaveServiceFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C3056253C66FC0055B736 /* SaveServiceFirebase.swift */; };
+		FE5FAAF02593344C00900095 /* MyColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FAAEF2593344C00900095 /* MyColors.swift */; };
+		FE5FAAF425933CA100900095 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FAAF325933CA100900095 /* NewsViewModel.swift */; };
+		FE5FAAF92593A77300900095 /* VKApiNewsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FAAF82593A77200900095 /* VKApiNewsAdapter.swift */; };
 		FE628ED72540277C00E0F466 /* VkNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE628ED62540277C00E0F466 /* VkNews.swift */; };
 		FE6589A024D2FFB500BBB3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */; };
 		FE6589A224D2FFB500BBB3C0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6589A124D2FFB500BBB3C0 /* SceneDelegate.swift */; };
@@ -94,6 +97,9 @@
 		FE4B5B5625233A7B00743AE4 /* VkPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkPhotos.swift; sourceTree = "<group>"; };
 		FE4B5B5825233A9500743AE4 /* VkGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkGroups.swift; sourceTree = "<group>"; };
 		FE5C3056253C66FC0055B736 /* SaveServiceFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveServiceFirebase.swift; sourceTree = "<group>"; };
+		FE5FAAEF2593344C00900095 /* MyColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyColors.swift; sourceTree = "<group>"; };
+		FE5FAAF325933CA100900095 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		FE5FAAF82593A77200900095 /* VKApiNewsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiNewsAdapter.swift; sourceTree = "<group>"; };
 		FE628ED62540277C00E0F466 /* VkNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkNews.swift; sourceTree = "<group>"; };
 		FE65899C24D2FFB500BBB3C0 /* VkStyle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkStyle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE65899F24D2FFB500BBB3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -215,8 +221,25 @@
 			children = (
 				FE4B5B50251F41B500743AE4 /* URLHelper.swift */,
 				FE46EE39256B84990046032F /* UILabelExtensions.swift */,
+				FE5FAAEF2593344C00900095 /* MyColors.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		FE5FAAF225933C8A00900095 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FE5FAAF325933CA100900095 /* NewsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FE5FAAF72593A75200900095 /* VKApiAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				FE5FAAF82593A77200900095 /* VKApiNewsAdapter.swift */,
+			);
+			path = VKApiAdapters;
 			sourceTree = "<group>";
 		};
 		FE65899324D2FFB500BBB3C0 = {
@@ -240,6 +263,7 @@
 		FE65899E24D2FFB500BBB3C0 /* VkStyle */ = {
 			isa = PBXGroup;
 			children = (
+				FE5FAAF72593A75200900095 /* VKApiAdapters */,
 				FE3E1C6025667BB10069B6C8 /* VKApi */,
 				FE90DFDC255848C600B8D5F6 /* AsyncOperations */,
 				FE4B5B4F251F417F00743AE4 /* Utils */,
@@ -304,6 +328,7 @@
 		FE6885AA24DAD5F00014CAB7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FE5FAAF225933C8A00900095 /* ViewModels */,
 				FE375E062531B7A4004DDA14 /* DataBase */,
 				FE6885AD24DBF42C0014CAB7 /* InternalDataModels.swift */,
 				FE1DBDDD251B32F8008DA0B4 /* Session.swift */,
@@ -554,6 +579,8 @@
 				FE9D58352508EFC400D809AB /* CustomInteractiveTransition.swift in Sources */,
 				FE3E1C6D256686FE0069B6C8 /* VKApiGroups.swift in Sources */,
 				FE4B5B5925233A9500743AE4 /* VkGroups.swift in Sources */,
+				FE5FAAF425933CA100900095 /* NewsViewModel.swift in Sources */,
+				FE5FAAF92593A77300900095 /* VKApiNewsAdapter.swift in Sources */,
 				FE9D582B2503CC1200D809AB /* LoadingView.swift in Sources */,
 				FE3E1C6225667BE10069B6C8 /* VKApiFriends.swift in Sources */,
 				FE46EE3A256B84990046032F /* UILabelExtensions.swift in Sources */,
@@ -565,6 +592,7 @@
 				FE87FC0C24D83B99004A4737 /* GroupsNavigationBarController.swift in Sources */,
 				FE375DF52529D237004DDA14 /* SaveServiceInterface.swift in Sources */,
 				FE1DBDDE251B32F8008DA0B4 /* Session.swift in Sources */,
+				FE5FAAF02593344C00900095 /* MyColors.swift in Sources */,
 				FE4B5B552523344300743AE4 /* VkUsers.swift in Sources */,
 				FE226CC924EBDBD600E57F91 /* AvatarCompositeView.swift in Sources */,
 				FE6885A224DAC6010014CAB7 /* PhotosCollectionViewController.swift in Sources */,

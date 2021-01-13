@@ -37,14 +37,14 @@ class NewsCell: UITableViewCell
         super.awakeFromNib()
     }
     
-    func setup(_ item: VkApiNewsItem,
+    func setup(_ item: NewsViewModel,
                _ dataService: DataService,
                _ expanded: Bool,
                _ onShowMoreClicked: @escaping (NewsCell) -> Void ) {
 
         self.onShowMoreClicked = onShowMoreClicked
         
-        dataService.getPromise(item.avatarPhoto ?? "")
+        dataService.getPromise(item.avatarURL)
             .get {
                 [weak self] data in
                 self?.avatarImage.image = UIImage(data: data)
@@ -53,11 +53,9 @@ class NewsCell: UITableViewCell
                 debugPrint("Fail to download image: \(error)")
             }
         
-        let first_name = item.firstName ?? ""
-        let last_name = item.lastName ?? ""
-        userName.text = "\(first_name) \(last_name)"
+        userName.text = item.fullName
         
-        let text = item.text ?? ""
+        let text = item.text
         messageText.numberOfLines = 0
         messageText.text = text
         
@@ -90,15 +88,14 @@ class NewsCell: UITableViewCell
             }
         }
         
-        if let vkPhoto = item.getPhoto(),
-           let size = vkPhoto.getSize("x") {
+        if item.photoURL.isEmpty == false {
 
-            let aspectRatio = CGFloat(size.height) / CGFloat(size.width)
+            let aspectRatio = CGFloat(item.photoSize.height) / CGFloat(item.photoSize.width)
             messageImage.isHidden = false
             imageHeight.constant =
                 min( self.messageImage.frame.width * aspectRatio, 400 )
             
-            dataService.getPromise(vkPhoto.sizeXUrl)
+            dataService.getPromise(item.photoURL)
                 .get {
                     [weak self] data in
                     guard let self = self else {return}
@@ -117,9 +114,7 @@ class NewsCell: UITableViewCell
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        messageDate.text = dateFormatter.string(
-            from: Date(timeIntervalSince1970: TimeInterval(item.date))
-        )
+        messageDate.text = item.dateString
         // likeView.setObject(object: message)
     }
 

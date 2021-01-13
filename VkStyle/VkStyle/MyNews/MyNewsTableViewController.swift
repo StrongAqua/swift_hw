@@ -10,11 +10,13 @@ import UIKit
 
 class MyNewsTableViewController: UITableViewController {
     
-    var news: [VkApiNewsItem] = []
+    var news: [NewsViewModel] = []
     var expandedCells: [Int: Bool] = [:]
     let refreshCtrl = UIRefreshControl()
     let dataService = DataService()
-    let vkNews = VKApiNews()
+    
+    // let vkNews = VKApiNews()
+    let vkNews = VKApiNewsAdapter()
     
     var isLoading = false
     var nextFrom = ""
@@ -43,25 +45,20 @@ class MyNewsTableViewController: UITableViewController {
     }
     
     func reloadNews() {
-        let lastDate = news.first?.date
-        vkNews.get(
-            args: lastDate != nil
-                ? ["start_time": (lastDate ?? 0) + 1]
-                : ["count": loadBlockCount],
-            completion: { [weak self] news, nextFrom, source in
-                DispatchQueue.main.async {
-                    [weak self] in
-                    guard let self = self else { return }
-                    if (source == .live) {
-                        guard let newsList = news as? [VkApiNewsItem] else {return}
-                        self.news = newsList.sorted(by: {$0.date > $1.date}) + self.news
-                        self.nextFrom = nextFrom
-                        debugPrint("\(newsList.count) news records added")
-                        self.tableView.reloadData()
-                    }
-                    self.refreshCtrl.endRefreshing()
-                }
-            })
+        vkNews.getOnMainQueue(fromTimeIntervalSince1970: news.first?.dateInt)
+        { [weak self] news, nextFrom in
+            guard let self = self else { return }
+            
+            self.news = news + self.news
+            if self.nextFrom.isEmpty {
+                self.nextFrom = nextFrom
+            }
+
+            self.tableView.reloadData()
+            self.refreshCtrl.endRefreshing()
+
+            debugPrint("\(news.count) news records added")
+        }
     }
 
     // MARK: - Table view data source
@@ -109,35 +106,23 @@ extension MyNewsTableViewController: UITableViewDataSourcePrefetching {
         guard let lastRow = indexPaths.map({ $0.row }).max() else { return }
         if lastRow > news.count - startPrefetchCount && !isLoading {
             isLoading = true
-            var args: [String: Any] = ["count": loadBlockCount]
-            if nextFrom.isEmpty == false {
-                args["start_from"] = nextFrom
+            vkNews.getOnMainQueue(fromTag: nextFrom)
+            { [weak self] news, nextFrom in
+                guard let self = self else { return }
+                
+                // calculating set of row indexes for new loaded posts
+                var indexes: [IndexPath] = []
+                for index in self.news.count ..< self.news.count + news.count {
+                    indexes.append(IndexPath(row: index, section: 0))
+                }
+
+                self.news.append(contentsOf: news)
+                self.nextFrom = nextFrom
+
+                self.tableView.insertRows(at: indexes, with: .automatic)
+                
+                self.isLoading = false
             }
-            vkNews.get(
-                args: args,
-                completion: { [weak self] news, nextFrom, source in
-                    DispatchQueue.main.async {
-                        [weak self] in
-                        guard let self = self else { return }
-                        if (source == .live) {
-                            guard let newsList = news as? [VkApiNewsItem] else {return}
-
-                            // calculating set of row indexes for new loaded posts
-                            var indexes: [IndexPath] = []
-                            for index in self.news.count ..< self.news.count + newsList.count {
-                                indexes.append(IndexPath(row: index, section: 0))
-                            }
-                            
-                            let sortedList = newsList.sorted(by: {$0.date > $1.date})
-                            self.news.append(contentsOf: sortedList)
-                            self.nextFrom = nextFrom
-
-                            self.tableView.insertRows(at: indexes, with: .automatic)
-                        }
-                        self.isLoading = false
-                    }
-                })
-            
         }
     }
 }

@@ -27,8 +27,8 @@ class SignInAnimation: UIView {
     
     private func initializeXib() {
         Bundle.main.loadNibNamed("SignInAnimation", owner: self, options: nil)
-        rootView.backgroundColor = UIColor.white.withAlphaComponent(0.0)
-        contentView.backgroundColor = UIColor.white.withAlphaComponent(0.0)
+        rootView.backgroundColor = MyColors.transparent
+        contentView.backgroundColor = MyColors.transparent
         addSubview(rootView)
     }
 

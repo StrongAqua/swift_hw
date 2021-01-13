@@ -43,7 +43,7 @@ class UsersTableCustomHeader: UITableViewHeaderFooterView {
     }
 
     func setup(_ letter: String) {
-        bgView.backgroundColor = UIColor.magenta.withAlphaComponent(0.1)
+        bgView.backgroundColor = MyColors.tableHeaderBgColor
         title.text = letter
     }
 
