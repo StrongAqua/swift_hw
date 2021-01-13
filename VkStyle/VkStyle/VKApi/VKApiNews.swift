@@ -10,7 +10,7 @@ import Foundation
 
 class VKApiNews {
     
-    let api = VKApi()
+    let api: VKApiProtocol = VKApiLoggerProxy()
 
     func get(args: [String: Any] = [:], completion: @escaping ([AnyObject], String, VKApi.DataSource) -> Void) {
         var params: [String: Any] = [

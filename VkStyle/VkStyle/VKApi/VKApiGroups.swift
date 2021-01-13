@@ -10,7 +10,7 @@ import Foundation
 
 class VKApiGroups {
     
-    let api = VKApi()
+    let api: VKApiProtocol = VKApiLoggerProxy()
 
     func get(args: [String: Any] = [:], completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         let method = "groups.get"
