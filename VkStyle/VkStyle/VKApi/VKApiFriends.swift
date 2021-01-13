@@ -10,7 +10,7 @@ import Foundation
 
 class VKApiFriends {
     
-    let api = VKApi()
+    let api: VKApiProtocol = VKApiLoggerProxy()
 
     func get(args: [String: Any] = [:], completion: @escaping ([AnyObject], VKApi.DataSource) -> Void) {
         // Subscribe to DB notification with UI controller completion block.

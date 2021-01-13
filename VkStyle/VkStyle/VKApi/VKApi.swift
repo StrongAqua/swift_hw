@@ -9,7 +9,15 @@
 import Foundation
 import Alamofire
 
-class VKApi {
+protocol VKApiProtocol {
+    func apiRequest(
+        _ method: String,
+        _ parameters: [String: Any],
+        _ completion: @escaping (Data) -> Void
+    )
+}
+
+class VKApi: VKApiProtocol {
     
     enum DataSource {
         case cached
@@ -48,4 +56,27 @@ class VKApi {
                 }
             }
     }
+}
+
+class VKApiLoggerProxy: VKApiProtocol {
+
+    private let vkApi = VKApi()
+    private var clientCompletionClosure: ((Data) -> Void)?
+    
+    private func responseHandler(data: Data) {
+        print("[VK RESPONSE]: API response data = \(data)")
+        clientCompletionClosure?(data)
+    }
+    
+    func apiRequest(
+        _ method: String,
+        _ parameters: [String : Any],
+        _ completion: @escaping (Data) -> Void
+    ) {
+        clientCompletionClosure = completion
+        
+        print("[VK REQUEST]: call API method = \(method), with parameters = \(parameters)")
+        vkApi.apiRequest(method, parameters, responseHandler)
+    }
+    
 }
